@@ -43,9 +43,11 @@ export const pageQuery = graphql`
         node {
           id
           excerpt(pruneLength: 250)
+          fields {
+            slug
+          }
           frontmatter {
             date(formatString: "MMMM DD, YYYY")
-            path
             title
             thumbnail
           }

@@ -4,6 +4,7 @@ date: 2020-04-09T18:35:03.465Z
 title: Protect Static Resources => Lambda@Edge + AWS S3 + Gatsby
 thumbnail: /assets/cloud-sunray-unsplash.jpg
 ---
+
 Source:[https://gitlab.com/jameskolean/gatsby-lambda-edge](https://gitlab.com/jameskolean/gatsby-cloudflare-gated)
 
 ## Create a Gatsby starter app.
@@ -32,64 +33,64 @@ Open a browser to**[http://localhost:8000](http://localhost:8000/)**
 Let’s do some customization setting things up for our test. First edit /src/pages/index.js
 
 ```javascript
-import React from "react"
-import { Link } from "gatsby"
- 
-import Layout from "../components/layout"
-import SEO from "../components/seo"
- 
+import React from 'react'
+import { Link } from 'gatsby'
+
+import Layout from '../components/layout'
+import SEO from '../components/seo'
+
 const IndexPage = () => (
   <Layout>
-    <SEO title="Home" />
+    <SEO title='Home' />
     <h1>Protecting Static Content</h1>
-    <Link to="/public-page/">Public Page</Link>
+    <Link to='/public-page/'>Public Page</Link>
     <br />
-    <Link to="/protected-page/">Protected Page</Link>
+    <Link to='/protected-page/'>Protected Page</Link>
   </Layout>
 )
- 
+
 export default IndexPage
 ```
 
 Add a page /src/pages/public-page.js
 
 ```javascript
-import React from "react"
-import { Link } from "gatsby"
- 
-import Layout from "../components/layout"
-import SEO from "../components/seo"
- 
+import React from 'react'
+import { Link } from 'gatsby'
+
+import Layout from '../components/layout'
+import SEO from '../components/seo'
+
 const PublicPage = () => (
   <Layout>
-    <SEO title="Public Page" />
+    <SEO title='Public Page' />
     <h1>Hi from the public page</h1>
     <p>Welcome to public page</p>
-    <Link to="/">Go back to the homepage</Link>
+    <Link to='/'>Go back to the homepage</Link>
   </Layout>
 )
- 
+
 export default PublicPage
 ```
 
 Add a page /src/pages/protected-page.js
 
 ```javascript
-import React from "react"
-import { Link } from "gatsby"
- 
-import Layout from "../components/layout"
-import SEO from "../components/seo"
- 
+import React from 'react'
+import { Link } from 'gatsby'
+
+import Layout from '../components/layout'
+import SEO from '../components/seo'
+
 const ProtectedPage = () => (
   <Layout>
-    <SEO title="Protected Page" />
+    <SEO title='Protected Page' />
     <h1>Hi from the protected page</h1>
     <p>Welcome to protected page</p>
-    <Link to="/">Go back to the homepage</Link>
+    <Link to='/'>Go back to the homepage</Link>
   </Layout>
 )
- 
+
 export default ProtectedPage
 ```
 
@@ -159,35 +160,41 @@ Click ‘Create Function,’ choose ‘Author from scratch,’ choose a function
 
 ```javascript
 exports.handler = function(event, context, callback) {
-    const request = event.Records[0].cf.request;
-    var noCacheHeaders = {
-        'cache-control': [{
-            key: 'Cache-Control',
-            value: 'no-cache'
-        }],
-        'pragma': [{
-            key: 'Pragma',
-            value: 'no-cache'
-        }],
-        'content-type': [{
-            key: 'Content-Type',
-            value: 'text/html'
-        }]
-    };
-    if (request.uri.startsWith('/protected-page') === true) {
-        console.log("protected area");
-        const response = {
-            status: '401',
-            statusDescription: 'OK',
-            headers: noCacheHeaders,
-            body: "",
-            bodyEncoding: 'base64',  
-        };
-        callback(null, response);
-        return;
+  const request = event.Records[0].cf.request
+  var noCacheHeaders = {
+    'cache-control': [
+      {
+        key: 'Cache-Control',
+        value: 'no-cache'
+      }
+    ],
+    pragma: [
+      {
+        key: 'Pragma',
+        value: 'no-cache'
+      }
+    ],
+    'content-type': [
+      {
+        key: 'Content-Type',
+        value: 'text/html'
+      }
+    ]
+  }
+  if (request.uri.startsWith('/protected-page') === true) {
+    console.log('protected area')
+    const response = {
+      status: '401',
+      statusDescription: 'OK',
+      headers: noCacheHeaders,
+      body: '',
+      bodyEncoding: 'base64'
     }
-    callback(null, request);
-    return;
+    callback(null, response)
+    return
+  }
+  callback(null, request)
+  return
 }
 ```
 
@@ -196,21 +203,21 @@ Under Actions, select ‘Deploy to Lambda@Edge.’ Set CloudFront event to ‘Vi
 Let’s test our Lambda by entering the URL to the protected page. You should get a 401 Unauthorized response, Great! Now enter the Home Page URL and navigate to the protected page. What happened, it allowed you to access the protected? We can fix this. The issue is that in a Gatsby static site, only the initial page load is fetched from Cloudflare. Gatsby then rehydrates a REACT application making the site extremely fast. Let’s fix this by changing /src/pages/index.js to use plain old html links instead to Gatsby Links forcing the page to load from Cloudflare.
 
 ```javascript
-import React from "react"
- 
-import Layout from "../components/layout"
-import SEO from "../components/seo"
- 
+import React from 'react'
+
+import Layout from '../components/layout'
+import SEO from '../components/seo'
+
 const IndexPage = () => (
   <Layout>
-    <SEO title="Home" />
+    <SEO title='Home' />
     <h1>Protecting Static Content</h1>
-    <a href="/public-page/">Public Page</a>
+    <a href='/public-page/'>Public Page</a>
     <br />
-    <a href="/protected-page/">Protected Page</a>
+    <a href='/protected-page/'>Protected Page</a>
   </Layout>
 )
- 
+
 export default IndexPage
 ```
 
