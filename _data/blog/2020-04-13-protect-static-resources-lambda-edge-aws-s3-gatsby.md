@@ -10,21 +10,28 @@ Source:[https://gitlab.com/jameskolean/gatsby-lambda-edge](https://gitlab.com/ja
 
 If you have not installed the Gatsby CLI, nows the time
 
-`npm install -g gatsby-cli`
+```powershell
+npm install -g gatsby-cli
+```
 
 Now let’s use it to create our starter app.
 
-`gatsby new gatsby-lambda-edge-gated https://github.com/gatsbyjs/gatsby-starter-default`
+```shell
+gatsby new gatsby-lambda-edge-gated https://github.com/gatsbyjs/gatsby-starter-default
+```
 
 Let’s test our new application.
 
-`cd gatsby-lambda-edge-gated` `gatsby develop`
+```shell
+cd gatsby-lambda-edge-gated
+gatsby develop
+```
 
 Open a browser to**[http://localhost:8000](http://localhost:8000/)**
 
 Let’s do some customization setting things up for our test. First edit /src/pages/index.js
 
-```
+```javascript
 import React from "react"
 import { Link } from "gatsby"
  
@@ -46,7 +53,7 @@ export default IndexPage
 
 Add a page /src/pages/public-page.js
 
-```
+```javascript
 import React from "react"
 import { Link } from "gatsby"
  
@@ -67,7 +74,7 @@ export default PublicPage
 
 Add a page /src/pages/protected-page.js
 
-```
+```javascript
 import React from "react"
 import { Link } from "gatsby"
  
@@ -94,11 +101,13 @@ We need credentials to access the S3 bucket so go back to Services in the AWS ma
 \
 We could manually build and push the built Gatsby site but let’s use a plugin. Install the plugin.
 
-``npm install gatsby-plugin-s3 gatsby-plugin-config dotenv``
+```shell
+npm install gatsby-plugin-s3 gatsby-plugin-config dotenv
+```
 
 Now configure it in**/gatsby-config.js**
 
-```
+```javascript
 require("dotenv").config()
 ...
 plugins: [
@@ -115,7 +124,7 @@ plugins: [
 
 Next add a script to deploy in package.json
 
-```
+```javascript
 "scripts": {
     ...
     "deploy": "npx -n \"-r dotenv/config\" gatsby-plugin-s3 deploy"
@@ -124,7 +133,7 @@ Next add a script to deploy in package.json
 
 Create a new file called**/.env**and add your values. Note that your bucket name must be the subdomain we will be using for the site. Example: sample.mydomain.com. Where mydomain.com is the domain that Cloudflare is controlling.
 
-```
+```properties
 AWS_S3_BUCKET_NAME=your-bucket-name
 AWS_ACCESS_KEY_ID=your-access-key
 AWS_SECRET_ACCESS_KEY=your-secret
@@ -132,9 +141,10 @@ AWS_SECRET_ACCESS_KEY=your-secret
 
 We can now build and deploy.
 
-```gatsby build` ``
-
-`` `npm run deploy` ``
+```shell
+gatsby build
+npm run deploy
+```
 
 If everything is successful, the URL to your new site will be printed in the console. It should look like**[http://your-bucket.s3-website-us-east-1.amazonaws.com](http://your-bucket.s3-website-us-east-1.amazonaws.com/)**
 
@@ -147,7 +157,7 @@ Go to the AWS Console, choose the services tab, and search for CloudFront. Click
 Go to the AWS Console, choose the services tab, and search for Lambda.\
 Click ‘Create Function,’ choose ‘Author from scratch,’ choose a function name, and create the function. In the code editor, copy in the following and save it.
 
-```
+```javascript
 exports.handler = function(event, context, callback) {
     const request = event.Records[0].cf.request;
     var noCacheHeaders = {
@@ -185,7 +195,7 @@ Under Actions, select ‘Deploy to Lambda@Edge.’ Set CloudFront event to ‘Vi
 
 Let’s test our Lambda by entering the URL to the protected page. You should get a 401 Unauthorized response, Great! Now enter the Home Page URL and navigate to the protected page. What happened, it allowed you to access the protected? We can fix this. The issue is that in a Gatsby static site, only the initial page load is fetched from Cloudflare. Gatsby then rehydrates a REACT application making the site extremely fast. Let’s fix this by changing /src/pages/index.js to use plain old html links instead to Gatsby Links forcing the page to load from Cloudflare.
 
-```
+```javascript
 import React from "react"
  
 import Layout from "../components/layout"
@@ -206,8 +216,9 @@ export default IndexPage
 
 Build and deploy the application again.
 
-`` `gatsby build` ``
-
-`` `npm run deploy` ``
+```shell
+gatsby build
+npm run deploy
+```
 
 Success!
