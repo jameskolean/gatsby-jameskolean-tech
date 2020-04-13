@@ -7,11 +7,12 @@ body {
   padding: 0;
 }
 * {
-  margin-top: 0
+  margin-top: 0;
 }
 /* System Fonts as used by Medium and WordPress */
 body {
-  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
   background-color: #fff;
   //background-color: #fff;
   border-top: 10px solid $primary-color;
@@ -64,7 +65,7 @@ a {
   text-transform: uppercase;
 }
 .hero-header {
-  padding: 0 0 64px;
+  padding: 0px;
   max-width: 980px;
 }
 .headline {
@@ -75,15 +76,15 @@ a {
 .button {
   padding: 18px 27px;
   display: inline-block;
-  background:#fff;
+  background: #fff;
   border: 1px solid #d3d6e7;
   border-radius: 9px;
   text-decoration: none;
-  color:#868892;
+  color: #868892;
   font-size: 16px;
   font-weight: 400;
   margin: 0 20px 0 0;
-  transition: background-color .3s linear;
+  transition: background-color 0.3s linear;
   &.-primary {
     background-color: $primary-color;
     border-color: $primary-color;
@@ -107,7 +108,7 @@ a {
 }
 .post {
   padding: 0;
-  background:white;
+  background: white;
   line-height: 1.5;
   > .blog-post-content {
     max-width: 768px;
@@ -127,7 +128,6 @@ a {
     margin-bottom: 32px;
     text-align: center;
   }
-  
 }
 .post-thumbnail {
   text-align: center;
@@ -146,8 +146,8 @@ a {
   padding: 18px;
   overflow: hidden;
   &:before {
-    content: "";
-    background: rgba(0,0,0,0.4);
+    content: '';
+    background: rgba(0, 0, 0, 0.4);
     position: absolute;
     top: 0;
     left: 0;
@@ -160,7 +160,7 @@ a {
     z-index: 2;
   }
   .post-meta {
-    color: rgba(255,255,255,0.8);
+    color: rgba(255, 255, 255, 0.8);
     margin-bottom: 0;
   }
 }
@@ -172,7 +172,7 @@ a {
 }
 .card {
   display: grid;
-  background:white;
+  background: white;
   border-radius: 9px;
   border: 1px solid #eee;
   box-shadow: 0 0 30px #d5d5d5;
@@ -202,6 +202,10 @@ a {
     color: #333;
     text-decoration: none;
   }
+  .post-excerpt {
+    font-size: 0.8rem;
+    margin-bottom: 0.3rem;
+  }
 }
 .post-meta {
   font-size: 0.8rem;
@@ -224,8 +228,8 @@ a {
     display: block;
     margin-bottom: 0.5rem;
   }
-  input[type=text],
-  input[type=email],
+  input[type='text'],
+  input[type='email'],
   textarea {
     appearance: none;
     border: 1px solid #d3d6e7;
@@ -250,14 +254,12 @@ a {
   }
 }
 /* Portrait and Landscape */
-@media only screen 
-and (min-width: 768px) {
-.grids {
-  grid-template-columns: 1fr 1fr;
+@media only screen and (min-width: 768px) {
+  .grids {
+    grid-template-columns: 1fr 1fr;
+  }
 }
-}
-@media only screen 
-  and (min-width: 1024px) {
+@media only screen and (min-width: 1024px) {
   .grids {
     grid-template-columns: 1fr 1fr 1fr;
   }

@@ -3,6 +3,7 @@ backend:
   repo: jameskolean/gatsby-jameskolean-tech
 media_folder: static/assets
 public_folder: /assets
+publish_mode: editorial_workflow
 collections:
   - name: blog
     label: Blog
@@ -11,7 +12,6 @@ collections:
     create: true
     fields:
       - { label: Template, name: template, widget: hidden, default: BlogPost }
-      - { name: path, label: Path }
       - { name: date, label: Date, widget: datetime }
       - { name: title, label: Title }
       - label: Featured Image
