@@ -94,7 +94,7 @@ We need credentials to access the S3 bucket so go back to Services in the AWS ma
 \
 We could manually build and push the built Gatsby site but let’s use a plugin. Install the plugin.
 
-``npm install gatsby-plugin-s3 gatsby-plugin-config dotenv``
+`npm install gatsby-plugin-s3 gatsby-plugin-config dotenv`
 
 Now configure it in**/gatsby-config.js**
 
@@ -132,7 +132,7 @@ AWS_SECRET_ACCESS_KEY=your-secret
 
 We can now build and deploy.
 
-```gatsby build` ``
+`` `gatsby build` ``
 
 `` `npm run deploy` ``
 
