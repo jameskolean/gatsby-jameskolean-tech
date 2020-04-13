@@ -3,6 +3,14 @@
  *
  * See: https://www.gatsbyjs.org/docs/gatsby-config/
  */
+const path = require(`path`)
+
+var netlifyCmsPaths = {
+  resolve: `gatsby-plugin-netlify-cms-paths`,
+  options: {
+    cmsConfig: `/static/admin/config.yml`
+  }
+}
 
 module.exports = {
   /* Your site config here */
@@ -17,6 +25,14 @@ module.exports = {
     /* W3Layouts domain verification key for contact forms https://my.w3layouts.com/Forms/ */
   },
   plugins: [
+    netlifyCmsPaths,
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `assets`,
+        path: `${__dirname}/static/assets`
+      }
+    },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -24,10 +40,16 @@ module.exports = {
         path: `${__dirname}/_data`
       }
     },
+    `gatsby-plugin-sharp`,
+    `gatsby-transformer-sharp`,
     {
       resolve: `gatsby-transformer-remark`,
       options: {
         plugins: [
+          netlifyCmsPaths,
+          `gatsby-remark-relative-images`,
+          `gatsby-remark-images`,
+          'gatsby-remark-emojis',
           {
             resolve: `gatsby-remark-prismjs`,
             options: {
@@ -37,9 +59,6 @@ module.exports = {
               showLineNumbers: false,
               noInlineHighlight: false
             }
-          },
-          {
-            resolve: 'gatsby-remark-emojis'
           }
         ]
       }

@@ -1,12 +1,13 @@
 import React from 'react'
 import { Link } from 'gatsby'
+import Img from 'gatsby-image'
 
 const PostCard = ({ post }) => (
   <article className='card '>
     <Link to={post.frontmatter.path}>
       {!!post.frontmatter.thumbnail && (
-        <img
-          src={post.frontmatter.thumbnail}
+        <Img
+          fluid={post.frontmatter.thumbnail.childImageSharp.fluid}
           alt={post.frontmatter.title + '- Featured Shot'}
         />
       )}
@@ -18,8 +19,8 @@ const PostCard = ({ post }) => (
         </Link>
       </h2>
       <div class='post-meta'>{post.frontmatter.date}</div>
+      <div class='post-excerpt'>{post.excerpt}</div>
     </header>
-    <blockquote class='post-excerpt'> {post.excerpt}</blockquote>
   </article>
 )
 export default PostCard

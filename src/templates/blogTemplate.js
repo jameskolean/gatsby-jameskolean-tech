@@ -25,7 +25,9 @@ export default function Template({
           {!!frontmatter.thumbnail && (
             <div
               className='post-thumbnail'
-              style={{ backgroundImage: `url(${frontmatter.thumbnail})` }}
+              style={{
+                backgroundImage: `url(${frontmatter.thumbnail.childImageSharp.fixed.src})`
+              }}
             >
               <h1 className='post-title'>{frontmatter.title}</h1>
               <div className='post-meta'>{frontmatter.date}</div>
@@ -48,7 +50,13 @@ export const pageQuery = graphql`
       frontmatter {
         date(formatString: "MMMM DD, YYYY")
         title
-        thumbnail
+        thumbnail {
+          childImageSharp {
+            fixed(width: 980) {
+              src
+            }
+          }
+        }
         # metaDescription
       }
     }

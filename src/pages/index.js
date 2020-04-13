@@ -49,7 +49,13 @@ export const pageQuery = graphql`
           frontmatter {
             date(formatString: "MMMM DD, YYYY")
             title
-            thumbnail
+            thumbnail {
+              childImageSharp {
+                fluid(maxWidth: 780) {
+                  ...GatsbyImageSharpFluid
+                }
+              }
+            }
           }
         }
       }
