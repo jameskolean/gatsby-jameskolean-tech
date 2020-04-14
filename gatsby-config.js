@@ -8,8 +8,8 @@ const path = require(`path`)
 var netlifyCmsPaths = {
   resolve: `gatsby-plugin-netlify-cms-paths`,
   options: {
-    cmsConfig: `/static/admin/config.yml`
-  }
+    cmsConfig: `/static/admin/config.yml`,
+  },
 }
 
 module.exports = {
@@ -20,8 +20,8 @@ module.exports = {
     siteUrl: `https://jameskolean.tech/`,
     home: {
       title: `My Dev Notes`,
-      description: `A place to organize and share my software development interests.`
-    }
+      description: `A place to organize and share my software development interests.`,
+    },
   },
   plugins: [
     netlifyCmsPaths,
@@ -29,15 +29,15 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `assets`,
-        path: `${__dirname}/static/assets`
-      }
+        path: `${__dirname}/static/assets`,
+      },
     },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `markdown-pages`,
-        path: `${__dirname}/_data`
-      }
+        path: `${__dirname}/_data`,
+      },
     },
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
@@ -55,22 +55,37 @@ module.exports = {
               inlineCodeMarker: null,
               aliases: {},
               showLineNumbers: false,
-              noInlineHighlight: false
-            }
-          }
-        ]
-      }
+              noInlineHighlight: false,
+            },
+          },
+        ],
+      },
     },
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
         // The property ID; the tracking code won't be generated without it
         trackingId: 'UA-30027142-1',
-        head: true
-      }
+        head: true,
+      },
     },
     `gatsby-plugin-sass`,
     `gatsby-plugin-react-helmet`,
-    `gatsby-plugin-netlify-cms`
-  ]
+    `gatsby-plugin-netlify-cms`,
+    'gatsby-plugin-robots-txt',
+    `gatsby-plugin-sitemap`,
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: `Dev Notes`,
+        short_name: `Den Notes`,
+        start_url: `/`,
+        background_color: `#4c9a2a`,
+        theme_color: `#a4de02`,
+        display: `standalone`,
+        icon: `src/images/icon.png`,
+      },
+    },
+    `gatsby-plugin-offline`,
+  ],
 }
