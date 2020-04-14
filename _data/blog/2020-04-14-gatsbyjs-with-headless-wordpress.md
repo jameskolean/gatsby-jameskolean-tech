@@ -2,7 +2,7 @@
 template: BlogPost
 date: 2019-11-01T14:14:26.722Z
 title: GatsbyJS with Headless WordPress
-thumbnail: /assets/cloud-sunray-unsplash.jpg
+thumbnail: /assets/wordpress-tshirt-unsplash.jpg
 metaDescription: ''
 ---
 This is a quick tutorial on setting up Gatsby with Headless WordPress. The source code can be found [here](https://gitlab.com/jameskolean/gatsby-wordpress). You will need to setup and configure your own instance of WordPress if you want to follow along. The instructions will help you through this.
