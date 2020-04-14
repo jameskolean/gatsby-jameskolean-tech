@@ -263,14 +263,14 @@ public class StudentController {
 
 This project uses custom properties and meta-data to help the IDE intellisensing.
 
-#### student-service/src/resources/application.properties
+student-service/src/resources/application.properties
 
 ```properties
 cors.allowed.origins=http://localhost:8000,http://localhost:9000
 jwt.issuer=https://codegreenllc.auth0.com/
 ```
 
-#### student-service/src/resources/METS-INF/additional-spring-configuration-metadata.json
+student-service/src/resources/METS-INF/additional-spring-configuration-metadata.json
 
 ```json
 {
