@@ -20,9 +20,8 @@ module.exports = {
     siteUrl: `https://jameskolean.tech/`,
     home: {
       title: `My Dev Notes`,
-      description: `Hi, I'm James Kolean and these are my development notes. I use them to share topics that interest me. I'm posting them here in the chance that it might help someone else.`
+      description: `A place to organize and share my software development interests.`
     }
-    /* W3Layouts domain verification key for contact forms https://my.w3layouts.com/Forms/ */
   },
   plugins: [
     netlifyCmsPaths,
@@ -47,7 +46,6 @@ module.exports = {
       options: {
         plugins: [
           netlifyCmsPaths,
-          `gatsby-remark-relative-images`,
           `gatsby-remark-images`,
           'gatsby-remark-emojis',
           {

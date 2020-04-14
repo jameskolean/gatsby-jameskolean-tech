@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link, useStaticQuery, graphql } from 'gatsby'
 import Navigation from '../components/navigation'
+import Footer from '../components/footer'
 import 'prismjs/themes/prism-okaidia.css'
 
 export default ({ children }) => {
@@ -24,9 +25,7 @@ export default ({ children }) => {
         <Navigation />
       </header>
       {children}
-      <footer className='site-footer'>
-        <p>&copy; footer</p>
-      </footer>
+      <Footer />
     </div>
   )
 }
