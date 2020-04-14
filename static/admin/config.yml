@@ -27,3 +27,22 @@ collections:
         name: metaDescription
         widget: text
         required: false
+  - name: todos
+    label: Todos
+    folder: _data/page
+    slug: 'todos'
+    create: false
+    fields:
+      - { label: Template, name: template, widget: hidden, default: Page }
+      - { name: title, label: Title, widget: string, default: todos }
+      - name: todos
+        label: Todos
+        widget: list
+        fields:
+          - { name: name, label: Name, widget: string }
+          - {
+              name: description,
+              label: Decsription,
+              widget: text,
+              required: false,
+            }

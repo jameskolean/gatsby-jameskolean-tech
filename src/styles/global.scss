@@ -269,3 +269,12 @@ a {
     grid-gap: 64px;
   }
 }
+.todo {
+  .todo-name {
+    font-weight: bold;
+  }
+  .todo-description {
+    margin-left: 3rem;
+    margin-bottom: 1rem;
+  }
+}
