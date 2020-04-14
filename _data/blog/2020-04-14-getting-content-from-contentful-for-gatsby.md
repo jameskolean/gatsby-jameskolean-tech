@@ -2,7 +2,7 @@
 template: BlogPost
 date: 2019-08-28T15:36:06.755Z
 title: Getting Content from Contentful for Gatsby
-thumbnail: /assets/cloud-sunray-unsplash.jpg
+thumbnail: /assets/winter-orange-pines-unsplash.jpg
 ---
 I’m building out a sample project and it’s time to add some content. In the last post we set up a simple GatsbyJS site and added authentication with Auth0. Now it’s time to get some pages built and let’s use Contentful to store that content. This sources code is [here](https://gitlab.com/jameskolean/nohingo/-/tags/Contentful).
 
