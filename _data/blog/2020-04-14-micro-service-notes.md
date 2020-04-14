@@ -47,7 +47,6 @@ Add to application.properties
 server.port=7281
 spring.application.name=config
 spring.cloud.config.server.git.uri=file://${user.home}/application-config
-
 ```
 
 Create the directory ${user.home}/application-config and git initialize it.
@@ -158,7 +157,6 @@ spring.cloud.config.discovery.service-id=config
 spring.cloud.config.discovery.enabled=true
   
 eureka.client.serviceUrl.defaultZone=http://localhost:7082/eureka/
-
 ```
 
 Create a file discovery.properties in the Git repository we created.
@@ -182,7 +180,6 @@ zuul.routes.discovery.path=/discovery/**
 zuul.routes.discovery.sensitive-headers=Set-Cookie,Authorization
 zuul.routes.discovery.url=http://localhost:7082
 hystrix.command.discovery.execution.isolation.thread.timeoutInMilliseconds=600000
-
 ```
 
 ### Test
@@ -201,7 +198,6 @@ Fetching config from server at : http://james-mbp:7081/
 DiscoveryClient_GATEWAY/james-mbp:gateway:7080: registering service...
 DiscoveryClient_GATEWAY/james-mbp:gateway:7080 - registration status: 204
 Tomcat started on port(s): 7080 (http) with context path ''
-
 ```
 
 ## Create some Services (Book and Rating Service)
@@ -270,7 +266,6 @@ server.port=7084
 eureka.client.region = default
 eureka.client.registryFetchIntervalSeconds = 5
 eureka.client.serviceUrl.defaultZone=http://localhost:7082/eureka/
-
 ```
 
 ### Book Service
@@ -325,4 +320,61 @@ mvn spring-boot:run -pl discovery
 mvn spring-boot:run -pl book-service
 mvn spring-boot:run -pl rating-service
 mvn spring-boot:run -pl gateway
+```
+
+Go to the Book Service and Rating Service directly to make sure they are running.
+
+```shell
+curl http://localhost:7085/books
+curl http://localhost:7084/ratings
+```
+
+Now check the gateway
+
+```shell
+curl http://localhost:7080/booking-service/books
+curl http://localhost:7080/rating-service/ratings
+```
+
+## Opentracing with Zipkin
+
+Create a Springboot App from[ spring initializer](https://start.spring.io/) called zipkin. This will be the server that collects and displays distributed tracing providing visibility as messages across micro-service boundaries.
+
+Add these dependencies to book-service, rating-service, and gateway.
+
+```xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-sleuth-core</artifactId>
+</dependency>
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-sleuth-zipkin</artifactId>
+</dependency>
+```
+
+Edit the property file in the Git directory for book-service, rating-service, and gateway.
+
+```properties
+logging.level.org.springframework.web.servlet.DispatcherServlet=DEBUG
+spring.zipkin.sender.type=web
+spring.zipkin.baseUrl=http://localhost:9411
+spring.sleuth.sampler.probability=1.0
+```
+
+### Test
+
+Start the Zipkin server as a docker container.
+
+```shell
+docker run -d -p 9411:9411 openzipkin/zipkin
+```
+
+Open a browser to[ http://localhost:9411/zipkin/](http://localhost:9411/zipkin/)
+
+Now just restart the gateway, book-service, and rating-service and test the endpoint to generate traces in Zipkin
+
+```shell
+curl http://localhost:7080/booking-service/books
+curl http://localhost:7080/rating-service/ratings
 ```
