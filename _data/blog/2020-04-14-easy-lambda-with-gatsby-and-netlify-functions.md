@@ -2,7 +2,7 @@
 template: BlogPost
 date: 2020-04-07T13:02:08.662Z
 title: Easy Lambda with Gatsby and Netlify Functions
-thumbnail: /assets/cloud-sunray-unsplash.jpg
+thumbnail: /assets/cat-nap-unsplash.jpg
 ---
 Let’s look at how to use Netlify Functions in Gatsby. Why do we want to do this? Gatsby is a static site generator, which is excellent for many reasons, one of which is that no server is required making it easy to host and lightning-fast to run. Netlify Functions gives us a way to serve up dynamic content to Gatsby. If you are sold on this idea, then let’s build two functions: 1) a straightforward Hello World example and 2) A more complex example that makes a call to a REST API. Let’s get started.
 
