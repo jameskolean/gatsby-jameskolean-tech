@@ -2,7 +2,7 @@
 template: BlogPost
 date: 2020-04-03T13:46:18.634Z
 title: Netlify Redirects
-thumbnail: /assets/cloud-sunray-unsplash.jpg
+thumbnail: /assets/detour-unsplash.jpg
 ---
 Netlify allows redirects at the edge. There is an example Gatsby project[ here](https://github.com/jameskolean/gatsby-netlify-redirects).
 
