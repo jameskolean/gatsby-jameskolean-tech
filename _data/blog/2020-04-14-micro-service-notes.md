@@ -2,7 +2,7 @@
 template: BlogPost
 date: 2019-09-04T15:09:43.336Z
 title: Micro-service notes
-thumbnail: /assets/tools-bw-unsplash.jpg
+thumbnail: /assets/sticky-note-square-unsplash.jpg
 ---
 These are my note on setting up Micro-Services with Spring Cloud. I went thru many tutorials that had broken dependencies. I put this together so I have a working stack I can reference. In the blog we will build servers for Configuration, Discovery, Gateway, and two REST APIS.
 
