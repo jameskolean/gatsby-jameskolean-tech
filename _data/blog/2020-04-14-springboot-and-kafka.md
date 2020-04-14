@@ -2,7 +2,7 @@
 template: BlogPost
 date: 2019-11-02T14:03:59.971Z
 title: SpringBoot and Kafka
-thumbnail: /assets/cloud-sunray-unsplash.jpg
+thumbnail: /assets/people-queue-unsplash .jpg
 ---
 This is a simple tutorial to show how easy it is to get Spring Boot connected to Kafka. The source code can be found [here](https://gitlab.com/jameskolean/springboot-kafka).
 
