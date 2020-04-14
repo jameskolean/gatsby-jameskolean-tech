@@ -2,7 +2,7 @@
 template: BlogPost
 date: 2019-09-09T15:02:01.973Z
 title: Grafana and Prometheus with Spring Boot
-thumbnail: /assets/tools-bw-unsplash.jpg
+thumbnail: /assets/fire-unsplash.jpg
 ---
 I’m not sure how I feel about this combination. I had high hopes but it’s been frustrating to get working. I guess if I had the time it would be useful to create a slick dashboard and alerts against Spring Actuator parameters.
 
