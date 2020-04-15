@@ -80,7 +80,7 @@ module.exports = {
         name: `Dev Notes`,
         short_name: `Den Notes`,
         start_url: `/`,
-        background_color: `#4c9a2a`,
+        background_color: `#ffffff`,
         theme_color: `#a4de02`,
         display: `standalone`,
         icon: `src/images/icon.png`,
