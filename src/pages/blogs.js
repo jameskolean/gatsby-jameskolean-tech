@@ -7,18 +7,19 @@ import PostCard from '../components/post-card'
 const BlogsPage = ({
   data: {
     site,
-    allMarkdownRemark: { edges }
-  }
+    allMarkdownRemark: { edges },
+  },
 }) => {
   const PostCards = edges
-    .filter(edge => !!edge.node.frontmatter.date) // You can filter your posts based on some criteria
-    .map(edge => <PostCard key={edge.node.id} post={edge.node} />)
+    .filter((edge) => !!edge.node.frontmatter.date) // You can filter your posts based on some criteria
+    .map((edge) => <PostCard key={edge.node.id} post={edge.node} />)
 
   return (
     <Layout>
       <Helmet>
         <title>{site.siteMetadata.title}</title>
         <meta name='description' content={site.siteMetadata.description} />
+        <html lang='en' />
       </Helmet>
       <h2>Posts</h2>
       <div className='grids'>{PostCards}</div>

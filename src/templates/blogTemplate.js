@@ -4,7 +4,7 @@ import { graphql } from 'gatsby'
 import Layout from '../components/layout'
 
 export default function Template({
-  data // this prop will be injected by the GraphQL query below.
+  data, // this prop will be injected by the GraphQL query below.
 }) {
   const { markdownRemark } = data // data.markdownRemark holds your post data
   const { frontmatter, html } = markdownRemark
@@ -13,6 +13,7 @@ export default function Template({
       <Helmet>
         <title>{frontmatter.title}</title>
         {/* <meta name="description" content={frontmatter.metaDescription} /> */}
+        <html lang='en' />
       </Helmet>
       <div className='blog-post-container'>
         <article className='post'>
@@ -26,7 +27,7 @@ export default function Template({
             <div
               className='post-thumbnail'
               style={{
-                backgroundImage: `url(${frontmatter.thumbnail.childImageSharp.fixed.src})`
+                backgroundImage: `url(${frontmatter.thumbnail.childImageSharp.fixed.src})`,
               }}
             >
               <h1 className='post-title'>{frontmatter.title}</h1>
