@@ -42,7 +42,7 @@ export const pageQuery = graphql`
         description
       }
     }
-    markdownRemark(fields: { slug: { eq: "/page/todos/" } }) {
+    markdownRemark(fields: { slug: { eq: "/pages/todo/todo/" } }) {
       frontmatter {
         todos {
           description

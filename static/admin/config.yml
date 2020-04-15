@@ -27,34 +27,32 @@ collections:
         name: metaDescription
         widget: text
         required: false
-  - name: todo
-    label: Todo Page
+  - label: Todo Page
+    name: todoPage
     folder: _data/pages/todo
-    slug: 'todo'
-    create: true
+    create: false
     fields:
       - { label: Template, name: template, widget: hidden, default: TodoPage }
-      - { name: title, label: Title, widget: string, default: todo }
-      - name: todos
-        label: Todos
+      - { label: Title, name: title, widget: string }
+      - label: Todos
+        name: todos
         widget: list
         fields:
-          - { name: name, label: Name, widget: string }
+          - { label: Name, name: name, widget: string }
           - {
-              name: description,
               label: Decsription,
+              name: description,
               widget: text,
               required: false,
             }
-  - name: indexPage
-    label: Index  Page
+  - label: Index Page
+    name: indexPage
     folder: _data/pages/index
-    slug: 'index'
     create: false
     fields:
       - { label: Template, name: template, widget: hidden, default: IndexPage }
-      - { name: title, label: Title, widget: string }
-      - { name: description, label: Description, widget: string }
+      - { label: Title, name: title, widget: string }
+      - { label: Description, name: description, widget: string }
       - label: Hero Background Image
         name: heroBackground
         widget: image
