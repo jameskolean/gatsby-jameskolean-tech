@@ -27,14 +27,14 @@ collections:
         name: metaDescription
         widget: text
         required: false
-  - name: todos
-    label: Todos
-    folder: _data/page
-    slug: 'todos'
-    create: false
+  - name: todo
+    label: Todo Page
+    folder: _data/pages/todo
+    slug: 'todo'
+    create: true
     fields:
-      - { label: Template, name: template, widget: hidden, default: Page }
-      - { name: title, label: Title, widget: string, default: todos }
+      - { label: Template, name: template, widget: hidden, default: TodoPage }
+      - { name: title, label: Title, widget: string, default: todo }
       - name: todos
         label: Todos
         widget: list
@@ -46,3 +46,19 @@ collections:
               widget: text,
               required: false,
             }
+  - name: indexPage
+    label: Index  Page
+    folder: _data/pages/index
+    slug: 'index'
+    create: false
+    fields:
+      - { label: Template, name: template, widget: hidden, default: IndexPage }
+      - { name: title, label: Title, widget: string }
+      - { name: description, label: Description, widget: string }
+      - label: Hero Background Image
+        name: heroBackground
+        widget: image
+        required: false
+        media_library:
+          config:
+            multiple: false
