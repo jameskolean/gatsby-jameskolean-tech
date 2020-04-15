@@ -278,3 +278,14 @@ a {
     margin-bottom: 1rem;
   }
 }
+.hero-header-background {
+  width: 100%;
+  background-position: bottom center;
+  background-repeat: repeat-y;
+  background-size: cover;
+  .hero-header {
+    padding: 10rem;
+    border-radius: 20rem;
+    margin-bottom: 2rem;
+  }
+}

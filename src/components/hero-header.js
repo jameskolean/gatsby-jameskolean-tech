@@ -1,6 +1,9 @@
 import React from 'react'
 import { StaticQuery, graphql } from 'gatsby'
-export default () => (
+
+import BackgroundImage from 'gatsby-background-image'
+
+const HeroHeader = () => (
   <StaticQuery
     query={graphql`
       query HeadingQuery {
@@ -12,15 +15,38 @@ export default () => (
             }
           }
         }
+        markdownRemark(fields: { slug: { eq: "/pages/index/" } }) {
+          frontmatter {
+            heroBackground {
+              childImageSharp {
+                fluid(maxWidth: 960) {
+                  ...GatsbyImageSharpFluid
+                }
+              }
+            }
+          }
+        }
       }
     `}
-    render={data => (
-      <div className='hero-header'>
-        <div className='headline'>{data.site.siteMetadata.home.title}</div>
-        <div className='primary-content'>
-          <p>{data.site.siteMetadata.home.description}</p>
-        </div>
-      </div>
-    )}
+    render={(data) => {
+      const backgroundImage =
+        data.markdownRemark.frontmatter.heroBackground.childImageSharp.fluid
+
+      return (
+        <BackgroundImage
+          Tag='section'
+          className='hero-header-background'
+          fluid={backgroundImage}
+        >
+          <div className='hero-header'>
+            <div className='headline'>{data.site.siteMetadata.home.title}</div>
+            <div className='primary-content'>
+              <p>{data.site.siteMetadata.home.description}</p>
+            </div>
+          </div>
+        </BackgroundImage>
+      )
+    }}
   />
 )
+export default HeroHeader

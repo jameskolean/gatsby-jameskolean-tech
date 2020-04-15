@@ -45,7 +45,11 @@ const IndexPage = ({ data: { site } }) => (
       </li>
     </ul>
     <p>
-      Check out my <Link to='/blogs'>Blogs</Link>. I hope they help someone.
+      Check out my{' '}
+      <strong>
+        <Link to='/blogs'>Blogs</Link>
+      </strong>
+      . I hope they help someone.
     </p>
   </Layout>
 )
