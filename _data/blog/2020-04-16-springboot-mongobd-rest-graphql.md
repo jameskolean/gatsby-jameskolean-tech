@@ -1,7 +1,7 @@
 ---
 template: BlogPost
 date: 2020-04-16T15:43:12.724Z
-title: SpringBoot + MongoBD + REST +GraphQL
+title: SpringBoot + MongoBD + REST + GraphQL
 thumbnail: /assets/space-walk-unsplash.jpg
 ---
 I have a potential opportunity to use MongoDB on a project. I decided to build this simple application to see if anything changed since the last time I used Mongo DB.
