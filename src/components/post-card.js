@@ -2,7 +2,14 @@ import React from 'react'
 import { Link } from 'gatsby'
 import Img from 'gatsby-image'
 
-const PostCard = ({ post }) => (
+const PostCards = ({ posts }) => {
+  const postCards = posts
+    .filter((post) => !!post.frontmatter.date)
+    .map((post) => <PostCard key={post.id} post={post} />)
+  return <>{postCards}</>
+}
+
+export const PostCard = ({ post }) => (
   <article className='card '>
     <Link to={post.fields.slug}>
       {!!post.frontmatter.thumbnail && (
@@ -23,4 +30,4 @@ const PostCard = ({ post }) => (
     </header>
   </article>
 )
-export default PostCard
+export default PostCards

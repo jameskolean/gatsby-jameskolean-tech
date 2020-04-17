@@ -2,18 +2,14 @@ import React from 'react'
 import Helmet from 'react-helmet'
 import { graphql } from 'gatsby'
 import Layout from '../components/layout'
-import PostCard from '../components/post-card'
+import PostCards from '../components/post-card'
 
-const BlogsPage = ({
+const PostsPage = ({
   data: {
     site,
-    allMarkdownRemark: { edges },
+    allMarkdownRemark: { nodes: posts },
   },
 }) => {
-  const PostCards = edges
-    .filter((edge) => !!edge.node.frontmatter.date) // You can filter your posts based on some criteria
-    .map((edge) => <PostCard key={edge.node.id} post={edge.node} />)
-
   return (
     <Layout>
       <Helmet>
@@ -22,13 +18,14 @@ const BlogsPage = ({
         <html lang='en' />
       </Helmet>
       <h2>Posts</h2>
-      <div className='grids'>{PostCards}</div>
-      {/* <div>{PostLists}</div> */}
+      <div className='grids'>
+        <PostCards posts={posts} />
+      </div>
     </Layout>
   )
 }
 
-export default BlogsPage
+export default PostsPage
 export const pageQuery = graphql`
   query blogsPageQuery {
     site {
@@ -37,22 +34,23 @@ export const pageQuery = graphql`
         description
       }
     }
-    allMarkdownRemark(sort: { order: DESC, fields: [frontmatter___date] }) {
-      edges {
-        node {
-          id
-          excerpt(pruneLength: 250)
-          fields {
-            slug
-          }
-          frontmatter {
-            date(formatString: "MMMM DD, YYYY")
-            title
-            thumbnail {
-              childImageSharp {
-                fluid(maxWidth: 780) {
-                  ...GatsbyImageSharpFluid
-                }
+    allMarkdownRemark(
+      sort: { order: DESC, fields: [frontmatter___date] }
+      filter: { frontmatter: { template: { eq: "BlogPost" } } }
+    ) {
+      nodes {
+        id
+        excerpt(pruneLength: 250)
+        fields {
+          slug
+        }
+        frontmatter {
+          date(formatString: "MMMM DD, YYYY")
+          title
+          thumbnail {
+            childImageSharp {
+              fluid(maxWidth: 780) {
+                ...GatsbyImageSharpFluid
               }
             }
           }

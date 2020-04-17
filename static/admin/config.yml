@@ -5,9 +5,9 @@ media_folder: static/assets
 public_folder: /assets
 publish_mode: editorial_workflow
 collections:
-  - name: blog
-    label: Blog
-    folder: _data/blog
+  - name: post
+    label: Post
+    folder: _data/post
     slug: '{{year}}-{{month}}-{{day}}-{{slug}}'
     create: true
     fields:

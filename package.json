@@ -1,12 +1,9 @@
 {
-  "name": "delog",
+  "name": "kolean",
   "description": "A simplified blog for developers and designer. This starter built with Gatsby and Netlify CMS",
   "author": "W3Layouts Team <support@w3layouts.com>",
   "version": "0.1.0",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/W3Layouts/Delog/issues"
-  },
   "dependencies": {
     "gatsby": "^2.19.7",
     "gatsby-background-image": "^1.1.1",
@@ -37,15 +34,10 @@
   "devDependencies": {
     "prettier": "^1.19.1"
   },
-  "homepage": "https://github.com/W3Layouts/Delog#readme",
   "keywords": [
     "gatsby",
     "netlify cms"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/W3Layouts/Delog.git"
-  },
   "scripts": {
     "build": "gatsby build",
     "develop": "gatsby develop",

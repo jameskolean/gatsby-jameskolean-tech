@@ -284,8 +284,13 @@ a {
   background-repeat: repeat-y;
   background-size: cover;
   .hero-header {
-    padding: 10rem;
-    border-radius: 20rem;
+    padding: 3rem;
     margin-bottom: 2rem;
   }
+}
+.more-blogs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
 }
