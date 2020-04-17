@@ -16,7 +16,7 @@ Add framer-motion package
 npm install -save framer-motion
 ```
 
-In the file containing my Post Cards import `motion` 
+In the file containing my Post Cards import motion 
 
 ```javascript
 import { motion } from 'framer-motion'
