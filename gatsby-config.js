@@ -46,6 +46,13 @@ module.exports = {
       options: {
         plugins: [
           netlifyCmsPaths,
+          {
+            resolve: 'gatsby-remark-code-buttons',
+            options: {
+              tooltipText: `Copy Code to Clipboard`,
+              toasterText: 'Copied to Clipboard',
+            },
+          },
           `gatsby-remark-images`,
           'gatsby-remark-emojis',
           {

@@ -2,7 +2,6 @@ import React from 'react'
 import Helmet from 'react-helmet'
 import { graphql } from 'gatsby'
 import Layout from '../components/layout'
-import HeroHeader from '../components/hero-header'
 
 const TodosPage = ({
   data: {
@@ -26,7 +25,6 @@ const TodosPage = ({
         <meta name='description' content={site.siteMetadata.description} />
         <html lang='en' />
       </Helmet>
-      <HeroHeader />
       <h3>Things I want to look at when i get a chance...</h3>
       {Todos}
     </Layout>

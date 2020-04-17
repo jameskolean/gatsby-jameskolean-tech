@@ -53,11 +53,12 @@ const IndexPage = ({
         </li>
       </ul>
       <p>Check out my Posts. I hope they help someone.</p>
+      <h2>Latest Posts</h2>
       <div className='grids'>
         <PostCards posts={posts} />
       </div>
-      <div className='more-blogs'>
-        <Link className='button -primary' to='/blogs'>
+      <div className='more-posts'>
+        <Link className='button -primary' to='/posts'>
           More Posts
         </Link>
       </div>

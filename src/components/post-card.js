@@ -1,4 +1,5 @@
 import React from 'react'
+import { motion } from 'framer-motion'
 import { Link } from 'gatsby'
 import Img from 'gatsby-image'
 
@@ -10,7 +11,12 @@ const PostCards = ({ posts }) => {
 }
 
 export const PostCard = ({ post }) => (
-  <article className='card '>
+  <motion.article
+    className='card '
+    whileHover={{
+      scale: 1.02,
+    }}
+  >
     <Link to={post.fields.slug}>
       {!!post.frontmatter.thumbnail && (
         <Img
@@ -28,6 +34,6 @@ export const PostCard = ({ post }) => (
       <div className='post-meta'>{post.frontmatter.date}</div>
       <div className='post-excerpt'>{post.excerpt}</div>
     </header>
-  </article>
+  </motion.article>
 )
 export default PostCards
