@@ -2,6 +2,6 @@
 template: Page
 title: My Dev Notes
 description: A place to organize and share my software development interests.
-heroBackground: /assets/bricks-unsplash.jpg
+heroBackground: /assets/white-wall-unsplash.jpg
 ---
 
