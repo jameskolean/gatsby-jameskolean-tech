@@ -4,6 +4,7 @@ date: 2019-09-19T14:53:04.213Z
 title: GatsbyJS with Auth0 Springboot services
 thumbnail: /assets/lock-unsplash.jpg
 ---
+
 The GatsbyJS part could not be simpler. Let’s use Axios which is a pleasure to work with but we will also use hooks to make it a thing of beauty. You will need to reference [GatsbyJS Authentication with Auth0](https://rapidfifth.home.blog/2019/08/27/gatsbyjs-authentication-with-auth0/) for details on setting up authentication in a sample project. The source for this blog is [here](https://gitlab.com/jameskolean/gatsbyjs-auth0-springboot/tree/master).
 
 The goal of the blog is to show how we can make a call to a third party service passing our JWT (JSON Web Token) and have that service validate the token responding with data specific to the logged in user. Let’s start in GatsbyJS with our call to the service. Edit nohingo/src/pages/student.js to include axios and axios-hooks. then edit the ‘courses’ component to add JWT and make the call.
@@ -11,7 +12,7 @@ The goal of the blog is to show how we can make a call to a third party service 
 ```javascript
 import axios from 'axios'
 import useAxios from 'axios-hooks'
- 
+
 const Courses = ({ children }) => {
   axios.defaults.headers.common.Authorization = `Bearer ${getToken()}`
   const [{ data, loading, error }, refetch] = useAxios(
@@ -19,7 +20,6 @@ const Courses = ({ children }) => {
   )
   if (loading) return <p>Loading...</p>
   if (error) return <p>Error!</p>
-  console.log()
   return (
     <div>
       <h2>Courses</h2>
@@ -64,10 +64,10 @@ Now configure security.
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Value("${cors.allowed.origins}")
     private String[] allowedOrigins;
- 
+
     @Autowired
     JwtTokenProvider jwtTokenProvider;
- 
+
   @Override
   protected void configure(final HttpSecurity http) throws Exception {
     http.httpBasic().disable() //
@@ -78,7 +78,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
       .apply(new JwtSecurityConfigurer(jwtTokenProvider));
     http.cors(); // looks for bean CorsConfigurationSource
   }
- 
+
   @Bean
   CorsConfigurationSource corsConfigurationSource() {
         final CorsConfiguration configuration = new CorsConfiguration();
@@ -101,7 +101,7 @@ public class JwtSecurityConfigurer extends SecurityConfigurerAdapter<DefaultSecu
   public JwtSecurityConfigurer(final JwtTokenProvider jwtTokenProvider) {
     this.jwtTokenProvider = jwtTokenProvider;
   }
- 
+
   @Override
   public void configure(final HttpSecurity http) throws Exception {
     final JwtTokenAuthenticationFilter customFilter = new JwtTokenAuthenticationFilter(jwtTokenProvider);
@@ -115,17 +115,17 @@ public class JwtSecurityConfigurer extends SecurityConfigurerAdapter<DefaultSecu
 @Component
 @Slf4j
 public class JwtTokenProvider {
- 
+
   @Value("${jwt.issuer}")
   private String issuer;
- 
+
   private Algorithm getAlgorythm(final DecodedJWT decodedJwt) throws JwkException, InvalidPublicKeyException {
     final JwkProvider jwkProvider = new JwkProviderBuilder(issuer).build();
     final Jwk jwk = jwkProvider.get(decodedJwt.getKeyId());
     final Algorithm algorithm = Algorithm.RSA256((RSAPublicKey) jwk.getPublicKey(), null);
     return algorithm;
   }
- 
+
   public Authentication getAuthentication(final String token) {
     final Map<String, Claim> claims = JWT.decode(token).getClaims();
     final UserDetails userDetails = CustomUserDetails.builder() //
@@ -138,14 +138,14 @@ public class JwtTokenProvider {
       .picture(claims.get("picture").asString())//
       .username(claims.get("name").asString())//
       .build();
- 
+
     return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
   }
- 
+
   public String getUsername(final String token) {
     return JWT.decode(token).getSubject();
   }
- 
+
   public String resolveToken(final HttpServletRequest req) {
     final String bearerToken = req.getHeader("Authorization");
     if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
@@ -153,7 +153,7 @@ public class JwtTokenProvider {
     }
     return null;
   }
- 
+
   public boolean validateToken(final String token) {
     try {
       final DecodedJWT decodedJwt = JWT.decode(token);
@@ -173,21 +173,21 @@ public class JwtTokenProvider {
 
 ```java
 public class JwtTokenAuthenticationFilter extends GenericFilterBean {
- 
+
   private final JwtTokenProvider jwtTokenProvider;
- 
+
   public JwtTokenAuthenticationFilter(final JwtTokenProvider jwtTokenProvider) {
     this.jwtTokenProvider = jwtTokenProvider;
   }
- 
+
   @Override
   public void doFilter(final ServletRequest req, final ServletResponse res, final FilterChain filterChain)
     throws IOException, ServletException {
- 
+
     final String token = jwtTokenProvider.resolveToken((HttpServletRequest) req);
     if (token != null && jwtTokenProvider.validateToken(token)) {
       final Authentication auth = jwtTokenProvider.getAuthentication(token);
- 
+
       if (auth != null) {
         SecurityContextHolder.getContext().setAuthentication(auth);
       }
@@ -200,9 +200,9 @@ public class JwtTokenAuthenticationFilter extends GenericFilterBean {
 
 ```java
 public class InvalidJwtAuthenticationException extends AuthenticationException {
- 
+
   private static final long serialVersionUID = 1L;
- 
+
   public InvalidJwtAuthenticationException(final String e, final Throwable t) {
     super(e, t);
   }
@@ -213,9 +213,9 @@ public class InvalidJwtAuthenticationException extends AuthenticationException {
 @ToString
 @Builder
 public class CustomUserDetails implements UserDetails {
- 
+
   private static final long serialVersionUID = 1L;
- 
+
   @Getter
   boolean accountNonExpired;
   @Getter
@@ -235,7 +235,7 @@ public class CustomUserDetails implements UserDetails {
   String picture;
   @Getter
   String username;
- 
+
   @Override
   public String getPassword() {
     return null;
@@ -249,7 +249,7 @@ Now we just need to write the controller and use SecurityContextHolder to get th
 @RestController
 @RequestMapping("/v1/students")
 public class StudentController {
- 
+
   @GetMapping("")
   public ResponseEntity<String> all() {
     final CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication()
@@ -277,16 +277,15 @@ student-service/src/resources/METS-INF/additional-spring-configuration-metadata.
   "properties": [
     {
       "_comment": "don't use camelCase for the name",
-      "name":"cors.allowed.origins",
+      "name": "cors.allowed.origins",
       "type": "java.lang.String",
       "description": "CORS should allows these comma seperated list of origins. Eg: http://localhost:8000,http://some.where.com:80"
     },
     {
-      "name":"jwt.issuer",
+      "name": "jwt.issuer",
       "type": "java.lang.String",
       "description": "Issuer of the JWT"
     }
   ]
 }
-
 ```

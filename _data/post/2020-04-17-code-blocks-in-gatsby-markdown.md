@@ -4,22 +4,23 @@ date: 2020-04-17T15:04:22.229Z
 title: Code Blocks in Gatsby Markdown
 thumbnail: /assets/alphabet-blocks-unsplash.jpg
 ---
-I have a lot of code blocks in my posts, so let's see if we can make them a bit prettier and easier to use. 
 
-Let's add two dependencies. The first will make the blocks look better and give us a better editor experience in Netlify CMS. 
+I have a lot of code blocks in my posts, so let's see if we can make them a bit prettier and easier to use.
+
+Let's add two dependencies. The first will make the blocks look better and give us a better editor experience in Netlify CMS.
 
 ```shell
-npm install -save gatsby-remark-prismjs 
+npm install -save gatsby-remark-prismjs
 npm install gatsby-remark-code-buttons --save-dev
 ```
 
-To setup just edit /gatsby-plugin.js adding the plugins like this.   
+To setup just edit /gatsby-plugin.js adding the plugins like this.
 
 ```javascript
 plugins: [
     ...
     {
-      resolve: `gatsby-transformer-remark`,       
+      resolve: `gatsby-transformer-remark`,
       options: {
         plugins: [
           ...
@@ -31,7 +32,8 @@ plugins: [
             },
           },
           {
-            resolve: `gatsby-remark-prismjs`,             options: {
+            resolve: `gatsby-remark-prismjs`,
+              options: {
               classPrefix: 'language-',
               inlineCodeMarker: null,
               aliases: {},
@@ -39,14 +41,14 @@ plugins: [
               noInlineHighlight: false,
             },
           },
-        ],       
+        ],
       },
     },
     ...
   ]
 ```
 
-That will get us close but let's make a small style change to get the copy icon in a better position. Start by creating src/styles/custom-code-buttons.scss 
+That will get us close but let's make a small style change to get the copy icon in a better position. Start by creating src/styles/custom-code-buttons.scss
 
 ```scss
 .gatsby-code-button {

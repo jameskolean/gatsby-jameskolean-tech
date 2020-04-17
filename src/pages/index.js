@@ -11,7 +11,6 @@ const IndexPage = ({
     allMarkdownRemark: { nodes: posts },
   },
 }) => {
-  console.log('data', posts)
   return (
     <Layout>
       <Helmet>
@@ -19,6 +18,7 @@ const IndexPage = ({
         <meta name='description' content={site.siteMetadata.description} />
         <html lang='en' />
       </Helmet>
+
       <HeroHeader />
       <h2>About Me</h2>
       <p>

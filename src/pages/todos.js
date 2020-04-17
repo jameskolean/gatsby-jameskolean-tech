@@ -17,7 +17,6 @@ const TodosPage = ({
       <div className='todo-description'>{todo.description}</div>
     </div>
   ))
-  console.log(Todos)
   return (
     <Layout>
       <Helmet>
