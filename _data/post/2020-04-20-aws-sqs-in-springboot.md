@@ -5,9 +5,9 @@ title: 'AWS SQS in SpringBoot'
 thumbnail: /assets/people-stairs-unsplash.jpg
 ---
 
-Let's see if we can connect a SpringBoot application to Amazon Simple Queue Service (SQS). To get started, go over to the AWS Management console, got to the Services tab, and search for SQS. Once on the SQS page, click the 'Create New Queue' button. Choose a name, select the Standard Queue, and click 'Quick Create.' Great, we have our queue, and now we need to get credentials to connect to it. Go back to the Services tab and search for IAM, click on Users, then 'Add user.' Choose a name and set the Access Type to Programmatic access. The next step is to add a group. Click 'Create group, name it, and assign it 'AmazonSQSFullAccess.' That's it for AWS you can go back to the Simple Queue Service page to monitor the queue.
+Let's see if we can connect a SpringBoot application to Amazon Simple Queue Service (SQS). To get started, go over to the AWS Management console, go to the Services tab, and search for SQS. Once on the SQS page, click the 'Create New Queue' button. Choose a name, select the Standard Queue, and click 'Quick Create.' Great, we have our queue, and now we need to get credentials to connect to it. Go back to the Services tab and search for IAM, click on Users, then 'Add user.' Choose a name and set the Access Type to Programmatic access. The next step is to add a group. Click 'Create group', name it, and assign it 'AmazonSQSFullAccess.' That's it for AWS you can go back to the Simple Queue Service page to monitor the queue.
 
-Now for the SpringBoot side, head over to SpringBoot Initializer and add dependencies for Spring Boot DevTools, Lombok, and Spring Web. We will need a couple of additional dependencies so add theses.
+Now for the SpringBoot side, head over to [SpringBoot Initializer](https://start.spring.io/) and add dependencies for Spring Boot DevTools, Lombok, and Spring Web. We will need a couple of additional dependencies so add theses.
 
 ```XML
 		<dependency>
