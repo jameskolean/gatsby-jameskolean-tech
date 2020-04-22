@@ -2,6 +2,8 @@
 template: TodoPage
 title: todo
 todos:
+  - description: Look into automatic animation with Framer Motion.
+    name: Framer Motion - Animate.
   - description: Hesura is a tool that exposes a database with no muss or fuss.
     name: Research tools like Hesura.
   - description: '
