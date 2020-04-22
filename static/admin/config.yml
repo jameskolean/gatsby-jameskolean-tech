@@ -14,6 +14,7 @@ collections:
       - { label: Template, name: template, widget: hidden, default: BlogPost }
       - { name: date, label: Date, widget: datetime }
       - { name: title, label: Title }
+      - { name: source, label: Source }
       - label: Featured Image
         name: thumbnail
         widget: image
@@ -23,10 +24,6 @@ collections:
           config:
             multiple: false
       - { name: body, label: Body, widget: markdown }
-      - label: Meta Description
-        name: metaDescription
-        widget: text
-        required: false
   - label: Todo Page
     name: todoPage
     folder: _data/pages/todo

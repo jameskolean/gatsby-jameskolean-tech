@@ -3,7 +3,9 @@ template: BlogPost
 date: 2019-09-23T14:47:28.786Z
 title: GatsbyJS + Netlify CMS + Local File
 thumbnail: /assets/code-on-screen-unsplash.jpg
+source: https://github.com/jameskolean/local-netlify-cms
 ---
+
 I looked into Netlify CMS today and am liking that it is open-source and Git based. I was surprised that when I was working locally it was making commits to the remote repository. That felt wrong to me, now I could be wrong since I have limited time with the tool and it does support Git branches. Anyway, I wanted to see if I could get it to use the local file system in development mode. Looking around I couldn’t find a tutorial that worked but after a couple hours I was able to get this example working.
 
 You can find my source code [here](https://github.com/jameskolean/local-netlify-cms).
@@ -23,7 +25,7 @@ arn add netlify-cms-backend-fs
 Now edit gatsby-config.js to use out plugin. At the top of the file add:
 
 ```javascript
-var fsApi = require('netlify-cms-backend-fs/dist/fs/fs-express-api');
+var fsApi = require('netlify-cms-backend-fs/dist/fs/fs-express-api')
 ```
 
 Then update the gatsby-plugin-netlify-cms plugin.
@@ -75,14 +77,14 @@ Now edit cms.js.
 ...
 import FileSystemBackend from 'netlify-cms-backend-fs';
 ...
- 
+
 // If running in development
 if (process.env.NODE_ENV === 'development') {
   window.CMS_ENV = 'development_overrides'; // Set the CMS_ENV to the development_ overrides.
   CMS.registerBackend('file-system', FileSystemBackend); // Register the FileSystemBackend.
 }
- 
+
 ...
- 
+
 CMS.init();
 ```

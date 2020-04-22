@@ -4,9 +4,9 @@ date: 2019-11-01T14:11:56.715Z
 title: GatsbyJS and Shopify
 thumbnail: /assets/shop-open-unsplash.jpg
 ---
+
 I started to look into building a POC integrating Shopify with GatsbyJS but I found an excellent starter already exists. Here are the instructions to run the demo.
 
-\
 If you don’t have the gatsby-cli installed, now is the time. Follow instructions at <https://www.gatsbyjs.org/tutorial/part-zero/>
 
 Now you can run the demo:

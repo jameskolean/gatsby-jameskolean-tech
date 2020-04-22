@@ -3,18 +3,20 @@ template: BlogPost
 date: 2020-04-16T15:43:12.724Z
 title: SpringBoot + MongoBD + REST + GraphQL
 thumbnail: /assets/space-walk-unsplash.jpg
+source: https://gitlab.com/jameskolean/mongo-services/-/tree/master
 ---
+
 I have a potential opportunity to use MongoDB on a project. I decided to build this simple application to see if anything changed since the last time I used Mongo DB.
 
 You can find the source [here](https://gitlab.com/jameskolean/mongo-services/-/tree/master).
 
 Start by going over to Spring Initializer at <https://start.spring.io/> and add these dependencies:
 
-* **Lombok:**Java annotation library, which helps to reduce boilerplate code.
-* **Spring Boot DevTools:**Provides fast application restarts, LiveReload, and configurations for enhanced development experience.
-* **Spring Data MongoDB:**Store data in flexible, JSON-like documents, meaning fields can vary from document to document, and data structure can be changed over time.
-* **Embedded MongoDB Database:**Provides a platform-neutral way for running MongoDB in unit tests.
-* **Rest Repositories**
+- **Lombok:**Java annotation library, which helps to reduce boilerplate code.
+- **Spring Boot DevTools:**Provides fast application restarts, LiveReload, and configurations for enhanced development experience.
+- **Spring Data MongoDB:**Store data in flexible, JSON-like documents, meaning fields can vary from document to document, and data structure can be changed over time.
+- **Embedded MongoDB Database:**Provides a platform-neutral way for running MongoDB in unit tests.
+- **Rest Repositories**
 
 We need three Java classes to get this demo running; A controller to accept REST requests, an entity that defines the shape of the document in MongoDB, and a Repository that describes how we interact with MongoDB. Here are those files:
 

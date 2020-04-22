@@ -3,7 +3,9 @@ template: BlogPost
 date: 2019-08-28T15:36:06.755Z
 title: Getting Content from Contentful for Gatsby
 thumbnail: /assets/winter-orange-pines-unsplash.jpg
+source: https://gitlab.com/jameskolean/nohingo/-/tags/Contentful
 ---
+
 I’m building out a sample project and it’s time to add some content. In the last post we set up a simple GatsbyJS site and added authentication with Auth0. Now it’s time to get some pages built and let’s use Contentful to store that content. This sources code is [here](https://gitlab.com/jameskolean/nohingo/-/tags/Contentful).
 
 You can get started by signing up for an account at Contentful [https://www.contentful.com](http://contentful/). You can follow the instruction to first create some models (these define the data types), then create some data using the models. When you have some data we can configure GatsbyJS to pull the data with Contentful’s GraphQL API.
@@ -30,12 +32,11 @@ module.exports = {
     },
   ],
 }
-
 ```
 
 Explore Contentful with GraphQL
 
-If you start GatsbyJS with`gatsby develop`you can open the GraphQL viewer at[ http://localhost:8000/___graphql](http://localhost:8000/___graphql). If you are getting multiple responses then you may have enabled internationalization. In this case, just apply a filter for one locale like this.
+If you start GatsbyJS with`gatsby develop`you can open the GraphQL viewer at[ http://localhost:8000/\_\_\_graphql](http://localhost:8000/___graphql). If you are getting multiple responses then you may have enabled internationalization. In this case, just apply a filter for one locale like this.
 
 ```javascript
 query MyQuery {
@@ -69,11 +70,11 @@ export const query = graphql`
 `
 const IndexPage = ({ data }) => (
   <Layout>
-    <SEO title="Home" />
+    <SEO title='Home' />
     <h1>NohinGo</h1>
     <p>Welcome to NohinGo.</p>
     <p>The fun way to instruct and learn.</p>
-    {data.courses.nodes.map(course => (
+    {data.courses.nodes.map((course) => (
       <div key={`course-${course.slug}`}>
         <h5>
           {course.code} - {course.name}
@@ -81,7 +82,7 @@ const IndexPage = ({ data }) => (
       </div>
     ))}
 
-    <Link to="/student/">Student Page</Link>
+    <Link to='/student/'>Student Page</Link>
   </Layout>
 )
 ```
@@ -104,7 +105,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   if (result.errors) {
     reporter.panic('Error Loading Courses', result.errors)
   }
-  result.data.allContentfulCourse.nodes.forEach(course => {
+  result.data.allContentfulCourse.nodes.forEach((course) => {
     actions.createPage({
       path: `/${course.slug}`,
       component: require.resolve('./src/templates/course-template.js'),

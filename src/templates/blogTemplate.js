@@ -3,6 +3,18 @@ import Helmet from 'react-helmet'
 import { graphql } from 'gatsby'
 import Layout from '../components/layout'
 
+const SourceLink = ({ source }) => (
+  <>
+    {source && (
+      <div className='post-source'>
+        <a href={source} target='_blank' rel='noopener noreferrer'>
+          Link to Source Code Repository &rarr;
+        </a>
+      </div>
+    )}
+  </>
+)
+
 export default function Template({
   data, // this prop will be injected by the GraphQL query below.
 }) {
@@ -21,6 +33,7 @@ export default function Template({
             <div className='post-thumbnail'>
               <h1 className='post-title'>{frontmatter.title}</h1>
               <div className='post-meta'>{frontmatter.date}</div>
+              <SourceLink source={frontmatter.source} />
             </div>
           )}
           {!!frontmatter.thumbnail && (
@@ -32,6 +45,7 @@ export default function Template({
             >
               <h1 className='post-title'>{frontmatter.title}</h1>
               <div className='post-meta'>{frontmatter.date}</div>
+              <SourceLink source={frontmatter.source} />
             </div>
           )}
           <div
@@ -51,6 +65,7 @@ export const pageQuery = graphql`
       frontmatter {
         date(formatString: "MMMM DD, YYYY")
         title
+        source
         thumbnail {
           childImageSharp {
             fixed(width: 980) {

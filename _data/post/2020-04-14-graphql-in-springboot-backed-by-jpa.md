@@ -3,6 +3,7 @@ template: BlogPost
 date: 2019-10-19T14:36:37.845Z
 title: GraphQL in SpringBoot backed by JPA
 thumbnail: /assets/screen-city-unsplash.jpg
+source: https://gitlab.com/jameskolean/graphgql-demo/tree/master
 ---
 
 The code is [here](https://gitlab.com/jameskolean/graphgql-demo/tree/master). Start with[ spring initializer](https://start.spring.io/) and add web, devtools, lombok, liquibase, and JPA support. Add in the dependencies for GraphQL and you end up with something like this.

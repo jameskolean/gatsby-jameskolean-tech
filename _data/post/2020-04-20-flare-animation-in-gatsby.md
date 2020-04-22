@@ -9,9 +9,10 @@ Rive offers a tool called Flare for building vector designs and animations. Chec
 
 ## Usage
 
-- Export you animation as an \*.flr file.
+- Export you animation as an **_\*.flr_** file.
 - Place the file in the static folder
-- Add the react-flare dependency `npm install flare-react`
+- Add the react-flare dependency \
+  `npm install flare-react`
 - Add your annimation to a page
 
 ```javascript

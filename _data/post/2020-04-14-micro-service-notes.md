@@ -3,14 +3,16 @@ template: BlogPost
 date: 2019-09-04T15:09:43.336Z
 title: Micro-service notes
 thumbnail: /assets/sticky-note-square-unsplash.jpg
+source: https://gitlab.com/jameskolean/spring-cloud-demo/tree/master
 ---
+
 These are my note on setting up Micro-Services with Spring Cloud. I went thru many tutorials that had broken dependencies. I put this together so I have a working stack I can reference. In the blog we will build servers for Configuration, Discovery, Gateway, and two REST APIS.
 
 **TLDR**
 
 If you just want to see Zipkin working, get the [source code](https://gitlab.com/jameskolean/spring-cloud-demo/tree/master) and run these commands to start the servers and generate traces. You can then see them at <http://localhost:9411/zipkin/>
 
-Note: you first need to copy the directory application-config to ${user.home}/application-config and git initialize it. These provide the configuration settings that the Configuration Server will distribute.
+Note: you first need to copy the directory application-config to \${user.home}/application-config and git initialize it. These provide the configuration settings that the Configuration Server will distribute.
 
 ```shell
 mvn spring-boot:run -pl config-service
@@ -25,7 +27,7 @@ curl http://localhost:7080/rating-service/ratings
 
 These notes are based on the tutorial at <https://www.baeldung.com/spring-cloud-bootstrapping>.
 
-## *Let’s get started setting up the Servers!*
+## _Let’s get started setting up the Servers!_
 
 ## Configuration Server
 
@@ -49,7 +51,7 @@ spring.application.name=config
 spring.cloud.config.server.git.uri=file://${user.home}/application-config
 ```
 
-Create the directory ${user.home}/application-config and git initialize it.
+Create the directory \${user.home}/application-config and git initialize it.
 
 ```shell
 mkdir ~/aplication-config
@@ -91,9 +93,9 @@ Create a file discovery.properties in the Git repository we created. This will b
 ```properties
 spring.application.name=discovery
 server.port=7082
-  
+
 eureka.instance.hostname=localhost
-  
+
 eureka.client.serviceUrl.defaultZone=http://localhost:7082/eureka/
 eureka.client.register-with-eureka=false
 eureka.client.fetch-registry=false
@@ -155,7 +157,7 @@ Add these parameters to application.properties
 spring.cloud.config.name=gateway
 spring.cloud.config.discovery.service-id=config
 spring.cloud.config.discovery.enabled=true
-  
+
 eureka.client.serviceUrl.defaultZone=http://localhost:7082/eureka/
 ```
 
@@ -164,18 +166,18 @@ Create a file discovery.properties in the Git repository we created.
 ```properties
 spring.application.name=gateway
 server.port=7080
-  
+
 eureka.client.region = default
 eureka.client.registryFetchIntervalSeconds = 5
-  
+
 zuul.routes.book-service.path=/book-service/**
 zuul.routes.book-service.sensitive-headers=Set-Cookie,Authorization
 hystrix.command.book-service.execution.isolation.thread.timeoutInMilliseconds=600000
-  
+
 zuul.routes.rating-service.path=/rating-service/**
 zuul.routes.rating-service.sensitive-headers=Set-Cookie,Authorization
 hystrix.command.rating-service.execution.isolation.thread.timeoutInMilliseconds=600000
-  
+
 zuul.routes.discovery.path=/discovery/**
 zuul.routes.discovery.sensitive-headers=Set-Cookie,Authorization
 zuul.routes.discovery.url=http://localhost:7082
@@ -229,16 +231,16 @@ public class RatingServiceApplication {
     public static void main(final String[] args) {
         SpringApplication.run(RatingServiceApplication.class, args);
     }
- 
+
     private final List<Rating> ratingList = Arrays.asList(Rating.builder().id(1L).bookId(1L).stars(5).build(),
             Rating.builder().id(2L).bookId(2L).stars(4).build(), Rating.builder().id(3L).bookId(3L).stars(3).build(),
             Rating.builder().id(4L).bookId(4L).stars(2).build(), Rating.builder().id(5L).bookId(5L).stars(1).build());
- 
+
     @GetMapping("/all")
     public List<Rating> findAllRatings() {
         return ratingList;
     }
- 
+
     @GetMapping("")
     public List<Rating> findRatingsByBookId(@RequestParam final Long bookId) {
         return bookId == null || bookId.equals(0L) ? Collections.EMPTY_LIST
@@ -253,7 +255,7 @@ Add our bootstrap.properties
 spring.cloud.config.name=rating-service
 spring.cloud.config.discovery.service-id=config
 spring.cloud.config.discovery.enabled=true
-  
+
 eureka.client.serviceUrl.defaultZone=http://localhost:7082/eureka/
 ```
 
@@ -262,7 +264,7 @@ Now create a file rating-service.properties in the Git repository.
 ```properties
 spring.application.name=rating-service
 server.port=7084
-  
+
 eureka.client.region = default
 eureka.client.registryFetchIntervalSeconds = 5
 eureka.client.serviceUrl.defaultZone=http://localhost:7082/eureka/
@@ -293,16 +295,16 @@ public class BookServiceApplication {
     public static void main(final String[] args) {
         SpringApplication.run(BookServiceApplication.class, args);
     }
- 
+
     private final List<Book> bookList = Arrays.asList(
             Book.builder().id(1L).title("Watchmen").author("Alan Moore").build(),
             Book.builder().id(2L).title("The Color of Magic").author("Terry Pratchett").build());
- 
+
     @GetMapping("")
     public List<Book> findAllBooks() {
         return bookList;
     }
- 
+
     @GetMapping("/{bookId}")
     public Book findBook(@PathVariable final Long bookId) {
         return bookList.stream().filter(b -> b.getId().equals(bookId)).findFirst().orElse(null);

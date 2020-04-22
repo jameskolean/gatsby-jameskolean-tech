@@ -3,22 +3,25 @@ template: BlogPost
 date: 2019-08-27T15:40:56.186Z
 title: GatsbyJS Authentication with Auth0
 thumbnail: /assets/desk-unsplash.jpg
+source: https://gitlab.com/jameskolean/nohingo/-/tags/Auth0
 ---
+
 This post describes how I added Authentication to my [GatsbyJS](https://www.gatsbyjs.org/) application using [Auth0](https://auth0.com/). The source is [here](https://gitlab.com/jameskolean/nohingo/-/tags/Auth0). I’d like to thank Jason Langsdorf for his [Live Stream](https://www.gatsbyjs.org/blog/2019-03-21-add-auth0-to-gatsby-livestream/) that I used to build my solution. I highly recommend checking out his videos.
 
 ## Getting Started
 
 Let’s get right into it then. The tasks we need to accomplish to get this working are:
 
-* Load the auth0-js library.
-* Create a utility class that we can call:
+- Load the auth0-js library.
+- Create a utility class that we can call:
 
-  * login
-  * logout
-  * renew session
-  * get user information
-* Add authenticated URLs with client-side routing.
-* Add code to renew the session.
+  - login
+  - logout
+  - renew session
+  - get user information
+
+- Add authenticated URLs with client-side routing.
+- Add code to renew the session.
 
 ## Loading auth0-js
 
@@ -52,7 +55,7 @@ Then we can add a flag to auth.js (see next section) and only create a WebAuth i
 
 ```javascript
 export const isBrowser = typeof window !== 'undefined'
- 
+
 const auth = isBrowser
   ? new auth0.WebAuth({
       domain: process.env.AUTH0_DOMAIN,
@@ -86,7 +89,7 @@ export const login = () => {
 This function is used in the login callback page to populate the user state.
 
 ```javascript
-export const handleAuthentication = callback => {
+export const handleAuthentication = (callback) => {
   auth.parseHash(setSession(callback))
 }
 ```
@@ -103,13 +106,13 @@ const setSession = (cb = () => {}) => (err, authResult) => {
   if (authResult && authResult.accessToken && authResult.idToken) {
     tokens.idToken = authResult.idToken
     tokens.accessToken = authResult.accessToken
- 
+
     auth.client.userInfo(tokens.accessToken, (_err, userProfile) => {
       user.nickname = userProfile.nickname
       user.name = userProfile.name
       user.picture = userProfile.picture
       window.localStorage.setItem('isLoggedIn', true)
- 
+
       cb()
     })
   }
@@ -128,7 +131,7 @@ export const logout = () => {
   user.nickname = ''
   user.picture = ''
   window.localStorage.setItem('isLoggedIn', false)
- 
+
   auth.logout({
     returnTo: window.location.origin,
   })
@@ -143,11 +146,11 @@ This function is responsible for renewing the session. When we change pages we n
 export const isProtectedRoute = () => {
   const protectedRoutes = [`/student`, `/welcome`]
   return protectedRoutes
-    .map(route => window.location.pathname.includes(route))
-    .some(route => route)
+    .map((route) => window.location.pathname.includes(route))
+    .some((route) => route)
 }
- 
-export const checkSession = callback => {
+
+export const checkSession = (callback) => {
   const isLoggedIn = window.localStorage.getItem('isLoggedIn')
   console.log(`checkSession isLoggedIn: ${isLoggedIn}`)
   if (isLoggedIn === 'false' || isLoggedIn === null) {
@@ -186,12 +189,12 @@ Let’s start by telling GatsbyJS about these pages by adding the following snip
 // called after every page is created.
 exports.onCreatePage = async ({ page, actions }) => {
   const { createPage } = actions
- 
+
   // page.matchPath is a special key that's used for matching pages
   // only on the client.
   if (page.path.match(/^\/student/)) {
     page.matchPath = '/student/*'
- 
+
     // Update the page.
     createPage(page)
   }
@@ -206,20 +209,20 @@ const Student = () => {
     login()
     return <p>Redirecting to login...</p>
   }
- 
+
   return (
     <>
       <Layout>
         <nav>
-          <Link to="/student/">My Dashboard</Link> <br />
-          <Link to="/student/courses">My Courses</Link>
+          <Link to='/student/'>My Dashboard</Link> <br />
+          <Link to='/student/courses'>My Courses</Link>
           <br />
         </nav>
         <Router>
-          <Dashboard path="/student/*" />
-          <Courses path="/student/courses">
-            <CourseIndex path="/" />
-            <Course path=":courseId" />
+          <Dashboard path='/student/*' />
+          <Courses path='/student/courses'>
+            <CourseIndex path='/' />
+            <Course path=':courseId' />
           </Courses>
         </Router>
       </Layout>
@@ -235,24 +238,17 @@ Once the user is logged in, Auth0 will redirect them to the src/pages/welcome.js
 ```javascript
 const Welcome = () => {
   const [isLoading, setIsLoading] = useState(true)
-  useEffect(
-    () => {
-      if (isAuthenticated()) {
-        setIsLoading(false)
-      } else {
-        handleAuthentication(() => setIsLoading(false))
-      }
-    },
-    [isLoading]
-  )
+  useEffect(() => {
+    if (isAuthenticated()) {
+      setIsLoading(false)
+    } else {
+      handleAuthentication(() => setIsLoading(false))
+    }
+  }, [isLoading])
   if (isLoading) {
     return <p>Loading Profile</p>
   }
-  return (
-    <Layout>
-      ...
-    </Layout>
-  )
+  return <Layout>...</Layout>
 }
 ```
 
@@ -263,14 +259,14 @@ The last thing we need to do is add the code that will trigger the session renew
 ```javascript
 import React, { useState, useEffect } from 'react'
 import { checkSession } from './src/utils/auth'
- 
+
 // Try to renew the session when the page reloads
 const SessionCheck = ({ children }) => {
   const [loading, stillLoading] = useState(true)
   useEffect(() => checkSession(() => stillLoading(false)))
   return loading === false && <>{children}</>
 }
- 
+
 export const wrapRootElement = ({ element }) => {
   if (isProtectedRoute()) {
     return <SessionCheck>{element}</SessionCheck>
@@ -281,4 +277,4 @@ export const wrapRootElement = ({ element }) => {
 
 ## Followup
 
-When deploying with Netlify we want to define the Environmental Variables in Netlify and not in .env.production. This would protect any secret keys we might have. In this case all the keys are public keys. We set the environmental variables in Netlify by going to Deploys > Deployment Settings > Environment. The trick here is that the variables must be prefixed with GATSBY_ which tell GatsbyJS to make them accessible on the client side as well as the build side.
+When deploying with Netlify we want to define the Environmental Variables in Netlify and not in .env.production. This would protect any secret keys we might have. In this case all the keys are public keys. We set the environmental variables in Netlify by going to Deploys > Deployment Settings > Environment. The trick here is that the variables must be prefixed with GATSBY\_ which tell GatsbyJS to make them accessible on the client side as well as the build side.

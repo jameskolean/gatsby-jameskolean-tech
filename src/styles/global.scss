@@ -294,3 +294,17 @@ a {
   justify-content: center;
   margin-top: 2rem;
 }
+.post-source {
+  :link {
+    color: white;
+  }
+  :visited {
+    color: white;
+  }
+  :hover {
+    color: wheat;
+  }
+  :active {
+    color: wheat;
+  }
+}

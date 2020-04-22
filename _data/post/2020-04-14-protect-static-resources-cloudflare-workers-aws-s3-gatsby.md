@@ -2,8 +2,10 @@
 template: BlogPost
 date: 2020-04-08T12:36:44.093Z
 title: Protect Static Resources => Cloudflare Workers + AWS S3 + Gatsby
-thumbnail: /assets/touch-sun-unsplash .jpg
+thumbnail: /assets/touch-sun-unsplash.jpg
+source: https://gitlab.com/jameskolean/gatsby-cloudflare-gated
 ---
+
 ## Setup Cloudflare
 
 The way Cloudflare works is that it manages an entire domain. For this test you may want to purchase a domain. Once the domain is purchased, the process of bring it into Cloudflare is very simple but will take time for the DNS records to propagate so let’s do this first. Just log into Cloudflare and click ‘Add Site’ giving it you new domain. Cloudflare makes it super simple (unlike other vendors, I’m talking to you AWS), just follow the instruction.
@@ -37,64 +39,64 @@ Open a browser to **[http://localhost:8000](http://localhost:8000/)**
 Let’s do some customization setting things up for our test. First edit /src/pages/index.js
 
 ```javascript
-import React from "react"
-import { Link } from "gatsby"
- 
-import Layout from "../components/layout"
-import SEO from "../components/seo"
- 
+import React from 'react'
+import { Link } from 'gatsby'
+
+import Layout from '../components/layout'
+import SEO from '../components/seo'
+
 const IndexPage = () => (
   <Layout>
-    <SEO title="Home" />
+    <SEO title='Home' />
     <h1>Protecting Static Content</h1>
-    <Link to="/public-page/">Public Page</Link>
+    <Link to='/public-page/'>Public Page</Link>
     <br />
-    <Link to="/protected-page/">Protected Page</Link>
+    <Link to='/protected-page/'>Protected Page</Link>
   </Layout>
 )
- 
+
 export default IndexPage
 ```
 
 Add a page /src/pages/public-page.js
 
 ```javascript
-import React from "react"
-import { Link } from "gatsby"
- 
-import Layout from "../components/layout"
-import SEO from "../components/seo"
- 
+import React from 'react'
+import { Link } from 'gatsby'
+
+import Layout from '../components/layout'
+import SEO from '../components/seo'
+
 const PublicPage = () => (
   <Layout>
-    <SEO title="Public Page" />
+    <SEO title='Public Page' />
     <h1>Hi from the public page</h1>
     <p>Welcome to public page</p>
-    <Link to="/">Go back to the homepage</Link>
+    <Link to='/'>Go back to the homepage</Link>
   </Layout>
 )
- 
+
 export default PublicPage
 ```
 
 Add a page /src/pages/protected-page.js
 
 ```javascript
-import React from "react"
-import { Link } from "gatsby"
- 
-import Layout from "../components/layout"
-import SEO from "../components/seo"
- 
+import React from 'react'
+import { Link } from 'gatsby'
+
+import Layout from '../components/layout'
+import SEO from '../components/seo'
+
 const ProtectedPage = () => (
   <Layout>
-    <SEO title="Protected Page" />
+    <SEO title='Protected Page' />
     <h1>Hi from the protected page</h1>
     <p>Welcome to protected page</p>
-    <Link to="/">Go back to the homepage</Link>
+    <Link to='/'>Go back to the homepage</Link>
   </Layout>
 )
- 
+
 export default ProtectedPage
 ```
 
@@ -155,7 +157,7 @@ If everything is successful, the URL to your new site will be printed in the con
 
 ## Cloudflare
 
-Add a CNAME DNS record to get our Site running on your domain. 
+Add a CNAME DNS record to get our Site running on your domain.
 
 Open your Site in Cloudflare and go to the DNS tab. Click Add Record, choose the Type of CNAME. The Name will be the subdomain so if you set your bucket name to sample.mydomain.com you would enter ‘sample’ as the Name. Set Target to the S3 bucket domain. It should look like this ‘your-bucket.s3-website-us-east-1.amazonaws.com. You can now view your site at: **[https://sample.mydomain.com](https://sample.mydomain.com/)**
 
@@ -169,7 +171,7 @@ Wow, that was a ton of setup, but we are finally ready to look at Cloudflare Wor
  * @param {Request} request
  */
 async function handleRequest(request) {
-  return new Response('you are not authorized', {status: 401})
+  return new Response('you are not authorized', { status: 401 })
 }
 ```
 
@@ -178,21 +180,21 @@ Test the worker with the ‘Send’ button. When you are happy click ‘Save and
 Let’s test our Worker by entering the URL to the protected. You should get a 401 Unauthorized response, Great! Now enter the Home Page URL and navigate to the protected page. What happened? It allowed you to access the protected page. We can fix this. The issue is that in a Gatsby static site, only loads the initial fetch from Cloudflare. Gatsby then rehydrates into a REACT application making the site extremely fast. Let’s fix this by changing /src/pages/index.js to use plain old html links instead to Gatsby Links forcing the page to load from Cloudflare.
 
 ```javascript
-import React from "react"
- 
-import Layout from "../components/layout"
-import SEO from "../components/seo"
- 
+import React from 'react'
+
+import Layout from '../components/layout'
+import SEO from '../components/seo'
+
 const IndexPage = () => (
   <Layout>
-    <SEO title="Home" />
+    <SEO title='Home' />
     <h1>Protecting Static Content</h1>
-    <a href="/public-page/">Public Page</a>
+    <a href='/public-page/'>Public Page</a>
     <br />
-    <a href="/protected-page/">Protected Page</a>
+    <a href='/protected-page/'>Protected Page</a>
   </Layout>
 )
- 
+
 export default IndexPage
 ```
 

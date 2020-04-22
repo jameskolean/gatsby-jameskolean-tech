@@ -3,7 +3,9 @@ template: BlogPost
 date: 2019-08-30T15:33:24.177Z
 title: GatsbyJS adding Video and Audio
 thumbnail: /assets/headphones-water-unsplash.jpg
+source: https://gitlab.com/jameskolean/nohingo/-/tags/Added-Lesson-Video-and-Audio
 ---
+
 This this post I added Video and Audio to my GatsbyJS site. The Video and Audio assets are stored in Contentful. This example uses a Lesson Plan created by an instructor. The Lesson Plan is a document that can have many heterogenous sections. In this case I created a section for Video content and another for Audio content. The instructor can create as many sections as they like and can order them as they like.
 
 Step one is to tell Gatsby about the Lesson pages. We do this by editing gatsby-node.js. We already told it how to create Course pages so it’s easy to add the logic for Lesson page creation.
@@ -98,7 +100,7 @@ const LessonTemplate = ({ data: { lesson } }) => {
     <Layout>
       <SEO title={lesson.title} />
       <h1>{lesson.title}</h1>
-      {lesson.sections.map(section => {
+      {lesson.sections.map((section) => {
         if (section.video) {
           const videoUrl = `https:${section.video.file.url}`
           return <Player key={section.video.id} playsInline src={videoUrl} />

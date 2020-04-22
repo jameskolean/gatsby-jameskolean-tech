@@ -3,7 +3,9 @@ template: BlogPost
 date: 2020-04-07T13:02:08.662Z
 title: Easy Lambda with Gatsby and Netlify Functions
 thumbnail: /assets/cat-nap-unsplash.jpg
+source: https://gitlab.com/jameskolean/gatsby-netlify-function/-/tree/master
 ---
+
 Let’s look at how to use Netlify Functions in Gatsby. Why do we want to do this? Gatsby is a static site generator, which is excellent for many reasons, one of which is that no server is required making it easy to host and lightning-fast to run. Netlify Functions gives us a way to serve up dynamic content to Gatsby. If you are sold on this idea, then let’s build two functions: 1) a straightforward Hello World example and 2) A more complex example that makes a call to a REST API. Let’s get started.
 
 ## Create a Gatsby starter app.
@@ -65,59 +67,62 @@ Write our Hello World Function in a file **/src/functions/hello.js**.
 
 ```javascript
 export function handler(event, context, callback) {
-  console.log("queryStringParameters", event.queryStringParameters)
+  console.log('queryStringParameters', event.queryStringParameters)
   callback(null, {
     // return null to show no errors
     statusCode: 200, // http status code
     body: JSON.stringify({
-      msg: "Hello, World! " + Math.round(Math.random() * 10),
+      msg: 'Hello, World! ' + Math.round(Math.random() * 10),
     }),
-})}
+  })
+}
 ```
 
 That’s all we need to run Functions on Netlify. But wait, I want to test this locally. To run locally, we need to add a proxy export in **gatsby-config.js**. Edit the file to include the following export.
 
 ```javascript
-const { createProxyMiddleware } = require("http-proxy-middleware")
+const { createProxyMiddleware } = require('http-proxy-middleware')
 module.exports = {
-  developMiddleware: app => {
+  developMiddleware: (app) => {
     app.use(
-      "/.netlify/functions/",
+      '/.netlify/functions/',
       createProxyMiddleware({
-      target: "http://localhost:9000",
-      pathRewrite: {"/.netlify/functions/": "",},
-  }))},
+        target: 'http://localhost:9000',
+        pathRewrite: { '/.netlify/functions/': '' },
+      })
+    )
+  },
 }
 ```
 
 Now we can add the Hello World Function to index.js.
 
 ```javascript
-import React, { useState } from "react"
- 
+import React, { useState } from 'react'
+
 const IndexPage = () => {
-  const [functionMessage, setFunctionMessage] = useState("")
+  const [functionMessage, setFunctionMessage] = useState('')
   const callHelloFunction = () => {
-    setFunctionMessage("loading …")
-    fetch("/.netlify/functions/hello")
-    .then(response => response.json())
-    .then(data => setFunctionMessage(data.msg))
+    setFunctionMessage('loading …')
+    fetch('/.netlify/functions/hello')
+      .then((response) => response.json())
+      .then((data) => setFunctionMessage(data.msg))
   }
   return (
     <div>
       <h1>Netlify Function.</h1>
-      <button type="button" onClick={callHelloFunction}>
+      <button type='button' onClick={callHelloFunction}>
         Run Hello Function
       </button>
       <p>Result: {functionMessage}</p>
-      <button type="button" onClick={callUsersFunction}>
+      <button type='button' onClick={callUsersFunction}>
         Run Users Function
       </button>
       <Users users={users} />
     </div>
   )
 }
- 
+
 export default IndexPage
 ```
 
@@ -142,15 +147,15 @@ That was great, now let’s try something more interesting. Let’s use the Rand
 Create a new Function in **/src/function/users.js**.
 
 ```javascript
-import fetch from "node-fetch"
- 
+import fetch from 'node-fetch'
+
 exports.handler = async function(event, context) {
   const headers = {
-    Accept: "application/jsonhtml",
+    Accept: 'application/jsonhtml',
   }
- 
+
   try {
-    const response = await fetch("https://randomuser.me/api/?results=3", {
+    const response = await fetch('https://randomuser.me/api/?results=3', {
       headers,
     })
     if (!response.ok) {
@@ -174,15 +179,15 @@ exports.handler = async function(event, context) {
 Now we edit **/src/pages/index.js** to call and show the results from the Function.
 
 ```javascript
-import React, { useState } from "react"
- 
+import React, { useState } from 'react'
+
 const Users = ({ users }) => {
   const hasUsers = users && users.length > 0
   if (hasUsers) {
-    const userRows = users.map(user => (
+    const userRows = users.map((user) => (
       <tr>
         <td>
-          <img src={user.picture.thumbnail} alt="thumbnail" />
+          <img src={user.picture.thumbnail} alt='thumbnail' />
         </td>
         <td>{user.name.first}</td>
         <td>{user.name.last}</td>
@@ -202,35 +207,35 @@ const Users = ({ users }) => {
   return <div>Lookup users</div>
 }
 const IndexPage = () => {
-  const [functionMessage, setFunctionMessage] = useState("")
+  const [functionMessage, setFunctionMessage] = useState('')
   const callHelloFunction = () => {
-    setFunctionMessage("loading ...")
-    fetch("/.netlify/functions/hello")
-      .then(response => response.json())
-      .then(data => setFunctionMessage(data.msg))
+    setFunctionMessage('loading ...')
+    fetch('/.netlify/functions/hello')
+      .then((response) => response.json())
+      .then((data) => setFunctionMessage(data.msg))
   }
   const [users, setUsers] = useState([])
   const callUsersFunction = () => {
     setUsers([])
-    fetch("/.netlify/functions/users")
-      .then(response => response.json())
-      .then(data => setUsers(data.results))
+    fetch('/.netlify/functions/users')
+      .then((response) => response.json())
+      .then((data) => setUsers(data.results))
   }
   return (
     <div>
       <h1>Netlify Function.</h1>
-      <button type="button" onClick={callHelloFunction}>
+      <button type='button' onClick={callHelloFunction}>
         Run Hello Function
       </button>
       <p>Result: {functionMessage}</p>
-      <button type="button" onClick={callUsersFunction}>
+      <button type='button' onClick={callUsersFunction}>
         Run Users Function
       </button>
       <Users users={users} />
     </div>
   )
 }
- 
+
 export default IndexPage
 ```
 

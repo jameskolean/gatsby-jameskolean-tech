@@ -3,14 +3,16 @@ template: BlogPost
 date: 2020-04-03T13:46:18.634Z
 title: Netlify Redirects
 thumbnail: /assets/detour-unsplash.jpg
+source: https://github.com/jameskolean/gatsby-netlify-redirects
 ---
+
 Netlify allows redirects at the edge. There is an example Gatsby project[ here](https://github.com/jameskolean/gatsby-netlify-redirects).
 
 You basically have two options, the first is the simplest and the second allows for complex rules:
 
 ### Use `_redirects`
 
-This requires a file called _redirects in the static folder. Then just add your redirects redirects. See Netlify docs [here](https://docs.netlify.com/routing/redirects/#syntax-for-the-redirects-file)
+This requires a file called \_redirects in the static folder. Then just add your redirects redirects. See Netlify docs [here](https://docs.netlify.com/routing/redirects/#syntax-for-the-redirects-file)
 
 #### Example
 
@@ -28,7 +30,7 @@ This requires a file called **netlify.toml** in the project root. In this file y
   from = "/no-where/*"
   to = "/welcome-to-the-blog"
   conditions = {Language = ["en"], Country = ["US"]}
- 
+
 [[redirects]]
   from = "/no-where/*"
   to = "/hello-world"

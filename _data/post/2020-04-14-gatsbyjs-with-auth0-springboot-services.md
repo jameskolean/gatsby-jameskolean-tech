@@ -3,6 +3,7 @@ template: BlogPost
 date: 2019-09-19T14:53:04.213Z
 title: GatsbyJS with Auth0 Springboot services
 thumbnail: /assets/lock-unsplash.jpg
+source: https://gitlab.com/jameskolean/gatsbyjs-auth0-springboot/tree/master
 ---
 
 The GatsbyJS part could not be simpler. Let’s use Axios which is a pleasure to work with but we will also use hooks to make it a thing of beauty. You will need to reference [GatsbyJS Authentication with Auth0](https://rapidfifth.home.blog/2019/08/27/gatsbyjs-authentication-with-auth0/) for details on setting up authentication in a sample project. The source for this blog is [here](https://gitlab.com/jameskolean/gatsbyjs-auth0-springboot/tree/master).

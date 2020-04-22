@@ -3,7 +3,9 @@ template: BlogPost
 date: 2020-04-09T18:35:03.465Z
 title: Protect Static Resources => Lambda@Edge + AWS S3 + Gatsby
 thumbnail: /assets/cloud-sunray-unsplash.jpg
+source: https://gitlab.com/jameskolean/gatsby-cloudflare-gated
 ---
+
 Source:[https://gitlab.com/jameskolean/gatsby-lambda-edge](https://gitlab.com/jameskolean/gatsby-cloudflare-gated)
 
 ## Create a Gatsby starter app.
@@ -164,21 +166,21 @@ exports.handler = function(event, context, callback) {
     'cache-control': [
       {
         key: 'Cache-Control',
-        value: 'no-cache'
-      }
+        value: 'no-cache',
+      },
     ],
     pragma: [
       {
         key: 'Pragma',
-        value: 'no-cache'
-      }
+        value: 'no-cache',
+      },
     ],
     'content-type': [
       {
         key: 'Content-Type',
-        value: 'text/html'
-      }
-    ]
+        value: 'text/html',
+      },
+    ],
   }
   if (request.uri.startsWith('/protected-page') === true) {
     console.log('protected area')
@@ -187,7 +189,7 @@ exports.handler = function(event, context, callback) {
       statusDescription: 'OK',
       headers: noCacheHeaders,
       body: '',
-      bodyEncoding: 'base64'
+      bodyEncoding: 'base64',
     }
     callback(null, response)
     return

@@ -3,7 +3,9 @@ template: BlogPost
 date: 2019-09-09T15:02:01.973Z
 title: Grafana and Prometheus with Spring Boot
 thumbnail: /assets/fire-unsplash.jpg
+source: https://gitlab.com/jameskolean/dashboard-demo/tree/master
 ---
+
 I’m not sure how I feel about this combination. I had high hopes but it’s been frustrating to get working. I guess if I had the time it would be useful to create a slick dashboard and alerts against Spring Actuator parameters.
 
 Let’s get started building a working example. The source code is [here](https://gitlab.com/jameskolean/dashboard-demo/tree/master).
@@ -17,25 +19,25 @@ Replace the DashboardDemoApplication class with MovieServiceApplication. This is
 @RestController
 @RequestMapping("/movies")
 public class MovieServiceApplication {
- 
+
     public static void main(final String[] args) {
         SpringApplication.run(MovieServiceApplication.class, args);
     }
- 
+
     private final List<Movie> movieList = Arrays.asList(
             Movie.builder().id(1L).title("Watchmen").director("Zack Snyder").build(),
             Movie.builder().id(2L).title("The Color of Magic").director("Vadim Jean").build());
- 
+
     @GetMapping("")
     public List<Movie> findAllBooks() {
         return movieList;
     }
- 
+
     @GetMapping("/{movieId}")
     public Movie findBook(@PathVariable final Long movieId) {
         return movieList.stream().filter(b -> b.getId().equals(movieId)).findFirst().orElse(null);
     }
- 
+
 }
 ```
 

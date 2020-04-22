@@ -2,8 +2,10 @@
 template: BlogPost
 date: 2019-11-02T14:03:59.971Z
 title: SpringBoot and Kafka
-thumbnail: /assets/people-queue-unsplash .jpg
+thumbnail: /assets/people-queue-unsplash.jpg
+source: https://gitlab.com/jameskolean/springboot-kafka
 ---
+
 This is a simple tutorial to show how easy it is to get Spring Boot connected to Kafka. The source code can be found [here](https://gitlab.com/jameskolean/springboot-kafka).
 
 Let’s start by getting Kafka running using a docker container. I’ll assume you have Docker installed. Create file docker-compose.yml with this content.
@@ -27,7 +29,7 @@ In the terminal run these command to start ZooKeeper and Kafka. The last starts 
 ```shell
 docker-compose up -d
 docker ps
-kafka-console-producer --broker-list localhost:9092 --topic test  
+kafka-console-producer --broker-list localhost:9092 --topic test
 ```
 
 To view the messages open a new terminal and run this command.
@@ -45,14 +47,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
- 
+
 import com.codegreenllc.kafka.services.Producer;
- 
+
 @RestController
 public class KafkaController {
     @Autowired
     private Producer producer;
- 
+
     @PostMapping(value = "/kafka/publish")
     public void sendMessageToKafkaTopic(@RequestParam("message") final String message) {
         producer.sendMessage(message);
@@ -63,20 +65,20 @@ public class KafkaController {
 Now create the Publish and Consume services.
 
 ```java
- 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
- 
+
 import lombok.extern.slf4j.Slf4j;
- 
+
 @Slf4j
 @Service
 public class Producer {
     private static final String TOPIC = "test";
     @Autowired
     private KafkaTemplate<String, String> kafkaTemplate;
- 
+
     public void sendMessage(final String message) {
         log.info(String.format("$$ -> Producing message --> %s", message));
         kafkaTemplate.send(TOPIC, message);
@@ -86,12 +88,12 @@ public class Producer {
 
 ```java
 package com.codegreenllc.kafka.services;
- 
+
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
- 
+
 import lombok.extern.slf4j.Slf4j;
- 
+
 @Slf4j
 @Service
 public class Consumer {
