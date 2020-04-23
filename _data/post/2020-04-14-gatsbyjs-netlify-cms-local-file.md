@@ -19,7 +19,7 @@ Let’s get started by creating a started App from the [Netlify CMS](https://www
 First we need to install the[ netlify-cms-backend-fs](https://www.npmjs.com/package/netlify-cms-backend-fs) module which is the key to getting our desired functionality.
 
 ```shell
-arn add netlify-cms-backend-fs
+yarn add netlify-cms-backend-fs
 ```
 
 Now edit gatsby-config.js to use out plugin. At the top of the file add:

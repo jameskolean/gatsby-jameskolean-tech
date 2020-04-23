@@ -14,7 +14,16 @@ collections:
       - { label: Template, name: template, widget: hidden, default: BlogPost }
       - { name: date, label: Date, widget: datetime }
       - { name: title, label: Title }
-      - { name: source, label: Source }
+      - { name: source, label: Source, required: false }
+      - label: 'Tags'
+        name: 'tags'
+        widget: 'relation'
+        collection: 'tags'
+        displayFields: ['title']
+        searchFields: ['title']
+        valueField: 'title'
+        multiple: true
+        required: false
       - label: Featured Image
         name: thumbnail
         widget: image
@@ -24,6 +33,13 @@ collections:
           config:
             multiple: false
       - { name: body, label: Body, widget: markdown }
+  - label: Tag
+    name: tag
+    folder: _data/tags
+    slug: '{{slug}}'
+    create: true
+    fields:
+      - { label: Title, name: title, widget: string }
   - label: Todo Page
     name: todoPage
     folder: _data/pages/todo
