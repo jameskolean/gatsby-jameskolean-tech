@@ -14,7 +14,8 @@ export const PostCard = ({ post }) => (
   <motion.article
     className='card '
     whileHover={{
-      scale: 1.02,
+      translateX: [-4, 0],
+      translateY: [-4, 0],
     }}
     layoutId={post.fields.slug}
   >

@@ -1,3 +1,4 @@
+/* eslint jsx-a11y/label-has-associated-control: 0 */
 import React, { useState } from 'react'
 import Helmet from 'react-helmet'
 import { AnimateSharedLayout } from 'framer-motion'
@@ -42,7 +43,7 @@ const PostsPage = ({ data: { site, allPosts, allTags } }) => {
         <html lang='en' />
       </Helmet>
       <div className='post-filter'>
-        <div>Tag Filter:</div>
+        <label for='react-select-2-input'>Tag Filter:</label>
         <div className='filter-input'>
           <Select
             options={options}
