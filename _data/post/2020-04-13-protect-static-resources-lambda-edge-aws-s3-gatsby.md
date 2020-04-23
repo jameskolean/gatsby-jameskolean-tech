@@ -2,8 +2,12 @@
 template: BlogPost
 date: 2020-04-09T18:35:03.465Z
 title: Protect Static Resources => Lambda@Edge + AWS S3 + Gatsby
-thumbnail: /assets/cloud-sunray-unsplash.jpg
 source: https://gitlab.com/jameskolean/gatsby-cloudflare-gated
+tags:
+  - AWS
+  - React
+  - Gatsby
+thumbnail: /assets/cloud-sunray-unsplash.jpg
 ---
 
 Source:[https://gitlab.com/jameskolean/gatsby-lambda-edge](https://gitlab.com/jameskolean/gatsby-cloudflare-gated)
