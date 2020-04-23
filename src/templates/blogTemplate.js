@@ -20,12 +20,12 @@ export default function Template({
   data, // this prop will be injected by the GraphQL query below.
 }) {
   const { markdownRemark } = data // data.markdownRemark holds your post data
-  const { frontmatter, html } = markdownRemark
+  const { excerpt, frontmatter, html } = markdownRemark
   return (
     <Layout>
       <Helmet>
         <title>{frontmatter.title}</title>
-        {/* <meta name="description" content={frontmatter.metaDescription} /> */}
+        <meta name='description' content={excerpt} />
         <html lang='en' />
       </Helmet>
       <div className='blog-post-container'>
@@ -62,6 +62,7 @@ export const pageQuery = graphql`
   query($path: String!) {
     markdownRemark(fields: { slug: { eq: $path } }) {
       html
+      excerpt(pruneLength: 200)
       frontmatter {
         date(formatString: "MMMM DD, YYYY")
         title

@@ -21,9 +21,7 @@ const PostsPage = ({ data: { site, allPosts, allTags } }) => {
   }
   const [filtedPosts, setFiltedPosts] = useState(posts)
   const filterChanged = (e) => {
-    console.log('event', e)
     if (!e || e.length === 0) {
-      console.log('resetting')
       setFiltedPosts(posts)
       return
     }
