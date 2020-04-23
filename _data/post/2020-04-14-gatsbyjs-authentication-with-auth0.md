@@ -3,6 +3,9 @@ template: BlogPost
 date: 2019-08-27T15:40:56.186Z
 title: GatsbyJS Authentication with Auth0
 thumbnail: /assets/desk-unsplash.jpg
+tags:
+  - Gatsby
+  - Authentication & Authorization
 source: https://gitlab.com/jameskolean/nohingo/-/tags/Auth0
 ---
 

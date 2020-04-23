@@ -3,6 +3,10 @@ template: BlogPost
 date: 2019-08-28T15:36:06.755Z
 title: Getting Content from Contentful for Gatsby
 thumbnail: /assets/winter-orange-pines-unsplash.jpg
+tags:
+  - Gatsby
+  - Headless CMS
+  - GraphQL
 source: https://gitlab.com/jameskolean/nohingo/-/tags/Contentful
 ---
 

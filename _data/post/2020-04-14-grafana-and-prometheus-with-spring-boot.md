@@ -3,6 +3,10 @@ template: BlogPost
 date: 2019-09-09T15:02:01.973Z
 title: Grafana and Prometheus with Spring Boot
 thumbnail: /assets/fire-unsplash.jpg
+tags:
+  - Java
+  - Spring Boot
+  - Microservice
 source: https://gitlab.com/jameskolean/dashboard-demo/tree/master
 ---
 

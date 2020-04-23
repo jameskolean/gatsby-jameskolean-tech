@@ -3,6 +3,9 @@ template: BlogPost
 date: 2019-11-02T14:03:59.971Z
 title: SpringBoot and Kafka
 thumbnail: /assets/people-queue-unsplash.jpg
+tags:
+  - Java
+  - Spring Boot
 source: https://gitlab.com/jameskolean/springboot-kafka
 ---
 

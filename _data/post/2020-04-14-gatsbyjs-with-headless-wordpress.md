@@ -3,6 +3,10 @@ template: BlogPost
 date: 2019-11-01T14:14:26.722Z
 title: GatsbyJS with Headless WordPress
 thumbnail: /assets/wordpress-tshirt-unsplash.jpg
+tags:
+  - Gatsby
+  - Headless CMS
+  - GraphQL
 source: https://gitlab.com/jameskolean/gatsby-wordpress
 ---
 

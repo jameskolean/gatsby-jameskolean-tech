@@ -3,6 +3,9 @@ template: BlogPost
 date: 2020-04-03T13:46:18.634Z
 title: Netlify Redirects
 thumbnail: /assets/detour-unsplash.jpg
+tags:
+  - Netlify
+  - Dev Ops
 source: https://github.com/jameskolean/gatsby-netlify-redirects
 ---
 

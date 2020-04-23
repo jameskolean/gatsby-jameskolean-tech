@@ -3,6 +3,9 @@ template: BlogPost
 date: 2019-11-06T14:55:52.705Z
 title: SpringBoot and Kafka Streams and Bindings
 thumbnail: /assets/blur-stream-unsplash.jpg
+tags:
+  - Java
+  - Spring Boot
 source: https://gitlab.com/jameskolean/springboot-kafka/tree/Streams
 ---
 

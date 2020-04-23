@@ -2,6 +2,9 @@
 template: BlogPost
 date: 2020-04-17T13:59:29.555Z
 title: 'Framer Motion: Animation Clean and Simple'
+tags:
+  - Gatsby
+  - React
 thumbnail: /assets/ferriswheel-unsplash.jpg
 ---
 

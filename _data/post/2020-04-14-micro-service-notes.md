@@ -3,6 +3,10 @@ template: BlogPost
 date: 2019-09-04T15:09:43.336Z
 title: Micro-service notes
 thumbnail: /assets/sticky-note-square-unsplash.jpg
+tags:
+  - Java
+  - Spring Boot
+  - Microservice
 source: https://gitlab.com/jameskolean/spring-cloud-demo/tree/master
 ---
 

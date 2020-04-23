@@ -3,6 +3,9 @@ template: BlogPost
 date: 2020-04-16T15:43:12.724Z
 title: SpringBoot + MongoBD + REST + GraphQL
 thumbnail: /assets/space-walk-unsplash.jpg
+tags:
+  - Java
+  - Spring Boot
 source: https://gitlab.com/jameskolean/mongo-services/-/tree/master
 ---
 

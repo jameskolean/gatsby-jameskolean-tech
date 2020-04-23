@@ -2,6 +2,9 @@
 template: BlogPost
 date: 2019-11-01T14:11:56.715Z
 title: GatsbyJS and Shopify
+tags:
+  - Gatsby
+  - E-Commerce
 thumbnail: /assets/shop-open-unsplash.jpg
 ---
 

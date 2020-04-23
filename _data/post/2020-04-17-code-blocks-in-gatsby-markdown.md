@@ -2,6 +2,8 @@
 template: BlogPost
 date: 2020-04-17T15:04:22.229Z
 title: Code Blocks in Gatsby Markdown
+tags:
+  - Gatsby
 thumbnail: /assets/alphabet-blocks-unsplash.jpg
 ---
 

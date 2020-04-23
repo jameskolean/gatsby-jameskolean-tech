@@ -3,6 +3,9 @@ template: BlogPost
 date: 2020-04-07T13:02:08.662Z
 title: Easy Lambda with Gatsby and Netlify Functions
 thumbnail: /assets/cat-nap-unsplash.jpg
+tags:
+  - Gatsby
+  - Netlify
 source: https://gitlab.com/jameskolean/gatsby-netlify-function/-/tree/master
 ---
 

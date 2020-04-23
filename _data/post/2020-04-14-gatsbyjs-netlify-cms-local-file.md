@@ -3,6 +3,10 @@ template: BlogPost
 date: 2019-09-23T14:47:28.786Z
 title: GatsbyJS + Netlify CMS + Local File
 thumbnail: /assets/code-on-screen-unsplash.jpg
+tags:
+  - Gatsby
+  - Netlify
+  - Headless CMS
 source: https://github.com/jameskolean/local-netlify-cms
 ---
 

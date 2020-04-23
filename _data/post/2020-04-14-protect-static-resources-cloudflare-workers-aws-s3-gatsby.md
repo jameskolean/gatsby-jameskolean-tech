@@ -3,6 +3,10 @@ template: BlogPost
 date: 2020-04-08T12:36:44.093Z
 title: Protect Static Resources => Cloudflare Workers + AWS S3 + Gatsby
 thumbnail: /assets/touch-sun-unsplash.jpg
+tags:
+  - AWS
+  - Gatsby
+  - Dev Ops
 source: https://gitlab.com/jameskolean/gatsby-cloudflare-gated
 ---
 

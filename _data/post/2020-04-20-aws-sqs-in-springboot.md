@@ -3,6 +3,9 @@ template: BlogPost
 date: 2020-04-20T18:59:29.555Z
 title: 'AWS SQS in SpringBoot'
 thumbnail: /assets/people-stairs-unsplash.jpg
+tags:
+  - Java
+  - Spring Boot
 source: https://gitlab.com/jameskolean/aws-sqs
 ---
 
