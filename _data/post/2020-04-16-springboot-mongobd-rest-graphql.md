@@ -6,6 +6,8 @@ thumbnail: /assets/space-walk-unsplash.jpg
 tags:
   - Java
   - Spring Boot
+  - REST
+  - GraphQL
 source: https://gitlab.com/jameskolean/mongo-services/-/tree/master
 ---
 

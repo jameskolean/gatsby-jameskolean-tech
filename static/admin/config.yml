@@ -39,6 +39,7 @@ collections:
     slug: '{{slug}}'
     create: true
     fields:
+      - { label: Template, name: template, widget: hidden, default: Tag }
       - { label: Title, name: title, widget: string }
   - label: Todo Page
     name: todoPage

@@ -6,6 +6,7 @@ thumbnail: /assets/people-stairs-unsplash.jpg
 tags:
   - Java
   - Spring Boot
+  - AWS
 source: https://gitlab.com/jameskolean/aws-sqs
 ---
 

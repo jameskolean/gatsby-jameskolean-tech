@@ -4,6 +4,7 @@ date: 2020-04-20T13:59:29.555Z
 title: 'Flare Animation in Gatsby'
 tags:
   - Tools
+  - Gatsby
 thumbnail: /assets/blue-dots-unsplash.jpg
 ---
 

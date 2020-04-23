@@ -1,4 +1,4 @@
 ---
 template: Tag
-title: Headless CMS
+title: REST
 ---

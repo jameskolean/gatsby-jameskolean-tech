@@ -5,7 +5,7 @@
   "version": "0.1.0",
   "license": "MIT",
   "dependencies": {
-    "framer-motion": "^1.10.3",
+    "framer-motion": "^2.0.0-beta.55",
     "gatsby": "^2.19.7",
     "gatsby-background-image": "^1.1.1",
     "gatsby-image": "^2.3.2",
@@ -32,7 +32,8 @@
     "react-cookie-consent": "^3.0.0",
     "react-dom": "^16.12.0",
     "react-ga": "^2.7.0",
-    "react-helmet": "^5.2.1"
+    "react-helmet": "^5.2.1",
+    "react-select": "^3.1.0"
   },
   "devDependencies": {
     "gatsby-remark-code-buttons": "^2.0.4",

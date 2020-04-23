@@ -16,6 +16,7 @@ export const PostCard = ({ post }) => (
     whileHover={{
       scale: 1.02,
     }}
+    layoutId={post.fields.slug}
   >
     <Link to={post.fields.slug}>
       {!!post.frontmatter.thumbnail && (
@@ -33,6 +34,9 @@ export const PostCard = ({ post }) => (
       </h2>
       <div className='post-meta'>{post.frontmatter.date}</div>
       <div className='post-excerpt'>{post.excerpt}</div>
+      <div className='post-meta'>
+        {post.frontmatter.tags && `Tags: ${post.frontmatter.tags.join(', ')}`}
+      </div>
     </header>
   </motion.article>
 )

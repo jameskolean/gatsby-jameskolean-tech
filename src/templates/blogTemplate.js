@@ -3,15 +3,16 @@ import Helmet from 'react-helmet'
 import { graphql } from 'gatsby'
 import Layout from '../components/layout'
 
-const SourceLink = ({ source }) => (
+const PostMeta = ({ source, tags }) => (
   <>
-    {source && (
-      <div className='post-source'>
+    <div className='post-meta'>
+      {tags && <div>Tags: {tags.join(', ')}</div>}
+      {source && (
         <a href={source} target='_blank' rel='noopener noreferrer'>
           Link to Source Code Repository &rarr;
         </a>
-      </div>
-    )}
+      )}
+    </div>
   </>
 )
 
@@ -33,7 +34,6 @@ export default function Template({
             <div className='post-thumbnail'>
               <h1 className='post-title'>{frontmatter.title}</h1>
               <div className='post-meta'>{frontmatter.date}</div>
-              <SourceLink source={frontmatter.source} />
             </div>
           )}
           {!!frontmatter.thumbnail && (
@@ -45,9 +45,9 @@ export default function Template({
             >
               <h1 className='post-title'>{frontmatter.title}</h1>
               <div className='post-meta'>{frontmatter.date}</div>
-              <SourceLink source={frontmatter.source} />
             </div>
           )}
+          <PostMeta source={frontmatter.source} tags={frontmatter.tags} />
           <div
             className='blog-post-content'
             dangerouslySetInnerHTML={{ __html: html }}
@@ -66,6 +66,7 @@ export const pageQuery = graphql`
         date(formatString: "MMMM DD, YYYY")
         title
         source
+        tags
         thumbnail {
           childImageSharp {
             fixed(width: 980) {

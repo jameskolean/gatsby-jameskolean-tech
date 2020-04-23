@@ -1,3 +1,4 @@
 ---
+template: Tag
 title: Gatsby
 ---
