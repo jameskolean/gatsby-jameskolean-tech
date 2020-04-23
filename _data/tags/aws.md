@@ -1,4 +1,3 @@
 ---
-tilte: AWS
 title: AWS
 ---
