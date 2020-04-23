@@ -12,9 +12,9 @@ const PostsPage = ({ data: { site, allPosts, allTags } }) => {
     value: n.frontmatter.title,
     label: n.frontmatter.title,
   }))
-  const intersects = (array1, array2) => {
+  const containsAll = (array1, array2) => {
     if (array1 && array2 && array1.length > 0 && array2.length > 0) {
-      return array1.filter((value) => array2.includes(value)).length > 0
+      return array2.every((value) => array1.includes(value))
     }
     return false
   }
@@ -29,7 +29,7 @@ const PostsPage = ({ data: { site, allPosts, allTags } }) => {
     const filterTags = e.map(({ value }) => value)
     const filtered = posts.filter((post) => {
       return (
-        post.frontmatter.tags && intersects(post.frontmatter.tags, filterTags)
+        post.frontmatter.tags && containsAll(post.frontmatter.tags, filterTags)
       )
     })
     setFiltedPosts(filtered)
