@@ -1,37 +1,202 @@
 ---
 template: BlogPost
-date: 2020-04-20T13:59:29.555Z
-title: 'Flare Animation in Gatsby'
+date: 2020-04-24T13:59:29.555Z
+title: 'Prisma vs Hasura vs PostGraphile'
 tags:
-  - Tools
-  - Gatsby
-thumbnail: /assets/blue-dots-unsplash.jpg
+  - GrapgQL
+  - React
+source: https://gitlab.com/jameskolean/database-to-graphql/-/tree/master
+thumbnail: /assets/black-white-graph-unsplash.jpg
 ---
 
-Rive offers a tool called Flare for building vector designs and animations. Check out their news release [news release](https://medium.com/rive/flare-launch-d524067d34d8).
+### Getting Started
 
-## Usage
+## Install Postgres
 
-- Export you animation as an **_\*.flr_** file.
-- Place the file in the static folder
-- Add the react-flare dependency \
-  `npm install flare-react`
-- Add your annimation to a page
+Download Postgres here https://www.postgresql.org/download/ and install the application. Make sure you create a server using the button in the lower-left of the Postgres window and start it. Note that you will need to update \$PATH to use the command line tools. This command will take care of that for you.
+
+```shell
+sudo mkdir -p /etc/paths.d && echo /Applications/Postgres.app/Contents/Versions/latest/bin | sudo tee /etc/paths.d/postgresapp
+```
+
+Now we can create a Database to test.
+
+```shell
+createdb mydb
+```
+
+Let's make sure `mydb` exists using the command line tools.
+
+```shell
+psql "postgres:///"
+\c mydb
+select 1 + 1 as two;
+quit
+```
+
+It would be great to have a UI to interact with our new database, so let's install PGAdmin. You can download it here https://www.postgresql.org/ftp/pgadmin/. There are no credentials for our database, so lease them empty.
+
+Use PGAdmin to create the following tables:
+User
+Fields
+id type serial as a primary key
+name type varying character
+address type integer
+Foreign Keys
+fk_address points 'User.address' to 'Address.id'
+Group
+Fields
+id type serial as a primary key
+name type varying character
+Address
+Fields
+id type serial as a primary key
+street type varying character
+Foreign Keys
+fk_address points 'User.address' to 'Address.id'
+User_Group
+Fields
+id type serial as a primary key
+user type integer
+group type integer
+Foreign Keys
+fk_user points 'User_Group.user' to 'User.id'
+fk_grouyp points 'User_Group.group' to 'Group.id'
+
+```sql
+CREATE SEQUENCE address_id_seq;
+CREATE TABLE public."Address"
+(
+    street character varying COLLATE pg_catalog."default" NOT NULL,
+    id integer NOT NULL DEFAULT nextval('address_id_seq'),
+    CONSTRAINT "address_pkey" PRIMARY KEY (id)
+);
+CREATE SEQUENCE user_id_seq;
+CREATE TABLE public."User"
+(
+    id integer NOT NULL DEFAULT nextval('user_id_seq'),
+    name character varying COLLATE pg_catalog."default",
+    CONSTRAINT "user_pkey" PRIMARY KEY (id),
+    CONSTRAINT "fkAddress" FOREIGN KEY (address)
+        REFERENCES public."Address" (id)
+);
+CREATE SEQUENCE group_id_seq;
+CREATE TABLE public."Group"
+(
+    id integer NOT NULL DEFAULT nextval('group_id_seq'),
+    name character varying COLLATE pg_catalog."default",
+    address integer,
+    CONSTRAINT "group_pkey" PRIMARY KEY (id)
+);
+CREATE SEQUENCE user_group_id_seq;
+CREATE TABLE public.User_Group
+(
+    id integer NOT NULL DEFAULT nextval('user_group_id_seq'),
+    "group" integer NOT NULL,
+    "user" integer NOT NULL,
+    CONSTRAINT user_group_pkey PRIMARY KEY (id),
+    CONSTRAINT fkgroup FOREIGN KEY ("group")
+        REFERENCES public."Group" (id),
+    CONSTRAINT fkuser FOREIGN KEY ("user")
+        REFERENCES public."User" (id)
+);
+INSERT INTO public."Address"(street) VALUES ('1600 Pennsylvania Ave');
+INSERT INTO public."Address"(street) VALUES ('4 Privet Drive');
+INSERT INTO public."User"(name, address) VALUES ('Don',1);
+INSERT INTO public."User"(name, address) VALUES ('Harry',2);
+INSERT INTO public."Group"(name) VALUES ('Wizard');
+INSERT INTO public."Group"(name) VALUES ('User');
+INSERT INTO public."User_Group"(user, group) VALUES (1,2);
+INSERT INTO public."User_Group"(user, group) VALUES (2,1);
+INSERT INTO public."User_Group"(user, group) VALUES (2,2);
+```
+
+### PostGraphile
+
+Make sure you completed the 'Getting Started' section. At this point we have;
+
+- Postgres installed.
+- PGAdmin installed.
+- A database called 'mydb.'
+- Tables called User, Group, Address, and User_Group.
+
+We can now create a NodeJS app to run PostGraphile. Let's create an Express application for this.
+
+```shell
+mkdir postgraphile
+cd postgraphile
+npx express-generator
+npm install
+yarn add postgraphile @graphile-contrib/pg-many-to-many
+npx postgraphile --append-plugins @graphile-contrib/pg-many-to-many
+```
+
+Now edit app.js
 
 ```javascript
-import React from 'react'
-import FlareComponent from 'flare-react'
-
-const IndexPage = () => {
-  return (
-    <FlareComponent
-      width={200}
-      height={200}
-      animationName='open'
-      file='sample.flr'
-    />
+const { postgraphile } = require('postgraphile')
+const PgManyToManyPlugin = require('@graphile-contrib/pg-many-to-many')
+...
+app.use(
+  postgraphile(
+    process.env.DATABASE_URL || 'postgres://localhost:5432/mydb',
+    'public',
+    {
+      appendPlugins: [PgManyToManyPlugin],
+      watchPg: true,
+      graphiql: true,
+      enhanceGraphiql: true,
+    }
   )
-}
-
-export default IndexPage
+)
+...
 ```
+
+Start the Express
+
+```shell
+npm start
+```
+
+Open a browser to http://localhost:3000/graphiql
+
+### Subscriptions
+
+Subscriptions don't come for free, and the setup is more than I want to dig into at this time. However, This will demonstrate that it is possible.
+
+```shell
+yarn add @graphile/pg-pubsub
+npx postgraphile \
+ --plugins @graphile/pg-pubsub \
+ --subscriptions \
+ --simple-subscriptions \
+ -c mydb
+```
+
+Open a browser to http://localhost:5000/graphiql and Subscription query like this:
+
+```json
+subscription MySubscription {
+  listen(topic: "hello") {
+    query {
+      nodeId
+      allGroups {
+        nodes {
+          name
+          id
+        }
+      }
+    }
+  }
+}
+```
+
+Now we can trigger the update using a Postgres command. First, enter the command console with `postgres:///,` running this will trigger The Group with id 1 to be updated.
+
+```sql
+mydb=# select pg_notify(
+	'postgraphile:hello',
+	json_build_object('__node__', json_build_array('User', 1))::text                                                                              );
+```
+
+Go ahead and change the row and rerun the trigger.
