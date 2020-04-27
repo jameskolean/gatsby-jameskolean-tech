@@ -1,17 +1,16 @@
 ---
 template: BlogPost
 date: 2020-04-24T13:59:29.555Z
-title: 'PostGraphile vs Hasura vs Prisma'
+title: PostGraphile vs Hasura vs Prisma
+source: 'https://gitlab.com/jameskolean/database-to-graphql/-/tree/master'
 tags:
   - GrapgQL
   - React
-source: https://gitlab.com/jameskolean/database-to-graphql/-/tree/master
 thumbnail: /assets/black-white-graph-unsplash.jpg
 ---
-
 # Install Postgres
 
-Download Postgres here https://www.postgresql.org/download/ and install the application. Make sure you create a server using the button in the lower-left of the Postgres window and start it. Note that you will need to update \$PATH to use the command line tools. This command will take care of that for you.
+Download Postgres here https://www.postgresql.org/download/ and install the application. Make sure you create a server using the button in the lower-left of the Postgres window and start it. Note that you will need to update $PATH to use the command line tools. This command will take care of that for you.
 
 ```shell
 sudo mkdir -p /etc/paths.d && echo /Applications/Postgres.app/Contents/Versions/latest/bin | sudo tee /etc/paths.d/postgresapp
@@ -34,8 +33,7 @@ quit
 
 It would be great to have a UI to interact with our new database, so let's install PGAdmin. You can download it here https://www.postgresql.org/ftp/pgadmin/. There are no credentials for our database, so lease them empty.
 
-Use PGAdmin to create the following tables:
-User
+Use PGAdmin to create the following tables: User
 Fields
 id type serial as a primary key
 name type varying character
@@ -115,10 +113,10 @@ Now you can jump to the PostGraphile or Hasura section.
 
 Make sure you completed the 'Getting Started' section. At this point we have;
 
-- Postgres installed.
-- PGAdmin installed.
-- A database called 'mydb.'
-- Tables called User, Group, Address, and User_Group.
+* Postgres installed.
+* PGAdmin installed.
+* A database called 'mydb.'
+* Tables called User, Group, Address, and User_Group.
 
 We can now create a NodeJS app to run PostGraphile. Let's create an Express application for this.
 
@@ -214,17 +212,15 @@ docker run -p 8080:8080 \
 
 Open a browser to http://localhost:8080/console and tell Harusa to start tracking the existing Tables and Foreign Keys.
 
-![Track Tables](/assets/prisma-hasura-postgraphile/hasura-track-tables.png)
-On the Data tab click button to add all tables
+![Track Tables](/assets/prisma-hasura-postgraphile/hasura-track-tables.png) On the Data tab click button to add all tables
 
-![Track Tables](/assets/prisma-hasura-postgraphile/hasura-track-relations.png)
-Now you will see the relationships to can track with Hasura, choose any you like, and test them out on the Query tab.
+![Track Tables](/assets/prisma-hasura-postgraphile/hasura-track-relations.png) Now you will see the relationships to can track with Hasura, choose any you like, and test them out on the Query tab.
 
 Subscription will also be working out-of-the-box.
 
 # Prisima
 
-Unlike the previous two examples that a targeted at being GraphQL servers, Prisma seems to be target more at something you add to your application. It manages the connection to the database and generates a client that your application uses.
+Unlike the previous two examples that a targeted at being GraphQL servers, Prisma seems to be target more at something you add to your application. It's probably better classified as an Object to Relational Mapping (ORM) tool. It manages the connection to the database and generates a client that your application uses. I think you need to add something like GraphQL Yoga to have something similar to the other two tools. 
 
 Let's run through a quick setup the follows the [tutorial](https://www.prisma.io/docs/getting-started/setup-prisma/add-to-existing-project-typescript-postgres)
 
@@ -234,7 +230,7 @@ npm install @prisma/cli --save-dev
 npx prisma init
 ```
 
-Edit the **_prisma/.env_** file to point to our database.
+Edit the ***prisma/.env*** file to point to our database.
 
 ```properties
 DATABASE_URL="postgres://postgres:@localhost:5432/mydb?schema=public"
@@ -246,7 +242,7 @@ npm install @prisma/client
 npx prisma generate
 ```
 
-Create an **_index.js_** file
+Create an ***index.js*** file
 
 ```javascript
 var { PrismaClient } = require('@prisma/client')
