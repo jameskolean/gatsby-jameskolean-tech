@@ -1,7 +1,7 @@
 ---
 template: BlogPost
 date: 2020-04-24T13:59:29.555Z
-title: 'Prisma vs Hasura vs PostGraphile'
+title: 'PostGraphile vs Hasura vs Prisma'
 tags:
   - GrapgQL
   - React
@@ -221,3 +221,55 @@ On the Data tab click button to add all tables
 Now you will see the relationships to can track with Hasura, choose any you like, and test them out on the Query tab.
 
 Subscription will also be working out-of-the-box.
+
+# Prisima
+
+Unlike the previous two examples that a targeted at being GraphQL servers, Prisma seems to be target more at something you add to your application. It manages the connection to the database and generates a client that your application uses.
+
+Let's run through a quick setup the follows the [tutorial](https://www.prisma.io/docs/getting-started/setup-prisma/add-to-existing-project-typescript-postgres)
+
+```shell
+npm init
+npm install @prisma/cli --save-dev
+npx prisma init
+```
+
+Edit the **_prisma/.env_** file to point to our database.
+
+```properties
+DATABASE_URL="postgres://postgres:@localhost:5432/mydb?schema=public"
+```
+
+```shell
+npx prisma introspect
+npm install @prisma/client
+npx prisma generate
+```
+
+Create an **_index.js_** file
+
+```javascript
+var { PrismaClient } = require('@prisma/client')
+const prisma = new PrismaClient()
+async function main() {
+  const allUsers = await prisma.user.findMany()
+  console.log(allUsers)
+}
+main()
+  .catch((e) => {
+    throw e
+  })
+  .finally(async () => {
+    await prisma.disconnect()
+  })
+```
+
+Run Node
+
+```shell
+node index.js
+```
+
+# Summary
+
+If I was going to start a project that needed a tool like this, Hasura would be the tool I would reach for first. It seems to have the 'sharp edges' taken off. The support for Subscriptions and Authorization make it seem like the pick to focus on first.
