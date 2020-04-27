@@ -9,9 +9,7 @@ source: https://gitlab.com/jameskolean/database-to-graphql/-/tree/master
 thumbnail: /assets/black-white-graph-unsplash.jpg
 ---
 
-### Getting Started
-
-## Install Postgres
+# Install Postgres
 
 Download Postgres here https://www.postgresql.org/download/ and install the application. Make sure you create a server using the button in the lower-left of the Postgres window and start it. Note that you will need to update \$PATH to use the command line tools. This command will take care of that for you.
 
@@ -111,7 +109,9 @@ INSERT INTO public."User_Group"(user, group) VALUES (2,1);
 INSERT INTO public."User_Group"(user, group) VALUES (2,2);
 ```
 
-### PostGraphile
+Now you can jump to the PostGraphile or Hasura section.
+
+# PostGraphile
 
 Make sure you completed the 'Getting Started' section. At this point we have;
 
@@ -200,3 +200,24 @@ mydb=# select pg_notify(
 ```
 
 Go ahead and change the row and rerun the trigger.
+
+# Hasura
+
+Hasura feels like a more polished version of PostGraphile, as we will see from the install. There are several ways we can get started; there is a 'one-button' deployment to Heroku that installs everything you need, including a Postgres database. Let's choose a docker install that uses the database we already created to get a better comparison. The following command will start Harusa on a Mac, for other Operating systems go [here](https://hasura.io/docs/1.0/graphql/manual/deployment/docker/index.html#step-1-get-the-docker-run-sh-bash-script)
+
+```shell
+docker run -p 8080:8080 \
+  -e HASURA_GRAPHQL_DATABASE_URL=postgres://postgres:@host.docker.internal:5432/mydb \
+  -e HASURA_GRAPHQL_ENABLE_CONSOLE=true \
+  hasura/graphql-engine:latest
+```
+
+Open a browser to http://localhost:8080/console and tell Harusa to start tracking the existing Tables and Foreign Keys.
+
+![Track Tables](/assets/prisma-hasura-postgraphile/hasura-track-tables.png)
+On the Data tab click button to add all tables
+
+![Track Tables](/assets/prisma-hasura-postgraphile/hasura-track-relations.png)
+Now you will see the relationships to can track with Hasura, choose any you like, and test them out on the Query tab.
+
+Subscription will also be working out-of-the-box.
