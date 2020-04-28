@@ -546,3 +546,19 @@ docker run -p 8080:8080 -t "jameskolean/config-consumer-app:0.0.1-SNAPSHOT"
 
 <p>&nbsp</p>
 Test it out at <a href="http://localhost:8080/message">http://localhost:8080/message</a>
+<p>&nbsp</p>
+
+# Secure our GitLab repository
+
+This can be done in three easy steps
+
+1. Change the ptoject to Private at Settings > General > Visibility
+2. Create a deploy token at Settings > Repository > Reploy Tokens
+3. Edit /src/main/resources/applicatio.properties
+
+```properties
+server.port=8888
+spring.cloud.config.server.git.uri=https://gitlab.com/jameskolean/springboot-config-demo-repo.git
+spring.cloud.config.server.git.username=gitlab+deploy-token-166598
+spring.cloud.config.server.git.password=YOUR-DEPLOY-TOKEN-PASSWORD
+```
