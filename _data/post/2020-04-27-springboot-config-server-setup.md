@@ -9,11 +9,6 @@ source: https://gitlab.com/jameskolean/springboot-config-server-demo/-/tree/mast
 thumbnail: /assets/connections-unsplash.jpg
 ---
 
-# Under construction
-
-Still building the example. Please check back later...
-Contents
-
 # Basic Setup
 
 The basic setup covers getting two servers up and running; the Configuration Server and the Configuration Consumer Application. We will get things up and running then iterate on the solution with additional features.
@@ -536,10 +531,12 @@ spring.cloud.config.uri=http://host.docker.internal:8888
 ```
 
 <p>&nbsp</p>
+Note: you can create another file called <b>src/main/resources/bootstrap-local.properties</b> with the uri pointing to localhost and run it with `mvn spring-boot:run -Dspring-boot.run.profiles=local`.
+
 Now build and run it.
 
 ```shell
-mvn -DskipTests package jib:build
+mvn package jib:build
 docker pull jameskolean/config-consumer-app:0.0.1-SNAPSHOT
 docker run -p 8080:8080 -t "jameskolean/config-consumer-app:0.0.1-SNAPSHOT"
 ```
@@ -554,7 +551,7 @@ This can be done in three easy steps
 
 1. Change the ptoject to Private at Settings > General > Visibility
 2. Create a deploy token at Settings > Repository > Reploy Tokens
-3. Edit /src/main/resources/applicatio.properties
+3. Edit /src/main/resources/application.properties
 
 ```properties
 server.port=8888
@@ -562,3 +559,187 @@ spring.cloud.config.server.git.uri=https://gitlab.com/jameskolean/springboot-con
 spring.cloud.config.server.git.username=gitlab+deploy-token-166598
 spring.cloud.config.server.git.password=YOUR-DEPLOY-TOKEN-PASSWORD
 ```
+
+<p>&nbsp</p>
+
+# Secure the Configuration Server
+
+There are two concerns when securing the server.
+Secure the Actuator endpoints with some authentication.
+Secure the communication to the Actuator endpoints with HTTPs
+
+## Authentication
+
+We will use basic authentication to get started.
+Add a dependency to <b>pom.xml</b>
+
+```xml
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-security</artifactId>
+</dependency>
+```
+
+<p>&nbsp</p>
+
+Add a user to <b>src/main/resources/application.properties</b>
+
+```properties
+spring.security.user.name=root
+spring.security.user.password=root
+```
+
+<p>&nbsp</p>
+
+## Enable HTTPS
+
+To enable HTTPs, we need to generate a self-signed certificate and place it in <b>src/main/resources</b>
+
+```shell
+keytool -genkeypair -alias tomcat -keyalg RSA -keysize 2048 -storetype PKCS12 -keystore keystore.p12 -validity 3650 -storepass "keepItSecret&Safe"
+```
+
+<p>&nbsp</p>
+Let's make sure it was generated correctly by running this command.
+
+```shell
+keytool -list -v -storetype pkcs12 -keystore ./src/maim/resourceskeystore.p12
+```
+
+<p>&nbsp</p>
+All that's left is to add these properties to <b>src/main/resources/application.properties</b>, making sure to remove the previous server.port property.
+
+```properties
+server.ssl.key-store: classpath:keystore.p12
+server.ssl.key-store-password: keepItSecret&Safe
+server.ssl.key-store-type: pkcs12
+server.ssl.key-alias: tomcat
+server.port: 8443
+```
+
+<p>&nbsp</p>
+It's time to test it by running this command.
+
+```shell
+curl -k https://root:root@localhost:8443/config-consumer-app/default
+```
+
+<p>&nbsp</p>
+
+# Make the Configuration Consumer Web Application talk HTTPS
+
+Start by changing the URI in src/main/resources/bootstrap.properties to point to the secure endpoint.
+
+```properties
+spring.application.name=config-consumer-app
+spring.cloud.config.uri=https://localhost:8443
+spring.cloud.config.username=root
+spring.cloud.config.password=root
+spring.cloud.config.failfast=true
+```
+
+<p>&nbsp</p>
+or for docker on Macs
+
+```properties
+spring.application.name=config-consumer-app
+spring.cloud.config.uri=https://host.docker.internal:8443
+spring.cloud.config.username=root
+spring.cloud.config.password=root
+spring.cloud.config.failfast=true
+```
+
+<p>&nbsp</p>
+If you try to run the application now, it will fail due to the self-signed certificate we used. We can fix this by telling Sringboot not to validate the SSL Certificate using this class.
+
+```java
+package com.codegreenllc.configconsumerapp;
+
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
+
+import javax.net.ssl.SSLContext;
+
+import org.apache.http.conn.ssl.NoopHostnameVerifier;
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.conn.ssl.TrustStrategy;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.config.client.ConfigClientProperties;
+import org.springframework.cloud.config.client.ConfigServicePropertySourceLocator;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.web.client.RestTemplate;
+
+@Configuration
+public class CustomConfigServiceBootstrapConfiguration {
+    @Autowired
+    ConfigClientProperties configClientProperties;
+
+    @Bean
+    public ConfigServicePropertySourceLocator configServicePropertySourceLocator()
+            throws KeyManagementException, KeyStoreException, NoSuchAlgorithmException {
+        final ConfigServicePropertySourceLocator configServicePropertySourceLocator = new ConfigServicePropertySourceLocator(
+                configClientProperties);
+        configServicePropertySourceLocator.setRestTemplate(getRestTemplate());
+        return configServicePropertySourceLocator;
+    }
+
+    @Bean
+    public RestTemplate getRestTemplate() throws KeyStoreException, NoSuchAlgorithmException, KeyManagementException {
+        final TrustStrategy acceptingTrustStrategy = new TrustStrategy() {
+            @Override
+            public boolean isTrusted(final X509Certificate[] x509Certificates, final String s)
+                    throws CertificateException {
+                return true;
+            }
+        };
+        final SSLContext sslContext = org.apache.http.ssl.SSLContexts.custom()
+                .loadTrustMaterial(null, acceptingTrustStrategy).build();
+        final SSLConnectionSocketFactory csf = new SSLConnectionSocketFactory(sslContext, new NoopHostnameVerifier());
+        final CloseableHttpClient httpClient = HttpClients.custom().setSSLSocketFactory(csf).build();
+        final HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
+        requestFactory.setHttpClient(httpClient);
+        final RestTemplate restTemplate = new RestTemplate(requestFactory);
+        return restTemplate;
+    }
+}
+```
+
+<p>&nbsp</p>
+
+You will also need to add this dependency to the <b>pom.xml</b>
+
+```xml
+<dependency>
+    <groupId>org.apache.httpcomponents</groupId>
+    <artifactId>httpclient</artifactId>
+</dependency>
+```
+
+<p>&nbsp</p>
+
+Now we need to register the class by creating a file called <b>src/main/resources/META-INF/spring.factories</b> containing this single line.
+
+```properties
+org.springframework.cloud.bootstrap.BootstrapConfiguration = com.codegreenllc.configconsumerapp.CustomConfigServiceBootstrapConfiguration
+```
+
+<p>&nbsp</p>
+
+## Test it locally
+
+Start both the Configuration Server and the Web Application like we did before.
+
+```shell
+mvn spring-boot:run -Dspring-boot.run.profiles=local
+
+```
+
+<p>&nbsp</p>
+Open a browser to http://localhost:8080/message
