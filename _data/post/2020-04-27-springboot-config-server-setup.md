@@ -81,7 +81,6 @@ Start by going over to [start.spring.io](https://start.spring.io/) and create a 
 </project>
 ```
 
-<p>&nbsp</p>
 Now update your Application.java class to enable the configuration server like this.
 
 ```java
@@ -100,7 +99,6 @@ public class Application {
 }
 ```
 
-<p>&nbsp</p>
 Edit <b>src/main/resources/application.properties</b> to start on a non-conflicting port and indicate where to fing the properties.
 
 ```properties
@@ -108,14 +106,12 @@ server.port=8888
 spring.cloud.config.server.git.uri=https://gitlab.com/jameskolean/springboot-config-demo-repo.git
 ```
 
-<p>&nbsp</p>
 In this case I point <b>spring.cloud.config.server.git.uri</b> to a public repository containing a single file <b>config-consumer-app.properties</b> containing one line.
 
 ```properties
 message=Hello world
 ```
 
-<p>&nbsp</p>
 You can instead create a local repository like this.
 
 ```shell
@@ -127,7 +123,6 @@ git add .
 git commit -m "Added properties"
 ```
 
-<p>&nbsp</p>
 Now change <b>spring.cloud.config.server.git.uri</b> to the fully qualified path to <b>my-repo</b>.
 
 Start it and test it.
@@ -232,7 +227,6 @@ Let's create a simple Web Application that will use properties from our Configur
 </project>
 ```
 
-<p>&nbsp</p>
 Let's add a simple controller in <b>Application.java</b> to echo back the configuration property.
 
 ```java
@@ -267,7 +261,6 @@ public class Application {
 }
 ```
 
-<p>&nbsp</p>
 We need to add some properties that are set before the normal configuration phase. To do this create a file called <b>src/main/resources/bootstrap.properties</b>.
 
 ```properties
@@ -275,30 +268,25 @@ spring.application.name=config-consumer-app
 spring.cloud.config.uri=http://localhost:8888
 ```
 
-<p>&nbsp</p>
 Now turn on Actuator by adding this line to <b>src/main/resources/application.properties</b>.
 
 ```properties
 management.endpoints.web.exposure.include=*
 ```
 
-<p>&nbsp</p>
 Run it
 
 ```shell
 mvn spring-boot:run
 ```
 
-<p>&nbsp</p>
 Open a browser to <a href="http://localhost:8080/message">http://localhost:8080/message</a>
-<p>&nbsp</p>
+
 Now you can change the message property in 'my-repo' git repository. We can trigger our Web Application to pull the new value with this command.
 
 ```shell
 curl localhost:8080/actuator/refresh -d {} -H "Content-Type: application/json"
 ```
-
-<p>&nbsp</p>
 
 # Dockerize
 
@@ -393,7 +381,6 @@ Edit the Configuration Server <b>pom.xml</b> file. We are adding the JIB build p
 </project>
 ```
 
-<p>&nbsp</p>
 If you want to run this, you will need to point to your docker repository and sign into docker hub. At that point these commands will build, publish, pull, and run the dockerized Configuration Server.
 
 ```shell
@@ -402,8 +389,7 @@ docker pull jameskolean/config-server:0.0.1-SNAPSHOT
 docker run -p 8888:8888 -t "jameskolean/config-server:0.0.1-SNAPSHOT"
 ```
 
-<p>&nbsp</p>
- Now test with curl like we did before.
+Now test with curl like we did before.
 
 ```shell
 curl http://localhost:8888/config-consumer-app/default
@@ -411,7 +397,6 @@ curl http://localhost:8888/config-consumer-app/default
 {"name":"config-consumer-app","profiles":["default"],"label":null,"version":"b1b2a823a0231d324be902c82e696ece85639c86","state":null,"propertySources":[{"name":"https://gitlab.com/jameskolean/springboot-config-demo-repo.git/config-consumer-app.properties","source":{"message":"Hello world"}}]}%
 ```
 
-<p>&nbsp</p>
 Great, Let's do the same for the Web Application starting with the file <b>pom.xml</b>
 
 ```xml
@@ -522,7 +507,6 @@ Great, Let's do the same for the Web Application starting with the file <b>pom.x
 </project>
 ```
 
-<p>&nbsp</p>
 On Macs you should edit the file called <b>src/main/resources/bootstrap.properties</b>.
 
 ```properties
@@ -530,7 +514,6 @@ spring.application.name=config-consumer-app
 spring.cloud.config.uri=http://host.docker.internal:8888
 ```
 
-<p>&nbsp</p>
 Note: you can create another file called <b>src/main/resources/bootstrap-local.properties</b> with the uri pointing to localhost and run it with `mvn spring-boot:run -Dspring-boot.run.profiles=local`.
 
 Now build and run it.
@@ -541,9 +524,7 @@ docker pull jameskolean/config-consumer-app:0.0.1-SNAPSHOT
 docker run -p 8080:8080 -t "jameskolean/config-consumer-app:0.0.1-SNAPSHOT"
 ```
 
-<p>&nbsp</p>
 Test it out at <a href="http://localhost:8080/message">http://localhost:8080/message</a>
-<p>&nbsp</p>
 
 # Secure our GitLab repository
 
@@ -559,8 +540,6 @@ spring.cloud.config.server.git.uri=https://gitlab.com/jameskolean/springboot-con
 spring.cloud.config.server.git.username=gitlab+deploy-token-166598
 spring.cloud.config.server.git.password=YOUR-DEPLOY-TOKEN-PASSWORD
 ```
-
-<p>&nbsp</p>
 
 # Secure the Configuration Server
 
@@ -580,16 +559,12 @@ Add a dependency to <b>pom.xml</b>
 </dependency>
 ```
 
-<p>&nbsp</p>
-
 Add a user to <b>src/main/resources/application.properties</b>
 
 ```properties
 spring.security.user.name=root
 spring.security.user.password=root
 ```
-
-<p>&nbsp</p>
 
 ## Enable HTTPS
 
@@ -599,14 +574,12 @@ To enable HTTPs, we need to generate a self-signed certificate and place it in <
 keytool -genkeypair -alias tomcat -keyalg RSA -keysize 2048 -storetype PKCS12 -keystore keystore.p12 -validity 3650 -storepass "keepItSecret&Safe"
 ```
 
-<p>&nbsp</p>
 Let's make sure it was generated correctly by running this command.
 
 ```shell
 keytool -list -v -storetype pkcs12 -keystore ./src/maim/resourceskeystore.p12
 ```
 
-<p>&nbsp</p>
 All that's left is to add these properties to <b>src/main/resources/application.properties</b>, making sure to remove the previous server.port property.
 
 ```properties
@@ -617,14 +590,11 @@ server.ssl.key-alias: tomcat
 server.port: 8443
 ```
 
-<p>&nbsp</p>
 It's time to test it by running this command.
 
 ```shell
 curl -k https://root:root@localhost:8443/config-consumer-app/default
 ```
-
-<p>&nbsp</p>
 
 # Make the Configuration Consumer Web Application talk HTTPS
 
@@ -638,7 +608,6 @@ spring.cloud.config.password=root
 spring.cloud.config.failfast=true
 ```
 
-<p>&nbsp</p>
 or for docker on Macs
 
 ```properties
@@ -649,7 +618,6 @@ spring.cloud.config.password=root
 spring.cloud.config.failfast=true
 ```
 
-<p>&nbsp</p>
 If you try to run the application now, it will fail due to the self-signed certificate we used. We can fix this by telling Sringboot not to validate the SSL Certificate using this class.
 
 ```java
@@ -711,8 +679,6 @@ public class CustomConfigServiceBootstrapConfiguration {
 }
 ```
 
-<p>&nbsp</p>
-
 You will also need to add this dependency to the <b>pom.xml</b>
 
 ```xml
@@ -722,15 +688,11 @@ You will also need to add this dependency to the <b>pom.xml</b>
 </dependency>
 ```
 
-<p>&nbsp</p>
-
 Now we need to register the class by creating a file called <b>src/main/resources/META-INF/spring.factories</b> containing this single line.
 
 ```properties
 org.springframework.cloud.bootstrap.BootstrapConfiguration = com.codegreenllc.configconsumerapp.CustomConfigServiceBootstrapConfiguration
 ```
-
-<p>&nbsp</p>
 
 ## Test it locally
 
@@ -741,5 +703,120 @@ mvn spring-boot:run -Dspring-boot.run.profiles=local
 
 ```
 
-<p>&nbsp</p>
 Open a browser to http://localhost:8080/message
+
+# Add Vault and Native sources
+
+To add a native source add a file called <b>/src/main/resources/config-consumer-app.properties</b> with a silgle line.
+
+```properties
+native.message=Hello from application.properties
+```
+
+Now update the Configuration Consumer Web Application to use the new property
+
+```java
+package com.codegreenllc.configconsumerapp;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@SpringBootApplication
+public class Application {
+
+    @RefreshScope
+    @RestController
+    class MessageRestController {
+
+        @Value("${message:Hello default}")
+        private String message;
+
+        @Value("${native.message:Native default}")
+        private String nativeMessage;
+
+        @Value("${vault.message:Vault default}")
+        private String vaultMessage;
+
+        @RequestMapping("/message")
+        String getMessage() {
+            return String.format("Native property is '%s', Git property is '%s', and Vault property is '%s'",
+                    nativeMessage, message, vaultMessage);
+        }
+    }
+
+    public static void main(final String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
+
+}
+```
+
+Now start both applications from the project root folder.
+
+```shell
+mvn -pl config-server spring-boot:run -Dspring-boot.run.profiles=native,git
+mvn -pl config-consumer-app spring-boot:run -Dspring-boot.run.profiles=local
+```
+
+Open a browser to try it at http://localhost:8080/message.
+
+## Vault
+
+Now let's add Vault.
+Step one is to install Vault from Hashicorp. On a Mac, I suggest using Homebrew like this.
+
+```shell
+brew install vault
+vault -autocomplete-install
+vault server -dev
+export VAULT_ADDR='http://127.0.0.1:8200'
+vault status
+```
+
+Add a value to Vault and confirm it was added like this.
+
+```shell
+vault kv put secrets/config-consumer-app vault.message="Hello from Vault"
+vault kv get secret/config-consumer-app
+```
+
+Now add these properties to src/main/resources/application.properties
+
+```properties
+spring.cloud.config.server.vault.port=8200
+spring.cloud.config.server.vault.host=127.0.0.1
+spring.cloud.config.server.vault.kv-version=2
+spring.cloud.config.server.vault.scheme=http
+spring.cloud.config.server.vault.authentication=TOKEN
+spring.cloud.config.server.vault.token=YOUR-TOKEN
+```
+
+Start and test the Config Server from the project root directory.
+
+```shell
+mvn -pl config-server spring-boot:run -Dspring-boot.run.profiles=native,git,vault
+curl -k https://root:root@localhost:8443/config-consumer-app/default
+```
+
+Now start the Web Application from the project root directory.
+
+```shell
+mvn -pl config-consumer-app spring-boot:run -Dspring-boot.run.profiles=local
+```
+
+Open a browser to http://localhost:8080/message
+
+To close the loop, these are the docker commands to build an run.
+
+```shell
+mvn clean && mvn --projects config-server,config-consumer-app package jib:build
+docker pull "jameskolean/config-server:0.0.1-SNAPSHOT"
+docker run -p 8443:8443 --env SPRING_PROFILES_ACTIVE=native,git,vault --env spring.cloud.config.server.vault.token=YOUR-TOKEN -t "jameskolean/config-server:0.0.1-SNAPSHOT"
+curl -k https://root:root@localhost:8443/config-consumer-app/default -H "Content-Type: application/json" | jq '.'
+docker pull "jameskolean/config-consumer-app:0.0.1-SNAPSHOT"
+docker run -p 8080:8080 -t "jameskolean/config-consumer-app:0.0.1-SNAPSHOT"
+```
