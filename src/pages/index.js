@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Helmet from 'react-helmet'
 import { graphql, Link } from 'gatsby'
 import Layout from '../components/layout'
@@ -11,6 +11,13 @@ const IndexPage = ({
     allMarkdownRemark: { nodes: posts },
   },
 }) => {
+  const [functionMessage, setFunctionMessage] = useState('')
+  const callHelloFunction = () => {
+    setFunctionMessage('loading …')
+    fetch('/.netlify/functions/hello')
+      .then((response) => response.json())
+      .then((data) => setFunctionMessage(data.msg))
+  }
   return (
     <Layout>
       <Helmet>
@@ -18,6 +25,10 @@ const IndexPage = ({
         <meta name='description' content={site.siteMetadata.description} />
         <html lang='en' />
       </Helmet>
+      <button type='button' onClick={callHelloFunction}>
+        Run Hello Function
+      </button>
+      <p>Result: {functionMessage}</p>
 
       <HeroHeader />
       <h2>About Me</h2>

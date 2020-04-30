@@ -4,6 +4,7 @@
  * See: https://www.gatsbyjs.org/docs/gatsby-config/
  */
 const path = require(`path`)
+const { createProxyMiddleware } = require('http-proxy-middleware')
 
 var netlifyCmsPaths = {
   resolve: `gatsby-plugin-netlify-cms-paths`,
@@ -92,4 +93,13 @@ module.exports = {
       },
     },
   ],
+  developMiddleware: (app) => {
+    app.use(
+      '/.netlify/functions/',
+      createProxyMiddleware({
+        target: 'http://localhost:9000',
+        pathRewrite: { '/.netlify/functions/': '' },
+      })
+    )
+  },
 }
