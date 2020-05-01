@@ -1,0 +1,15 @@
+type Thumb {
+  slug: String!
+  upCount: Int!
+  downCount: Int!
+}
+type Comment {
+  slug: String!
+  body: String!
+  commenter: String!
+  approved: Boolean!
+}
+type Query {
+  thumbBySlug(slug: String!): Thumb
+  commentBySlug(slug: String!): Comment
+}

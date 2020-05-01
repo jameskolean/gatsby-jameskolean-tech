@@ -11,12 +11,14 @@ const IndexPage = ({
     allMarkdownRemark: { nodes: posts },
   },
 }) => {
-  const [functionMessage, setFunctionMessage] = useState('')
+  const [thumb, setThumb] = useState({ slug: '', upCount: 0, downCount: 0 })
   const callHelloFunction = () => {
-    setFunctionMessage('loading …')
-    fetch('/.netlify/functions/hello')
+    fetch('/.netlify/functions/thumbs-up?slug=Sample 1')
       .then((response) => response.json())
-      .then((data) => setFunctionMessage(data.msg))
+      .then((data) => {
+        console.log('333333333', data)
+        setThumb(data)
+      })
   }
   return (
     <Layout>
@@ -28,7 +30,9 @@ const IndexPage = ({
       <button type='button' onClick={callHelloFunction}>
         Run Hello Function
       </button>
-      <p>Result: {functionMessage}</p>
+      <p>
+        Result: {thumb.slug}, {thumb.upCount}, {thumb.downCount}
+      </p>
 
       <HeroHeader />
       <h2>About Me</h2>

@@ -5,6 +5,8 @@
   "version": "0.1.0",
   "license": "MIT",
   "dependencies": {
+    "apollo-boost": "^0.4.7",
+    "faunadb": "^2.13.1",
     "framer-motion": "^2.0.0-beta.55",
     "gatsby": "^2.19.7",
     "gatsby-background-image": "^1.1.1",
@@ -55,5 +57,5 @@
     "build": "gatsby build && netlify-lambda build src/functions",
     "build:app": "gatsby build",
     "build:lambda": "netlify-lambda build src/functions"
-    }
+  }
 }
