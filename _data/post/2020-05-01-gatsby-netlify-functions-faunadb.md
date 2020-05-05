@@ -162,6 +162,74 @@ Go to the indexes and make sure that both commentBySlug and thumbBySlug are uniq
 
 # Add Netlify Functions to Gatsby
 
-see my previous post [Easy Lambda with Gatsby and Netlify Functions](/post/2020-04-07-easy-lambda-with-gatsby-and-netlify-functions/)
+See my previous post [Easy Lambda with Gatsby and Netlify Functions](/post/2020-04-07-easy-lambda-with-gatsby-and-netlify-functions/)
 
 # Add Netlify Function calls to FaunaDB
+
+Let's create the Netlify Function that well connect to FaunaDB. Create a file called <b>/src/functions/thumbs-up</b>
+
+```javascript
+import gql from 'graphql-tag'
+import { createClient } from './fauna-apollo'
+
+export function handler(event, context, callback) {
+  const slug = event.queryStringParameters['slug']
+  const client = createClient()
+  const APOLLO_QUERY = gql`
+    query getThumbBySlug($slug: String!) {
+      thumbBySlug(slug: $slug) {
+        _id
+        slug
+        upCount
+        downCount
+      }
+    }
+  `
+  client
+    .query({ query: APOLLO_QUERY, variables: { slug } })
+    .then(({ data }) => {
+      console.log(data)
+      callback(null, {
+        // return null to show no errors
+        statusCode: 200,
+        body: JSON.stringify(data.thumbBySlug),
+      })
+    })
+    .catch((error) => callback(e))
+}
+```
+
+That's pretty simple. The utility function at <b>/src/functions/fauna-apollo.js</b> looks like this.
+
+```javascript
+import ApolloClient from 'apollo-boost'
+import fetch from 'isomorphic-fetch'
+
+export function createClient() {
+  const client = new ApolloClient({
+    uri: 'https://graphql.fauna.com/graphql',
+    fetch,
+    request: (operation) => {
+      operation.setContext({
+        headers: {
+          authorization: 'Bearer fnADqxEZpwACFNEF-NS41mUGXHUdjfkzefYwOLGC',
+        },
+      })
+    },
+  })
+  return client
+}
+```
+
+To test it out you can add something like this code to a page, I think you get the idea.
+
+```javascript
+const [thumb, setThumb] = useState({ slug: '', upCount: 0, downCount: 0 })
+const callHelloFunction = () => {
+  fetch('/.netlify/functions/thumbs-up?slug=Sample 1')
+    .then((response) => response.json())
+    .then((data) => {
+      setThumb(data)
+    })
+}
+```
