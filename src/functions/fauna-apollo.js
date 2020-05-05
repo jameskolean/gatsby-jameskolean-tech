@@ -8,7 +8,7 @@ export function createClient() {
     request: (operation) => {
       operation.setContext({
         headers: {
-          authorization: 'Bearer fnADqxEZpwACFNEF-NS41mUGXHUdjfkzefYwOLGC',
+          authorization: 'Bearer ' + process.env.FAUNADB_SERVER_SECRET,
         },
       })
     },
