@@ -41,7 +41,7 @@ const PostsPage = ({ data: { site, allPosts, allTags } }) => {
         <html lang='en' />
       </Helmet>
       <div className='post-filter'>
-        <label for='react-select-2-input'>Tag Filter:</label>
+        <label htmlFor='react-select-2-input'>Tag Filter:</label>
         <div className='filter-input'>
           <Select
             options={options}
