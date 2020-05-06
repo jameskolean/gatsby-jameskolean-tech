@@ -4,7 +4,7 @@ date: 2020-05-04T13:59:29.555Z
 title: Four reasons you should use GraphQL instead of REST
 source:
 tags:
-  - GrapgQL
+  - GraphQL
 thumbnail: /assets/sr-professor-unsplash.jpg
 ---
 

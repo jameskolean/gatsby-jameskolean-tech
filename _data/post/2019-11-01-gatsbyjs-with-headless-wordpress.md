@@ -53,7 +53,7 @@ Now create some advanced custom fields on for the Product type.
 
 ![Add fields](/assets/wordpress-add-product-fields.png 'Add fields')
 
-![Add fields to GraphQL](/assets/wordpress-add-fields-grapgql.png 'Add fields to GraphQL')
+![Add fields to GraphQL](/assets/wordpress-add-fields-graphql.png 'Add fields to GraphQL')
 
 ![Add SKU](/assets/wordpress-add-sku.png 'Add SKU')
 

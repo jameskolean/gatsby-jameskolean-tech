@@ -4,7 +4,7 @@ date: 2020-05-01T13:59:29.555Z
 title: Gatsby + Netlify Functions + FaunaDB
 source:
 tags:
-  - GrapgQL
+  - GraphQL
   - React
   - Netlify
 thumbnail: /assets/black-white-graph-unsplash.jpg
