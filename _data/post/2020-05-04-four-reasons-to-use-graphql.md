@@ -15,7 +15,7 @@ thumbnail: /assets/sr-professor-unsplash.jpg
 
 For more information on GraphQL, check out these links.
 
-https://graphql.org/
-https://www.youtube.com/watch?v=VjXb3PRL9WI
-https://hasura.io/ Instantly create GraphQL from a Database
-https://jameskolean.tech/post/2020-04-16-springboot-mongobd-rest-graphql/ Tutorial for Java developers demonstrating REST and GraphQL API.
+- https://graphql.org/
+- https://www.youtube.com/watch?v=VjXb3PRL9WI
+- https://hasura.io/ Instantly create GraphQL from a Database
+- https://jameskolean.tech/post/2020-04-16-springboot-mongobd-rest-graphql/ Tutorial for Java developers demonstrating REST and GraphQL API.
