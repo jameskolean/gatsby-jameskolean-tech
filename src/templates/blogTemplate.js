@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Helmet from 'react-helmet'
 import { graphql } from 'gatsby'
 import Layout from '../components/layout'
+import Likes from '../components/likes'
 
 const PostMeta = ({ source, tags }) => (
   <>
@@ -21,6 +22,34 @@ export default function Template({
 }) {
   const { markdownRemark } = data // data.markdownRemark holds your post data
   const { excerpt, frontmatter, html } = markdownRemark
+  const { slug } = markdownRemark.fields
+  const [rating, setRating] = useState([])
+  useEffect(() => {
+    console.log('slug', slug)
+    fetch(`/.netlify/functions/thumbs-up?slug=${slug}`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('data', data)
+        if (data) {
+          setRating({
+            slug,
+            likes: data.upCount,
+            dislikes: data.downCount,
+          })
+        } else {
+          setRating({ slug, likes: 0, dislikes: 0 })
+        }
+      })
+  }, [slug])
+  const handleAddLike = (slug) => {
+    fetch(`/.netlify/functions/increment-thumbs-up?slug=${slug}`)
+    setRating((state) => ({ ...state, likes: state.likes + 1 }))
+  }
+  const handleAddDislike = (slug) => {
+    fetch(`/.netlify/functions/increment-thumbs-down?slug=${slug}`)
+    setRating((state) => ({ ...state, dislikes: state.dislikes + 1 }))
+  }
+
   return (
     <Layout>
       <Helmet>
@@ -54,6 +83,18 @@ export default function Template({
           />
         </article>
       </div>
+      <div className='post-likes-container'>
+        <hr />
+        <div>
+          <span>Was this article helpful?</span>
+          <Likes
+            slug={slug}
+            rating={rating}
+            handleAddLike={handleAddLike}
+            handleAddDislike={handleAddDislike}
+          />
+        </div>
+      </div>
     </Layout>
   )
 }
@@ -75,6 +116,9 @@ export const pageQuery = graphql`
             }
           }
         }
+      }
+      fields {
+        slug
       }
     }
   }

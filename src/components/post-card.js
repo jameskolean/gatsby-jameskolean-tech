@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'gatsby'
 import Img from 'gatsby-image'
-import { FiThumbsUp, FiThumbsDown } from 'react-icons/fi'
+import Likes from './likes'
 
 const PostCards = ({ posts }) => {
   const [ratings, setRatings] = useState([])
@@ -66,59 +66,42 @@ const PostCards = ({ posts }) => {
   return <>{postCards}</>
 }
 
-export const PostCard = ({ post, rating, handleAddLike, handleAddDislike }) => {
-  const [userRated, setUserRated] = useState(false)
-  const handleThumbsUp = () => {
-    if (userRated) return
-    setUserRated(true)
-    handleAddLike(post.fields.slug)
-  }
-  const handleThumbsDown = () => {
-    if (userRated) return
-    setUserRated(true)
-    handleAddDislike(post.fields.slug)
-  }
+export const PostCard = ({ post, rating, handleAddLike, handleAddDislike }) => (
+  <motion.article
+    className='card '
+    whileHover={{
+      translateX: -4,
+      translateY: -4,
+    }}
+    layoutId={post.fields.slug}
+  >
+    <Link to={post.fields.slug}>
+      {!!post.frontmatter.thumbnail && (
+        <Img
+          fluid={post.frontmatter.thumbnail.childImageSharp.fluid}
+          alt={post.frontmatter.title + '- Featured Shot'}
+        />
+      )}
+    </Link>
+    <header>
+      <h2 className='post-title'>
+        <Link to={post.fields.slug} className='post-link'>
+          {post.frontmatter.title}
+        </Link>
+      </h2>
+      <div className='post-meta'>{post.frontmatter.date}</div>
+      <div className='post-excerpt'>{post.excerpt}</div>
+      <Likes
+        slug={post.fields.slug}
+        rating={rating}
+        handleAddLike={handleAddLike}
+        handleAddDisike={handleAddDislike}
+      />
+      <div className='post-meta'>
+        {post.frontmatter.tags && `Tags: ${post.frontmatter.tags.join(', ')}`}
+      </div>
+    </header>
+  </motion.article>
+)
 
-  return (
-    <motion.article
-      className='card '
-      whileHover={{
-        translateX: -4,
-        translateY: -4,
-      }}
-      layoutId={post.fields.slug}
-    >
-      <Link to={post.fields.slug}>
-        {!!post.frontmatter.thumbnail && (
-          <Img
-            fluid={post.frontmatter.thumbnail.childImageSharp.fluid}
-            alt={post.frontmatter.title + '- Featured Shot'}
-          />
-        )}
-      </Link>
-      <header>
-        <h2 className='post-title'>
-          <Link to={post.fields.slug} className='post-link'>
-            {post.frontmatter.title}
-          </Link>
-        </h2>
-        <div className='post-meta'>{post.frontmatter.date}</div>
-        <div className='post-excerpt'>{post.excerpt}</div>
-        <div className='post-likes'>
-          <button type='button' onClick={handleThumbsUp}>
-            <FiThumbsUp />
-            {rating && rating.likes}
-          </button>
-          <button type='button' onClick={handleThumbsDown}>
-            <FiThumbsDown />
-            {rating && rating.dislikes}
-          </button>
-        </div>
-        <div className='post-meta'>
-          {post.frontmatter.tags && `Tags: ${post.frontmatter.tags.join(', ')}`}
-        </div>
-      </header>
-    </motion.article>
-  )
-}
 export default PostCards
