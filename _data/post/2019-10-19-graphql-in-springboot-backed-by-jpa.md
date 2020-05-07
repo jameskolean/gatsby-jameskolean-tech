@@ -8,6 +8,7 @@ tags:
   - Spring Boot
   - GraphQL
 source: https://gitlab.com/jameskolean/graphgql-demo/tree/master
+published: true
 ---
 
 The code is [here](https://gitlab.com/jameskolean/graphgql-demo/tree/master). Start with[ spring initializer](https://start.spring.io/) and add web, devtools, lombok, liquibase, and JPA support. Add in the dependencies for GraphQL and you end up with something like this.

@@ -8,6 +8,7 @@ tags:
   - Headless CMS
   - GraphQL
 source: https://gitlab.com/jameskolean/gatsby-wordpress
+published: true
 ---
 
 This is a quick tutorial on setting up Gatsby with Headless WordPress. The source code can be found [here](https://gitlab.com/jameskolean/gatsby-wordpress). You will need to setup and configure your own instance of WordPress if you want to follow along. The instructions will help you through this.

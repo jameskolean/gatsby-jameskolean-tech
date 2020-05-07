@@ -7,6 +7,7 @@ tags:
   - Java
   - Spring Boot
 source: https://gitlab.com/jameskolean/springboot-kafka
+published: true
 ---
 
 This is a simple tutorial to show how easy it is to get Spring Boot connected to Kafka. The source code can be found [here](https://gitlab.com/jameskolean/springboot-kafka).

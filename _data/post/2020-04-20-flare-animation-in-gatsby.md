@@ -6,6 +6,7 @@ tags:
   - Tools
   - Gatsby
 thumbnail: /assets/blue-dots-unsplash.jpg
+published: true
 ---
 
 Rive offers a tool called Flare for building vector designs and animations. Check out their news release [news release](https://medium.com/rive/flare-launch-d524067d34d8).

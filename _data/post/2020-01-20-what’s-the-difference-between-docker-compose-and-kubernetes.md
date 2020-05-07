@@ -5,6 +5,7 @@ title: What’s the difference between docker compose and kubernetes?
 tags:
   - Dev Ops
 thumbnail: /assets/different-shoes-unsplash.jpg
+published: true
 ---
 
 Stack Overflow has a concise post on this at[ https://stackoverflow.com/questions/47536536/whats-the-difference-between-docker-compose-and-kubernetes](https://stackoverflow.com/questions/47536536/whats-the-difference-between-docker-compose-and-kubernetes)\

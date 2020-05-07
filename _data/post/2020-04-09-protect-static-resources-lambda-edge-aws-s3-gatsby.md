@@ -8,6 +8,7 @@ tags:
   - React
   - Gatsby
 source: https://gitlab.com/jameskolean/gatsby-cloudflare-gated
+published: true
 ---
 
 Source:[https://gitlab.com/jameskolean/gatsby-lambda-edge](https://gitlab.com/jameskolean/gatsby-cloudflare-gated)

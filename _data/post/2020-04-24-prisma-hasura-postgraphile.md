@@ -7,6 +7,7 @@ tags:
   - GraphQL
   - React
 thumbnail: /assets/black-white-graph-unsplash.jpg
+published: true
 ---
 
 # Install Postgres

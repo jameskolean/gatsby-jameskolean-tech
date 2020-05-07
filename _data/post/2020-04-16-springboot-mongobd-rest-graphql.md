@@ -9,6 +9,7 @@ tags:
   - REST
   - GraphQL
 source: https://gitlab.com/jameskolean/mongo-services/-/tree/master
+published: true
 ---
 
 I have a potential opportunity to use MongoDB on a project. I decided to build this simple application to see if anything changed since the last time I used Mongo DB.

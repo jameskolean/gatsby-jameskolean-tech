@@ -6,6 +6,7 @@ source:
 tags:
   - GraphQL
 thumbnail: /assets/sr-professor-unsplash.jpg
+published: true
 ---
 
 1. Clients can ask for only the data it needs. REST typically forces clients to consume a predefined payload. GraphQL allows clients to ask for only the information they need. Smaller information payloads result in lower latency and less work in the client to filter unwanted elements. Clients may also ask the server to perform transformations such as date formatting or currency conversions.

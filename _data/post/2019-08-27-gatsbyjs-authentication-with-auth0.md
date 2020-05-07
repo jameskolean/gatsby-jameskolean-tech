@@ -7,6 +7,7 @@ tags:
   - Gatsby
   - Authentication & Authorization
 source: https://gitlab.com/jameskolean/nohingo/-/tags/Auth0
+published: true
 ---
 
 This post describes how I added Authentication to my [GatsbyJS](https://www.gatsbyjs.org/) application using [Auth0](https://auth0.com/). The source is [here](https://gitlab.com/jameskolean/nohingo/-/tags/Auth0). I’d like to thank Jason Langsdorf for his [Live Stream](https://www.gatsbyjs.org/blog/2019-03-21-add-auth0-to-gatsby-livestream/) that I used to build my solution. I highly recommend checking out his videos.

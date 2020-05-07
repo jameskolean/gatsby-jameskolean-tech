@@ -9,6 +9,7 @@ tags:
   - Spring Boot
   - Authentication & Authorization
 source: https://gitlab.com/jameskolean/gatsbyjs-auth0-springboot/tree/master
+published: true
 ---
 
 The GatsbyJS part could not be simpler. Let’s use Axios which is a pleasure to work with but we will also use hooks to make it a thing of beauty. You will need to reference [GatsbyJS Authentication with Auth0](https://rapidfifth.home.blog/2019/08/27/gatsbyjs-authentication-with-auth0/) for details on setting up authentication in a sample project. The source for this blog is [here](https://gitlab.com/jameskolean/gatsbyjs-auth0-springboot/tree/master).

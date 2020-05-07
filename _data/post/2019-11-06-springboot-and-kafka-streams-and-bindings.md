@@ -7,6 +7,7 @@ tags:
   - Java
   - Spring Boot
 source: https://gitlab.com/jameskolean/springboot-kafka/tree/Streams
+published: true
 ---
 
 This is a follow up to my previous post. After watching the YouTube video [Spring Tips: Spring Cloud Stream Kafka Streams](https://www.youtube.com/watch?v=YPDzcmqwCNo) it’s clear I was missing the power of Kafka. Following the tutorial I ran into issues performing the count. The error points to an issue serializing the materialized view and Spring Boot seems to ignore the application properties. This post will just add the code that 1) generates events 2) transforms events and 3) consumes the transformed event. The sources can be found at [GitLab in the ‘Streams’ branch](https://gitlab.com/jameskolean/springboot-kafka/tree/Streams).

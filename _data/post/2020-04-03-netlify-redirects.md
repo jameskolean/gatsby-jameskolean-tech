@@ -7,6 +7,7 @@ tags:
   - Netlify
   - Dev Ops
 source: https://github.com/jameskolean/gatsby-netlify-redirects
+published: true
 ---
 
 Netlify allows redirects at the edge. There is an example Gatsby project[ here](https://github.com/jameskolean/gatsby-netlify-redirects).

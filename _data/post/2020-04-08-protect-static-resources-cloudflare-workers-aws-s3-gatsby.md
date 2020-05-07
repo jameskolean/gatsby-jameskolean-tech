@@ -8,6 +8,7 @@ tags:
   - Gatsby
   - Dev Ops
 source: https://gitlab.com/jameskolean/gatsby-cloudflare-gated
+published: true
 ---
 
 ## Setup Cloudflare

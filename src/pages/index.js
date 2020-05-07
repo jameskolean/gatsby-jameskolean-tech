@@ -78,7 +78,9 @@ export const pageQuery = graphql`
     allMarkdownRemark(
       limit: 3
       sort: { order: DESC, fields: [frontmatter___date] }
-      filter: { frontmatter: { template: { eq: "BlogPost" } } }
+      filter: {
+        frontmatter: { template: { eq: "BlogPost" }, published: { eq: true } }
+      }
     ) {
       nodes {
         id

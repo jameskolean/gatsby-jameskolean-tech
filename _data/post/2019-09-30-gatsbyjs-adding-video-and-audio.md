@@ -8,6 +8,7 @@ tags:
   - React
   - Media
 source: https://gitlab.com/jameskolean/nohingo/-/tags/Added-Lesson-Video-and-Audio
+published: true
 ---
 
 This this post I added Video and Audio to my GatsbyJS site. The Video and Audio assets are stored in Contentful. This example uses a Lesson Plan created by an instructor. The Lesson Plan is a document that can have many heterogenous sections. In this case I created a section for Video content and another for Audio content. The instructor can create as many sections as they like and can order them as they like.

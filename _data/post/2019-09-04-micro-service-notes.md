@@ -8,6 +8,7 @@ tags:
   - Spring Boot
   - Microservice
 source: https://gitlab.com/jameskolean/spring-cloud-demo/tree/master
+published: true
 ---
 
 These are my note on setting up Micro-Services with Spring Cloud. I went thru many tutorials that had broken dependencies. I put this together so I have a working stack I can reference. In the blog we will build servers for Configuration, Discovery, Gateway, and two REST APIS.

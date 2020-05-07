@@ -5,6 +5,7 @@ title: Code Blocks in Gatsby Markdown
 tags:
   - Gatsby
 thumbnail: /assets/alphabet-blocks-unsplash.jpg
+published: true
 ---
 
 I have a lot of code blocks in my posts, so let's see if we can make them a bit prettier and easier to use.

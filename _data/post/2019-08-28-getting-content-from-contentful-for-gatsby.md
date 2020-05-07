@@ -8,6 +8,7 @@ tags:
   - Headless CMS
   - GraphQL
 source: https://gitlab.com/jameskolean/nohingo/-/tags/Contentful
+published: true
 ---
 
 I’m building out a sample project and it’s time to add some content. In the last post we set up a simple GatsbyJS site and added authentication with Auth0. Now it’s time to get some pages built and let’s use Contentful to store that content. This sources code is [here](https://gitlab.com/jameskolean/nohingo/-/tags/Contentful).

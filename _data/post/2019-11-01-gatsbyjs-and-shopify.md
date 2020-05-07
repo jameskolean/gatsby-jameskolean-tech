@@ -6,6 +6,7 @@ tags:
   - Gatsby
   - E-Commerce
 thumbnail: /assets/shop-open-unsplash.jpg
+published: true
 ---
 
 I started to look into building a POC integrating Shopify with GatsbyJS but I found an excellent starter already exists. Here are the instructions to run the demo.

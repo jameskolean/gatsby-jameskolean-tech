@@ -8,6 +8,7 @@ tags:
   - Spring Boot
   - Microservice
 source: https://gitlab.com/jameskolean/dashboard-demo/tree/master
+published: true
 ---
 
 I’m not sure how I feel about this combination. I had high hopes but it’s been frustrating to get working. I guess if I had the time it would be useful to create a slick dashboard and alerts against Spring Actuator parameters.

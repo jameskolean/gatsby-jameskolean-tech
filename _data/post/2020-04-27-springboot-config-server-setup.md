@@ -7,6 +7,7 @@ tags:
   - Java
 source: https://gitlab.com/jameskolean/springboot-config-server-demo/-/tree/master
 thumbnail: /assets/connections-unsplash.jpg
+published: true
 ---
 
 # Basic Setup

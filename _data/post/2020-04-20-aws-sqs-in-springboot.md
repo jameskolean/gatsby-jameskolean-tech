@@ -8,6 +8,7 @@ tags:
   - Spring Boot
   - AWS
 source: https://gitlab.com/jameskolean/aws-sqs
+published: true
 ---
 
 Let's see if we can connect a SpringBoot application to Amazon Simple Queue Service (SQS). To get started, go over to the AWS Management console, go to the Services tab, and search for SQS. Once on the SQS page, click the 'Create New Queue' button. Choose a name, select the Standard Queue, and click 'Quick Create.' Great, we have our queue, and now we need to get credentials to connect to it. Go back to the Services tab and search for IAM, click on Users, then 'Add user.' Choose a name and set the Access Type to Programmatic access. The next step is to add a group. Click 'Create group', name it, and assign it 'AmazonSQSFullAccess.' That's it for AWS you can go back to the Simple Queue Service page to monitor the queue.

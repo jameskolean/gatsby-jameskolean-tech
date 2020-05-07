@@ -6,6 +6,7 @@ tags:
   - Gatsby
   - React
 thumbnail: /assets/ferriswheel-unsplash.jpg
+published: true
 ---
 
 I wanted to add some animation to this site. I heard good things about Framer Motion, so I gave it a try, and it exceeded my expectations. It was so clean and straightforward to add a little animation. My biggest issue was to hold myself back from going overboard on the animations since it was so easy. You can see this animation in action when you hover over any Post on https://jameskolean.tech/posts

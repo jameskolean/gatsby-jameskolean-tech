@@ -8,6 +8,7 @@ tags:
   - React
   - Netlify
 thumbnail: /assets/black-white-graph-unsplash.jpg
+published: true
 ---
 
 In this post, we will see how I added the 'Thumbs Up' functionality to this site. The challenge is, of course, that this is a Gatsby statically rendered site, which is great because it's crazy fast and only required a CDN to deploy; however, there is no server to accept post data. No worries, we have options. There are several database services out there; in this case, we will use FaunaDB. It's never a good idea to let the client talk directly to a database, so we will use Netlify Functions to stand between the client and the database. Think of it as a firewall around the database validating requests and limiting interactions. Let's get started.

@@ -8,6 +8,7 @@ tags:
   - Netlify
   - Headless CMS
 source: https://github.com/jameskolean/local-netlify-cms
+published: true
 ---
 
 I looked into Netlify CMS today and am liking that it is open-source and Git based. I was surprised that when I was working locally it was making commits to the remote repository. That felt wrong to me, now I could be wrong since I have limited time with the tool and it does support Git branches. Anyway, I wanted to see if I could get it to use the local file system in development mode. Looking around I couldn’t find a tutorial that worked but after a couple hours I was able to get this example working.
