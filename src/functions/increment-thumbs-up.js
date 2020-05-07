@@ -52,11 +52,11 @@ export function handler(event, context, callback) {
               downCount: thumbBySlug.downCount,
             },
           })
-          .catch((error) => callback(error))
+          .catch((e) => callback(e))
       } else {
         client
           .mutate({ mutation: CREATE_MUTATION, variables: { slug } })
-          .catch((error) => callback(error))
+          .catch((e) => callback(e))
       }
       callback(null, {
         // return null to show no errors
@@ -64,5 +64,5 @@ export function handler(event, context, callback) {
         body: JSON.stringify({ slug: slug }),
       })
     })
-    .catch((error) => callback(error))
+    .catch((e) => callback(e))
 }

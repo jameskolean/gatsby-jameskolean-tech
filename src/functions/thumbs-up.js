@@ -23,5 +23,5 @@ export function handler(event, context, callback) {
         body: JSON.stringify(data.thumbBySlug),
       })
     })
-    .catch((error) => callback(e))
+    .catch((e) => callback(e))
 }

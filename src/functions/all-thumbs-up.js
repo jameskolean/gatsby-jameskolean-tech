@@ -17,12 +17,11 @@ export function handler(event, context, callback) {
   client
     .query({ query: APOLLO_QUERY })
     .then(({ data }) => {
-      console.log(data)
       callback(null, {
         // return null to show no errors
         statusCode: 200,
         body: JSON.stringify(data.allThumbs.data),
       })
     })
-    .catch((error) => callback(error))
+    .catch((e) => callback(e))
 }

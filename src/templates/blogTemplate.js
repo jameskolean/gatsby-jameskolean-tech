@@ -29,7 +29,6 @@ export default function Template({
     fetch(`/.netlify/functions/thumbs-up?slug=${slug}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log('data', data)
         if (data) {
           setRating({
             slug,
@@ -40,6 +39,13 @@ export default function Template({
           setRating({ slug, likes: 0, dislikes: 0 })
         }
       })
+      .catch((e) =>
+        setRating({
+          slug,
+          likes: 0,
+          dislikes: 0,
+        })
+      )
   }, [slug])
   const handleAddLike = (slug) => {
     fetch(`/.netlify/functions/increment-thumbs-up?slug=${slug}`)

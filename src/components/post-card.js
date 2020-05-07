@@ -7,24 +7,29 @@ import Likes from './likes'
 const PostCards = ({ posts }) => {
   const [ratings, setRatings] = useState([])
   useEffect(() => {
+    const processRatings = (faunaRatings) => {
+      const processedRatings = posts.map((post) => {
+        const currRating = faunaRatings.find(
+          (rating) => rating.slug === post.fields.slug
+        )
+        if (currRating) {
+          return {
+            slug: post.fields.slug,
+            likes: currRating.upCount,
+            dislikes: currRating.downCount,
+          }
+        }
+        return { slug: post.fields.slug, likes: 0, dislikes: 0 }
+      })
+      setRatings(processedRatings)
+    }
+
     fetch('/.netlify/functions/all-thumbs-up')
       .then((response) => response.json())
       .then((data) => {
-        const processedRatings = posts.map((post) => {
-          const currRating = data.find(
-            (rating) => rating.slug === post.fields.slug
-          )
-          if (currRating) {
-            return {
-              slug: post.fields.slug,
-              likes: currRating.upCount,
-              dislikes: currRating.downCount,
-            }
-          }
-          return { slug: post.fields.slug, likes: 0, dislikes: 0 }
-        })
-        setRatings(processedRatings)
+        processRatings(data)
       })
+      .catch((e) => processRatings([]))
   }, [posts])
   const handleAddLike = (slug) => {
     fetch(`/.netlify/functions/increment-thumbs-up?slug=${slug}`)
