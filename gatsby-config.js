@@ -92,6 +92,12 @@ module.exports = {
         precachePages: [`/todos/`, `/posts/`, `/posts/*`],
       },
     },
+    {
+      resolve: 'gatsby-plugin-netlify-cache',
+      options: {
+        cachePublic: true,
+      },
+    },
   ],
   developMiddleware: (app) => {
     app.use(
