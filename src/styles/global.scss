@@ -320,7 +320,11 @@ a {
     margin-left: 0.5rem;
     width: 100%;
   }
+  .select__placeholder {
+    color: hsl(0, 0%, 45%);
+  }
 }
+
 .post-likes-container {
   margin-top: 1rem;
   div {

@@ -25,7 +25,6 @@ export default function Template({
   const { slug } = markdownRemark.fields
   const [rating, setRating] = useState([])
   useEffect(() => {
-    console.log('slug', slug)
     fetch(`/.netlify/functions/thumbs-up?slug=${slug}`)
       .then((response) => response.json())
       .then((data) => {
