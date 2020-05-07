@@ -34,31 +34,7 @@ quit
 
 It would be great to have a UI to interact with our new database, so let's install PGAdmin. You can download it here https://www.postgresql.org/ftp/pgadmin/. There are no credentials for our database, so lease them empty.
 
-Use PGAdmin to create the following tables: User
-Fields
-id type serial as a primary key
-name type varying character
-address type integer
-Foreign Keys
-fk_address points 'User.address' to 'Address.id'
-Group
-Fields
-id type serial as a primary key
-name type varying character
-Address
-Fields
-id type serial as a primary key
-street type varying character
-Foreign Keys
-fk_address points 'User.address' to 'Address.id'
-User_Group
-Fields
-id type serial as a primary key
-user type integer
-group type integer
-Foreign Keys
-fk_user points 'User_Group.user' to 'User.id'
-fk_grouyp points 'User_Group.group' to 'Group.id'
+Use PGAdmin to create the following tables:
 
 ```sql
 CREATE SEQUENCE address_id_seq;

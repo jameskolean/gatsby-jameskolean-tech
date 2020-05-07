@@ -6,7 +6,7 @@ This simple website built with GatsbyJS using Netlify CMS. It's hosted on Netlif
 
 Deploy the site on Netlify and rename it to something you can rebember (jameskolean-tech.netlify.com). Then add these DNS records to Cloudflare naming sure that Cloudflare DNS Only (grey cloud).
 
-```properties
+```shell
 CNAME jameskolean.tech jameskolean-tech.netlify.com Auto DNS only
 CNAME www jameskolean-tech.netlify.com Auto DNS only
 ```
