@@ -2,6 +2,7 @@
 template: BlogPost
 date: 2020-05-20T18:14:54.335Z
 title: Need a Dynamic Web App? Use a Static Site Generator.
+source: cvb
 tags:
   - Gatsby
 thumbnail: /assets/sailing-medium-unsplash.jpg
