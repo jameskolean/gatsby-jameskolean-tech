@@ -13,6 +13,7 @@ collections:
     fields:
       - { label: Template, name: template, widget: hidden, default: BlogPost }
       - { name: date, label: Date, widget: datetime }
+      - { name: published, label: Published, widget: 'boolean', default: false }
       - { name: title, label: Title }
       - { name: source, label: Source, required: false }
       - label: 'Tags'
