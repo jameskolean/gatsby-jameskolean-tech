@@ -781,7 +781,7 @@ vault status
 Add a value to Vault and confirm it was added like this.
 
 ```shell
-vault kv put secrets/config-consumer-app vault.message="Hello from Vault"
+vault kv put secret/config-consumer-app vault.message="Hello from Vault"
 vault kv get secret/config-consumer-app
 ```
 
