@@ -56,3 +56,7 @@ https://hasura.io/jwt-config/
 Now add the environmental variable. Go to the Settings tab and click 'Receal Config Vars'.
 
 You can also add an `HASURA_GRAPHQL_ADMIN_SECRET` to override the Admin Console authentication.
+
+![Set Table Permission](/assets/hasura-auth0/hasura-permissions.png) You can set the table permissions like this.
+
+![Test GraphQL](/assets/hasura-auth0/hasura-test-auth.png) Use these headers to test the GrqphQL.
