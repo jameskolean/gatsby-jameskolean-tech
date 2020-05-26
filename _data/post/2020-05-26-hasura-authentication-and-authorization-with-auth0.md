@@ -60,3 +60,38 @@ You can also add an `HASURA_GRAPHQL_ADMIN_SECRET` to override the Admin Console 
 ![Set Table Permission](/assets/hasura-auth0/hasura-permissions.png) You can set the table permissions like this.
 
 ![Test GraphQL](/assets/hasura-auth0/hasura-test-auth.png) Use these headers to test the GrqphQL.
+
+## Apoolo Client
+
+Calling from the Apollo client would look sonething like this.
+
+```javascript
+import React from 'react'
+import { ApolloProvider } from '@apollo/react-hooks'
+import ApolloClient from 'apollo-boost'
+import fetch from 'isomorphic-fetch'
+
+import { getIdToken, getProfile } from './auth'
+
+const client = new ApolloClient({
+  uri: process.env.GATSBY_HASURA_URL,
+  fetch,
+  request: (operation) => {
+    const token = getIdToken()
+    const profile = getProfile()
+    console.log('set auth to ', profile)
+    operation.setContext({
+      headers: {
+        authorization: token ? `Bearer ${token}` : '',
+        'x-hasura-role': profile ? profile.role : '',
+      },
+    })
+  },
+})
+
+const ApolloRootElementWrapper = ({ element }) => (
+  <ApolloProvider client={client}>{element}</ApolloProvider>
+)
+
+export default ApolloRootElementWrapper
+```
