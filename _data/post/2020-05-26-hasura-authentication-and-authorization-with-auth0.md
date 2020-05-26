@@ -46,3 +46,13 @@ Go to the Auth0 Dashboard and choose Users & Roles > Roles on the lefthand menu.
 To test, all we need to do is log into the Gatsby and print out the JWT. Copy the JWT and paste it into https://jwt.io/ to decode it and see the additional fields.
 
 Now you can set up Hasura table permissions using the new Role.
+
+## Securing Hasura Admin and JWT mode activation
+
+You need to crate a `HASURA_GRAPHQL_JWT_SECRET` and add it to our environmental varaibles in Heroku. Use this like to create the secret.
+
+https://hasura.io/jwt-config/
+
+Now add the environmental variable. Go to the Settings tab and click 'Receal Config Vars'.
+
+You can also add an `HASURA_GRAPHQL_ADMIN_SECRET` to override the Admin Console authentication.
