@@ -30,7 +30,7 @@ services:
 
 In the terminal run these command to start ZooKeeper and Kafka. The last starts an interactive producer. Once running you can type a message like: Hello World<Return> to add a message to Kafka. Note: you will need to install Kafka to have access to kafka-console-producer, I suggest using Homebrew to install this `brew install kafka`.
 
-```shell
+```bash
 docker-compose up -d
 docker ps
 kafka-console-producer --broker-list localhost:9092 --topic test
@@ -38,7 +38,7 @@ kafka-console-producer --broker-list localhost:9092 --topic test
 
 To view the messages open a new terminal and run this command.
 
-```shell
+```bash
 kafka-console-consumer --bootstrap-server localhost:9092 --topic test
 ```
 
@@ -122,7 +122,7 @@ spring.kafka.producer.bootstrap-servers: localhost:9092
 
 Go ahead and start the app so we can use the publish endpoint to send a message. The simplest way to do this is with Curl (Postman is another great option).
 
-```shell
+```bash
 curl -X POST \
   'http://localhost:8080/kafka/publish?message=Hello%20World' \
   -H 'cache-control: no-cache'

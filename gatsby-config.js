@@ -56,6 +56,7 @@ module.exports = {
           },
           `gatsby-remark-images`,
           'gatsby-remark-emojis',
+          //  `gatsby-remark-vscode`,
           {
             resolve: `gatsby-remark-prismjs`,
             options: {

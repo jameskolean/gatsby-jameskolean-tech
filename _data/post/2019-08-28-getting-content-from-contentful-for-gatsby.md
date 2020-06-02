@@ -19,7 +19,7 @@ You can get started by signing up for an account at Contentful [https://www.cont
 
 The plugin we need to install that connects GatsbyJS to Contentful is [here](https://www.gatsbyjs.org/packages/gatsby-source-contentful/). Following the documentation we first install with npm.
 
-```shell
+```bash
 npm install --save gatsby-source-contentful
 ```
 

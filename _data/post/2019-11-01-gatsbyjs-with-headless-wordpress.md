@@ -76,7 +76,7 @@ If you don’t have the gatsby-cli installed, now is the time. Follow instructio
 
 Now move to a folder we will create our gatsbyJS project in and run
 
-```shell
+```bash
 gatsby new gatsby-wordpress https://github.com/gatsbyjs/gatsby-starter-hello-world
 cd gatsby-wordpress
 gatsby develop
@@ -88,7 +88,7 @@ Open these URLs in your browser to confirm Gatsby is running:\
 
 Stop Gatsby and install the following plugins then restart Gatsby
 
-```shell
+```bash
 npm install --save gatsby-plugin-sharp
 npm install --save gatsby-source-graphql
 ```
@@ -121,7 +121,7 @@ module.exports = {
 
 Now run it.
 
-```shell
+```bash
 gatsby develop
 ```
 

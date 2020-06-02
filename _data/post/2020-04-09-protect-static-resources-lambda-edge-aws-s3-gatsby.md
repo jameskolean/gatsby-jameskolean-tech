@@ -23,13 +23,13 @@ npm install -g gatsby-cli
 
 Now let’s use it to create our starter app.
 
-```shell
+```bash
 gatsby new gatsby-lambda-edge-gated https://github.com/gatsbyjs/gatsby-starter-default
 ```
 
 Let’s test our new application.
 
-```shell
+```bash
 cd gatsby-lambda-edge-gated
 gatsby develop
 ```
@@ -108,7 +108,7 @@ We need credentials to access the S3 bucket so go back to Services in the AWS ma
 \
 We could manually build and push the built Gatsby site but let’s use a plugin. Install the plugin.
 
-```shell
+```bash
 npm install gatsby-plugin-s3 gatsby-plugin-config dotenv
 ```
 
@@ -148,7 +148,7 @@ AWS_SECRET_ACCESS_KEY=your-secret
 
 We can now build and deploy.
 
-```shell
+```bash
 gatsby build
 npm run deploy
 ```
@@ -229,7 +229,7 @@ export default IndexPage
 
 Build and deploy the application again.
 
-```shell
+```bash
 gatsby build
 npm run deploy
 ```

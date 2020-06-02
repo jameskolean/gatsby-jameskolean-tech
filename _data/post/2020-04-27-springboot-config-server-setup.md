@@ -115,7 +115,7 @@ message=Hello world
 
 You can instead create a local repository like this.
 
-```shell
+```bash
 mkdir my-repo
 cd my-repo
 git init
@@ -128,11 +128,11 @@ Now change <b>spring.cloud.config.server.git.uri</b> to the fully qualified path
 
 Start it and test it.
 
-```shell
+```bash
 mvn spring-boot:run
 ```
 
-```shell
+```bash
 curl http://localhost:8888/config-consumer-app/default
 
 {"name":"config-consumer-app","profiles":["default"],"label":null,"version":"b1b2a823a0231d324be902c82e696ece85639c86","state":null,"propertySources":[{"name":"https://gitlab.com/jameskolean/springboot-config-demo-repo.git/config-consumer-app.properties","source":{"message":"Hello world"}}]}%
@@ -277,7 +277,7 @@ management.endpoints.web.exposure.include=*
 
 Run it
 
-```shell
+```bash
 mvn spring-boot:run
 ```
 
@@ -285,7 +285,7 @@ Open a browser to <a href="http://localhost:8080/message">http://localhost:8080/
 
 Now you can change the message property in 'my-repo' git repository. We can trigger our Web Application to pull the new value with this command.
 
-```shell
+```bash
 curl localhost:8080/actuator/refresh -d {} -H "Content-Type: application/json"
 ```
 
@@ -384,7 +384,7 @@ Edit the Configuration Server <b>pom.xml</b> file. We are adding the JIB build p
 
 If you want to run this, you will need to point to your docker repository and sign into docker hub. At that point these commands will build, publish, pull, and run the dockerized Configuration Server.
 
-```shell
+```bash
 mvn clean package jib:build
 docker pull jameskolean/config-server:0.0.1-SNAPSHOT
 docker run -p 8888:8888 -t "jameskolean/config-server:0.0.1-SNAPSHOT"
@@ -392,7 +392,7 @@ docker run -p 8888:8888 -t "jameskolean/config-server:0.0.1-SNAPSHOT"
 
 Now test with curl like we did before.
 
-```shell
+```bash
 curl http://localhost:8888/config-consumer-app/default
 
 {"name":"config-consumer-app","profiles":["default"],"label":null,"version":"b1b2a823a0231d324be902c82e696ece85639c86","state":null,"propertySources":[{"name":"https://gitlab.com/jameskolean/springboot-config-demo-repo.git/config-consumer-app.properties","source":{"message":"Hello world"}}]}%
@@ -519,7 +519,7 @@ Note: you can create another file called <b>src/main/resources/bootstrap-local.p
 
 Now build and run it.
 
-```shell
+```bash
 mvn package jib:build
 docker pull jameskolean/config-consumer-app:0.0.1-SNAPSHOT
 docker run -p 8080:8080 -t "jameskolean/config-consumer-app:0.0.1-SNAPSHOT"
@@ -571,13 +571,13 @@ spring.security.user.password=root
 
 To enable HTTPs, we need to generate a self-signed certificate and place it in <b>src/main/resources</b>
 
-```shell
+```bash
 keytool -genkeypair -alias tomcat -keyalg RSA -keysize 2048 -storetype PKCS12 -keystore keystore.p12 -validity 3650 -storepass "keepItSecret&Safe"
 ```
 
 Let's make sure it was generated correctly by running this command.
 
-```shell
+```bash
 keytool -list -v -storetype pkcs12 -keystore ./src/maim/resourceskeystore.p12
 ```
 
@@ -593,7 +593,7 @@ server.port: 8443
 
 It's time to test it by running this command.
 
-```shell
+```bash
 curl -k https://root:root@localhost:8443/config-consumer-app/default
 ```
 
@@ -699,7 +699,7 @@ org.springframework.cloud.bootstrap.BootstrapConfiguration = com.codegreenllc.co
 
 Start both the Configuration Server and the Web Application like we did before.
 
-```shell
+```bash
 mvn spring-boot:run -Dspring-boot.run.profiles=local
 
 ```
@@ -758,7 +758,7 @@ public class Application {
 
 Now start both applications from the project root folder.
 
-```shell
+```bash
 mvn -pl config-server spring-boot:run -Dspring-boot.run.profiles=native,git
 mvn -pl config-consumer-app spring-boot:run -Dspring-boot.run.profiles=local
 ```
@@ -770,7 +770,7 @@ Open a browser to try it at http://localhost:8080/message.
 Now let's add Vault.
 Step one is to install Vault from Hashicorp. On a Mac, I suggest using Homebrew like this.
 
-```shell
+```bash
 brew install vault
 vault -autocomplete-install
 vault server -dev
@@ -780,7 +780,7 @@ vault status
 
 Add a value to Vault and confirm it was added like this.
 
-```shell
+```bash
 vault kv put secret/config-consumer-app vault.message="Hello from Vault"
 vault kv get secret/config-consumer-app
 ```
@@ -798,14 +798,14 @@ spring.cloud.config.server.vault.token=YOUR-TOKEN
 
 Start and test the Config Server from the project root directory.
 
-```shell
+```bash
 mvn -pl config-server spring-boot:run -Dspring-boot.run.profiles=native,git,vault
 curl -k https://root:root@localhost:8443/config-consumer-app/default
 ```
 
 Now start the Web Application from the project root directory.
 
-```shell
+```bash
 mvn -pl config-consumer-app spring-boot:run -Dspring-boot.run.profiles=local
 ```
 
@@ -813,7 +813,7 @@ Open a browser to http://localhost:8080/message
 
 To close the loop, these are the docker commands to build an run.
 
-```shell
+```bash
 mvn clean && mvn --projects config-server,config-consumer-app package jib:build
 docker pull "jameskolean/config-server:0.0.1-SNAPSHOT"
 docker run -p 8443:8443 --env SPRING_PROFILES_ACTIVE=native,git,vault --env spring.cloud.config.server.vault.token=YOUR-TOKEN -t "jameskolean/config-server:0.0.1-SNAPSHOT"

@@ -15,7 +15,7 @@ If you don’t have the gatsby-cli installed, now is the time. Follow instructio
 
 Now you can run the demo:
 
-```shell
+```bash
 gatsby new gatsby-shopify-starter https://github.com/AlexanderProd/gatsby-shopify-starter
 cd gatsby-shopify-starter
 gatsby develop

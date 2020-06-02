@@ -20,7 +20,7 @@ This requires a file called \_redirects in the static folder. Then just add your
 
 #### Example
 
-```shell
+```bash
 # redirect request for non-existent page at /no-where to /welcome-to-the-blog
 /no-where              /welcome-to-the-blog
 ```

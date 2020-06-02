@@ -19,7 +19,7 @@ If you just want to see Zipkin working, get the [source code](https://gitlab.com
 
 Note: you first need to copy the directory application-config to \${user.home}/application-config and git initialize it. These provide the configuration settings that the Configuration Server will distribute.
 
-```shell
+```bash
 mvn spring-boot:run -pl config-service
 mvn spring-boot:run -pl discovery
 mvn spring-boot:run -pl book-service
@@ -58,7 +58,7 @@ spring.cloud.config.server.git.uri=file://${user.home}/application-config
 
 Create the directory \${user.home}/application-config and git initialize it.
 
-```shell
+```bash
 mkdir ~/aplication-config
 cd ~/application-config
 git init
@@ -68,7 +68,7 @@ git init
 
 Let’s see if it runs
 
-```shell
+```bash
 mvn spring-boot:run -pl config-service
 ```
 
@@ -122,20 +122,20 @@ Go back to the Configuration Server and add the dependency.
 
 You can now run the Configuration and Discovery servers and you should see them interacting in the logs.
 
-```shell
+```bash
 mvn spring-boot:run -pl config-service
 mvn spring-boot:run -pl discovery
 ```
 
 Discovery Server log
 
-```shell
+```bash
 Fetching config from server at: http://localhost:7081
 ```
 
 Configuration Server log
 
-```shell
+```bash
 DiscoveryClient_CONFIG/10.1.10.235:config:8081: registering service...
 Tomcat started on port(s): 7081 (http)
 DiscoveryClient_CONFIG/10.1.10.235:config:7081 - registration status: 204
@@ -193,13 +193,13 @@ hystrix.command.discovery.execution.isolation.thread.timeoutInMilliseconds=60000
 
 Start the Gateway server
 
-```shell
+```bash
 mvn spring-boot:run -pl gateway
 ```
 
 Logs
 
-```powershell
+```bash
 Fetching config from server at : http://james-mbp:7081/
 ...
 DiscoveryClient_GATEWAY/james-mbp:gateway:7080: registering service...
@@ -321,7 +321,7 @@ public class BookServiceApplication {
 
 Start all the services in order and make sure the Configuration server is running before starting the others.
 
-```shell
+```bash
 mvn spring-boot:run -pl config-service
 mvn spring-boot:run -pl discovery
 mvn spring-boot:run -pl book-service
@@ -331,14 +331,14 @@ mvn spring-boot:run -pl gateway
 
 Go to the Book Service and Rating Service directly to make sure they are running.
 
-```shell
+```bash
 curl http://localhost:7085/books
 curl http://localhost:7084/ratings
 ```
 
 Now check the gateway
 
-```shell
+```bash
 curl http://localhost:7080/booking-service/books
 curl http://localhost:7080/rating-service/ratings
 ```
@@ -373,7 +373,7 @@ spring.sleuth.sampler.probability=1.0
 
 Start the Zipkin server as a docker container.
 
-```shell
+```bash
 docker run -d -p 9411:9411 openzipkin/zipkin
 ```
 
@@ -381,7 +381,7 @@ Open a browser to[ http://localhost:9411/zipkin/](http://localhost:9411/zipkin/)
 
 Now just restart the gateway, book-service, and rating-service and test the endpoint to generate traces in Zipkin
 
-```shell
+```bash
 curl http://localhost:7080/booking-service/books
 curl http://localhost:7080/rating-service/ratings
 ```

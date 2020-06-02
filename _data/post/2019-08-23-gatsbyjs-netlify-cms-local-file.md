@@ -23,7 +23,7 @@ Let’s get started by creating a started App from the [Netlify CMS](https://www
 
 First we need to install the[ netlify-cms-backend-fs](https://www.npmjs.com/package/netlify-cms-backend-fs) module which is the key to getting our desired functionality.
 
-```shell
+```bash
 yarn add netlify-cms-backend-fs
 ```
 

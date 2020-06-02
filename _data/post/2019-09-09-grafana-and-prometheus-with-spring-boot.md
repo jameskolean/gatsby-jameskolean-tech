@@ -81,7 +81,7 @@ implementation 'io.micrometer:micrometer-registry-prometheus'
 
 Run the application
 
-```shell
+```bash
 gradlew bootRun
 ```
 
@@ -135,7 +135,7 @@ scrape_configs:
 
 Now launch them
 
-```shell
+```bash
 docker-compose up
 ```
 

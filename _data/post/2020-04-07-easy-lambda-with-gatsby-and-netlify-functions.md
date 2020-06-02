@@ -16,20 +16,20 @@ Let’s look at how to use Netlify Functions in Gatsby. Why do we want to do thi
 
 If you have not installed the Gatsby CLI, nows the time
 
-```shell
+```bash
 npm install -g gatsby-cli
 ```
 
 Now let’s use it to create our starter app.
 
-```shell
+```bash
 gatsby new gatsby-netlify-function https://github.com/gatsbyjs/gatsby-starter-hello-world
 
 ```
 
 Let’s test our new application.
 
-```shell
+```bash
 cd gatsby-netlify-function
 gatsby develop
 ```
@@ -40,7 +40,7 @@ Open a browser to `http://localhost:8000`
 
 Now let’s get to the reason why we are here, to build a function. First, we need to install dependencies.
 
-```shell
+```bash
 npm install -D http-proxy-middleware netlify-lambda npm-run-all
 ```
 
@@ -132,13 +132,13 @@ export default IndexPage
 
 Finally, we can run the demo. Open a terminal to the project root and run this command.
 
-```shell
+```bash
 npm run start:lambda
 ```
 
 Open another terminal to the project root and run this command.
 
-```shell
+```bash
 gatsby develop
 ```
 
@@ -245,14 +245,14 @@ export default IndexPage
 
 All that’s left to do is to run it as we did before. Open a terminal to the project root and run this command.
 
-```shell
+```bash
 npm run start:lambda
 ```
 
 \
 Open another terminal to the project root and run this command.
 
-```shell
+```bash
 gatsby develop
 ```
 

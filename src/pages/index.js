@@ -7,10 +7,12 @@ import PostCards from '../components/post-card'
 
 const IndexPage = ({
   data: {
+    page,
     site,
     allMarkdownRemark: { nodes: posts },
   },
 }) => {
+  console.log('23', page)
   return (
     <Layout>
       <Helmet>
@@ -19,7 +21,12 @@ const IndexPage = ({
         <html lang='en' />
       </Helmet>
       <HeroHeader />
-      <h2>About Me</h2>
+      <div
+        className='blog-post-content'
+        dangerouslySetInnerHTML={{ __html: page.html }}
+      />
+
+      {/* <h2>About Me</h2>
       <p>
         I'm James Kolean a full stack developer located in South East Michigan.
         Most of my work has been in SpringBoot development as an Architect, Team
@@ -50,7 +57,7 @@ const IndexPage = ({
           Update Delete) application code, allowing more effort to be placed on
           the highly valuable client-specific business logic.
         </li>
-      </ul>
+      </ul> */}
       <p>Check out my Posts. I hope they help someone.</p>
       <h2>Latest Posts</h2>
       <div className='grids'>
@@ -74,6 +81,12 @@ export const pageQuery = graphql`
         title
         description
       }
+    }
+    page: markdownRemark(
+      frontmatter: { template: { eq: "Page" } }
+      fields: { slug: { eq: "/pages/index/" } }
+    ) {
+      html
     }
     allMarkdownRemark(
       limit: 3

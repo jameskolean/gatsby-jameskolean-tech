@@ -6,7 +6,7 @@ source: 'https://gitlab.com/jameskolean/database-to-graphql/-/tree/master'
 tags:
   - GraphQL
   - React
-thumbnail: /assets/black-white-graph-unsplash.jpg
+thumbnail: /assets/sticky-note-square-unsplash.jpg
 published: true
 ---
 
@@ -14,19 +14,19 @@ published: true
 
 Download Postgres here https://www.postgresql.org/download/ and install the application. Make sure you create a server using the button in the lower-left of the Postgres window and start it. Note that you will need to update \$PATH to use the command line tools. This command will take care of that for you.
 
-```shell
+```bash
 sudo mkdir -p /etc/paths.d && echo /Applications/Postgres.app/Contents/Versions/latest/bin | sudo tee /etc/paths.d/postgresapp
 ```
 
 Now we can create a Database to test.
 
-```shell
+```bash
 createdb mydb
 ```
 
 Let's make sure `mydb` exists using the command line tools.
 
-```shell
+```bash
 psql "postgres:///"
 \c mydb
 select 1 + 1 as two;
@@ -98,7 +98,7 @@ Make sure you completed the 'Getting Started' section. At this point we have;
 
 We can now create a NodeJS app to run PostGraphile. Let's create an Express application for this.
 
-```shell
+```bash
 mkdir postgraphile
 cd postgraphile
 npx express-generator
@@ -130,7 +130,7 @@ app.use(
 
 Start the Express
 
-```shell
+```bash
 npm start
 ```
 
@@ -140,7 +140,7 @@ Open a browser to http://localhost:3000/graphiql
 
 Subscriptions don't come for free, and the setup is more than I want to dig into at this time. However, This will demonstrate that it is possible.
 
-```shell
+```bash
 yarn add @graphile/pg-pubsub
 npx postgraphile \
  --plugins @graphile/pg-pubsub \
@@ -181,7 +181,7 @@ Go ahead and change the row and rerun the trigger.
 
 Hasura feels like a more polished version of PostGraphile, as we will see from the install. There are several ways we can get started; there is a 'one-button' deployment to Heroku that installs everything you need, including a Postgres database. Let's choose a docker install that uses the database we already created to get a better comparison. The following command will start Harusa on a Mac, for other Operating systems go [here](https://hasura.io/docs/1.0/graphql/manual/deployment/docker/index.html#step-1-get-the-docker-run-sh-bash-script)
 
-```shell
+```bash
 docker run -p 8080:8080 \
   -e HASURA_GRAPHQL_DATABASE_URL=postgres://postgres:@host.docker.internal:5432/mydb \
   -e HASURA_GRAPHQL_ENABLE_CONSOLE=true \
@@ -202,7 +202,7 @@ Unlike the previous two examples that a targeted at being GraphQL servers, Prism
 
 Let's run through a quick setup the follows the [tutorial](https://www.prisma.io/docs/getting-started/setup-prisma/add-to-existing-project-typescript-postgres)
 
-```shell
+```bash
 npm init
 npm install @prisma/cli --save-dev
 npx prisma init
@@ -214,7 +214,7 @@ Edit the **_prisma/.env_** file to point to our database.
 DATABASE_URL="postgres://postgres:@localhost:5432/mydb?schema=public"
 ```
 
-```shell
+```bash
 npx prisma introspect
 npm install @prisma/client
 npx prisma generate
@@ -240,7 +240,7 @@ main()
 
 Run Node
 
-```shell
+```bash
 node index.js
 ```
 

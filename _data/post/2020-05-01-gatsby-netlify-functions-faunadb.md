@@ -18,7 +18,7 @@ In this post, we will see how I added the 'Thumbs Up' functionality to this site
 Open an account at https://dashboard.fauna.com/accounts/login.
 Go to 'New Database,' name it Netlify, go to Security, and add a new key. Set the role to 'Admin' and call it 'Netlify.' Save the key for use later. We can create collections by simply importing a GraphQL Schema. Create a file <b>schema.gql</b>.
 
-```shell
+```bash
 type Thumb {
   slug: String!
   upCount: Int!
@@ -39,7 +39,7 @@ type Query {
 
 Run this to import the schema. You need to substitute the key you saved in YOUR-KEY.
 
-```shell
+```bash
 url -u YOUR-KEY: https://graphql.fauna.com/import --data-binary "@schema.gql"
 ```
 

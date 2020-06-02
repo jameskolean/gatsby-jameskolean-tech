@@ -230,7 +230,7 @@ public class TopRatingSink {
 
 To test, start Kafka with docker-compose and monitor the event. then run the Spring Boot app.
 
-```shell
+```bash
 docker-compose up -d
 kafka-console-consumer --bootstrap-server localhost:9092 --topic rateevents
 kafka-console-consumer --bootstrap-server localhost:9092 --topic topratings

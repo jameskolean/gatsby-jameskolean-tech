@@ -140,7 +140,7 @@ spring.data.mongodb.host=localhost
 
 ## Start it up
 
-```shell
+```bash
 mvn spring-boot:run
 ```
 

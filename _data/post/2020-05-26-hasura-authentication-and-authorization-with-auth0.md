@@ -61,7 +61,7 @@ You can also add an `HASURA_GRAPHQL_ADMIN_SECRET` to override the Admin Console 
 
 ![Test GraphQL](/assets/hasura-auth0/hasura-test-auth.png) Use these headers to test the GrqphQL.
 
-## Apoolo Client
+## Apollo Client
 
 Calling from the Apollo client would look sonething like this.
 

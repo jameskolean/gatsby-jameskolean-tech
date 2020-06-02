@@ -12,7 +12,7 @@ I have a lot of code blocks in my posts, so let's see if we can make them a bit 
 
 Let's add two dependencies. The first will make the blocks look better and give us a better editor experience in Netlify CMS.
 
-```shell
+```bash
 npm install -save gatsby-remark-prismjs
 npm install gatsby-remark-code-buttons --save-dev
 ```
