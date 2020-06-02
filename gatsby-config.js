@@ -16,11 +16,11 @@ var netlifyCmsPaths = {
 module.exports = {
   /* Your site config here */
   siteMetadata: {
-    title: `Dev Notes from James Kolean`,
-    description: `Development notes by James Kolean`,
+    title: `Digital Garden cultivated by James Kolean`,
+    description: `Development playground by James Kolean`,
     siteUrl: `https://jameskolean.tech/`,
     home: {
-      title: `My Dev Notes`,
+      title: `My Digital Garden`,
       description: `A place to organize and share my software development interests.`,
     },
   },
