@@ -11,12 +11,22 @@ const TodosPage = ({
     },
   },
 }) => {
-  const Todos = todos.map((todo) => (
-    <div className='todo' key={todo.name}>
-      <div className='todo-name'>&#x21aa;{todo.name}</div>
-      <div className='todo-description'>{todo.description}</div>
-    </div>
-  ))
+  const Todos = ({ todos }) => (
+    <table class='todo-table'>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+
+      {todos.map((todo) => (
+        <tr className='todo' key={todo.name}>
+          <td>{todo.name}</td>
+          <td>{todo.description}</td>
+        </tr>
+      ))}
+    </table>
+  )
+
   return (
     <Layout>
       <Helmet>
@@ -25,7 +35,7 @@ const TodosPage = ({
         <html lang='en' />
       </Helmet>
       <h3>Things I want to look at when i get a chance...</h3>
-      {Todos}
+      <Todos todos={todos} />
     </Layout>
   )
 }

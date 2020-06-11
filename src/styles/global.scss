@@ -347,3 +347,29 @@ a {
     margin-right: 1rem;
   }
 }
+
+.todo-table {
+  border: 1px solid #ccc;
+  width: 100%;
+  th {
+    background-color: #999;
+  }
+  tr:nth-child(odd) {
+    background-color: #fff;
+  }
+  tr:nth-child(even) {
+    background-color: #ddd;
+  }
+  th:first-child,
+  td:first-child {
+    padding-left: 16px;
+  }
+
+  td,
+  th {
+    padding: 8px 8px;
+    display: table-cell;
+    text-align: left;
+    vertical-align: top;
+  }
+}
