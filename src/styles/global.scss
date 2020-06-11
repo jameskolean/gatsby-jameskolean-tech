@@ -170,7 +170,7 @@ a {
 }
 .grids {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 1fr;
   grid-gap: 32px;
   margin-top: 32px;
 }
@@ -259,12 +259,12 @@ a {
 /* Portrait and Landscape */
 @media only screen and (min-width: 768px) {
   .grids {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
   }
 }
 @media only screen and (min-width: 1024px) {
   .grids {
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   }
   .two-grids {
     display: grid;
