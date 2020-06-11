@@ -6,6 +6,7 @@ thumbnail: /assets/blur-stream-unsplash.jpg
 tags:
   - Java
   - Spring Boot
+  - Docker
 source: https://gitlab.com/jameskolean/springboot-kafka/tree/Streams
 published: true
 ---

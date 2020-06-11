@@ -6,6 +6,7 @@ source: 'https://gitlab.com/jameskolean/database-to-graphql/-/tree/master'
 tags:
   - GraphQL
   - React
+  - Docker
 thumbnail: /assets/sticky-note-square-unsplash.jpg
 published: true
 ---

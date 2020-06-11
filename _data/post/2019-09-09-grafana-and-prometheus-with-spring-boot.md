@@ -7,6 +7,7 @@ tags:
   - Java
   - Spring Boot
   - Microservice
+  - Docker
 source: https://gitlab.com/jameskolean/dashboard-demo/tree/master
 published: true
 ---

@@ -6,6 +6,7 @@ thumbnail: /assets/people-queue-unsplash.jpg
 tags:
   - Java
   - Spring Boot
+  - Docker
 source: https://gitlab.com/jameskolean/springboot-kafka
 published: true
 ---

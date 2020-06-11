@@ -4,6 +4,7 @@ date: 2020-01-20T14:50:24.358Z
 title: What’s the difference between docker compose and kubernetes?
 tags:
   - Dev Ops
+  - Docker
 thumbnail: /assets/different-shoes-unsplash.jpg
 published: true
 ---
