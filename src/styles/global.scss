@@ -1,6 +1,5 @@
 $primary-color: #381696;
 $primary-text-color: #fff;
-
 html,
 body {
   margin: 0;
@@ -352,13 +351,14 @@ a {
   border: 1px solid #ccc;
   width: 100%;
   th {
-    background-color: #999;
+    background-color: $primary-color;
+    color: white;
   }
   tr:nth-child(odd) {
     background-color: #fff;
   }
   tr:nth-child(even) {
-    background-color: #ddd;
+    background-color: fade-out($primary-color, 0.8);
   }
   th:first-child,
   td:first-child {
