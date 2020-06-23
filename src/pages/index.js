@@ -60,7 +60,7 @@ const IndexPage = ({
       </ul> */}
       <p>Check out my Posts. I hope they help someone.</p>
       <h2>Latest Posts</h2>
-      <div className='grids'>
+      <div className='three-grids'>
         <PostCards posts={posts} />
       </div>
       <div className='more-posts'>

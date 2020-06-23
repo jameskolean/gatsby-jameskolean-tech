@@ -179,7 +179,7 @@ a {
   border-radius: 9px;
   border: 1px solid #eee;
   box-shadow: 0 0 30px #d5d5d5;
-  overflow: hidden;
+  overflow-wrap: anywhere;
   line-height: 1.5;
   &:hover .post-link {
     color: $primary-color;
@@ -255,19 +255,38 @@ a {
     }
   }
 }
+.three-grids {
+  display: grid;
+  grid-gap: 32px;
+  &.-contact {
+    .post-thumbnail {
+      min-height: 240px !important;
+    }
+  }
+}
 /* Portrait and Landscape */
 @media only screen and (min-width: 768px) {
   .grids {
     grid-template-columns: 1fr 1fr 1fr;
   }
+  .three-grids {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 64px;
+  }
 }
 @media only screen and (min-width: 1024px) {
   .grids {
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
   }
   .two-grids {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-gap: 64px;
+  }
+  .three-grids {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 64px;
   }
 }
