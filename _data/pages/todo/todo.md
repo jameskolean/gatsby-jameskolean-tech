@@ -18,11 +18,8 @@ todos:
       Will this get us indexed faster?'
     name: Try Netlify Submit Sitemap Plugin
   - description: '
-      To be useful I probably need notification if the results are out of some range.'
-    name: Try Netlify Lihgthouse Plugin
-  - description: '
-      Can it provide actionable results?'
-    name: Try Is Website Vulnerable Plugin
+      I probably need notification if the results are out of some range.'
+    name: Try Netlify Lighthouse Plugin
   - description: '
       Add Disqus components into my Gatsby site. https://www.gatsbyjs.org/packages/gatsby-plugin-disqus/'
     name: Add Disqus
