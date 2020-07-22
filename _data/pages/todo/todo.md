@@ -21,6 +21,11 @@ todos:
       I probably need notification if the results are out of some range.'
     name: Try Netlify Lighthouse Plugin
   - description: '
+      Take this website vulnerability scan tool for a test drive. https://github.com/lirantal/is-website-vulnerable'
+    name: Test website vulnerability plugin
+  - description: '
       Add Disqus components into my Gatsby site. https://www.gatsbyjs.org/packages/gatsby-plugin-disqus/'
     name: Add Disqus
 ---
+
+https://github.com/lirantal/is-website-vulnerable
