@@ -1,6 +1,6 @@
 ---
 template: BlogPost
-date: 2020-04-27T13:59:29.555Z
+date: 2020-04-27
 title: 'Setting up a Springboot Configuration Server'
 tags:
   - SpringBoot

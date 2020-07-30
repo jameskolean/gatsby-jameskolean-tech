@@ -1,6 +1,6 @@
 ---
 template: BlogPost
-date: 2020-04-08T12:36:44.093Z
+date: 2020-04-08
 title: Protect Static Resources => Cloudflare Workers + AWS S3 + Gatsby
 thumbnail: /assets/touch-sun-unsplash.jpg
 tags:

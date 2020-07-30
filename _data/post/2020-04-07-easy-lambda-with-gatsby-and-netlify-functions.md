@@ -1,6 +1,6 @@
 ---
 template: BlogPost
-date: 2020-04-07T13:02:08.662Z
+date: 2020-04-07
 title: Easy Lambda with Gatsby and Netlify Functions
 thumbnail: /assets/cat-nap-unsplash.jpg
 tags:

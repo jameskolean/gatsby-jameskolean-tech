@@ -1,6 +1,6 @@
 ---
 template: BlogPost
-date: 2020-01-20T14:50:24.358Z
+date: 2020-01-20
 title: What’s the difference between docker compose and kubernetes?
 tags:
   - Dev Ops

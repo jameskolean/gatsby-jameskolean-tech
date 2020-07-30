@@ -1,6 +1,6 @@
 ---
 template: BlogPost
-date: 2019-10-19T14:36:37.845Z
+date: 2019-10-19
 title: GraphQL in SpringBoot backed by JPA
 thumbnail: /assets/screen-city-unsplash.jpg
 tags:

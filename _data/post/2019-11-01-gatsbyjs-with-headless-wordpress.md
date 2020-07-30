@@ -1,6 +1,6 @@
 ---
 template: BlogPost
-date: 2019-11-01T14:14:26.722Z
+date: 2019-11-01
 title: GatsbyJS with Headless WordPress
 thumbnail: /assets/wordpress-tshirt-unsplash.jpg
 tags:

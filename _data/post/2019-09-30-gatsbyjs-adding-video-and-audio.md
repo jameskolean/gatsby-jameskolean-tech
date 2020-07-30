@@ -1,6 +1,6 @@
 ---
 template: BlogPost
-date: 2019-08-30T15:33:24.177Z
+date: 2019-08-30
 title: GatsbyJS adding Video and Audio
 thumbnail: /assets/headphones-water-unsplash.jpg
 tags:

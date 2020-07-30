@@ -1,6 +1,6 @@
 ---
 template: BlogPost
-date: 2019-08-27T15:40:56.186Z
+date: 2019-08-27
 title: GatsbyJS Authentication with Auth0
 thumbnail: /assets/desk-unsplash.jpg
 tags:

@@ -1,6 +1,6 @@
 ---
 template: BlogPost
-date: 2020-04-20T18:59:29.555Z
+date: 2020-04-20
 title: 'AWS SQS in SpringBoot'
 thumbnail: /assets/people-stairs-unsplash.jpg
 tags:

@@ -1,6 +1,6 @@
 ---
 template: BlogPost
-date: 2020-06-22T19:37:55.030Z
+date: 2020-07-22
 published: true
 source: https://gitlab.com/jameskolean/gatsby-reservation
 tags:

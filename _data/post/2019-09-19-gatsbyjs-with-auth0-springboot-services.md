@@ -1,6 +1,6 @@
 ---
 template: BlogPost
-date: 2019-09-19T14:53:04.213Z
+date: 2019-09-19
 title: GatsbyJS with Auth0 Springboot services
 thumbnail: /assets/lock-unsplash.jpg
 tags:

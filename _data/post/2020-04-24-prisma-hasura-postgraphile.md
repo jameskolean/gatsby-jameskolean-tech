@@ -1,6 +1,6 @@
 ---
 template: BlogPost
-date: 2020-04-24T13:59:29.555Z
+date: 2020-04-24
 title: PostGraphile vs Hasura vs Prisma
 source: 'https://gitlab.com/jameskolean/database-to-graphql/-/tree/master'
 tags:

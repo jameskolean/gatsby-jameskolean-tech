@@ -1,6 +1,6 @@
 ---
 template: BlogPost
-date: 2019-11-01T14:11:56.715Z
+date: 2019-11-01
 title: GatsbyJS and Shopify
 tags:
   - Gatsby

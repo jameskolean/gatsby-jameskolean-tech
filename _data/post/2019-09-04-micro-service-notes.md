@@ -1,6 +1,6 @@
 ---
 template: BlogPost
-date: 2019-09-04T15:09:43.336Z
+date: 2019-09-04
 title: Micro-service notes
 thumbnail: /assets/sticky-note-square-unsplash.jpg
 tags:

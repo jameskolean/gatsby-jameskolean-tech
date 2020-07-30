@@ -1,6 +1,6 @@
 ---
 template: BlogPost
-date: 2020-04-16T15:43:12.724Z
+date: 2020-04-16
 title: SpringBoot + MongoBD + REST + GraphQL
 thumbnail: /assets/space-walk-unsplash.jpg
 tags:

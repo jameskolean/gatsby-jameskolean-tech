@@ -1,6 +1,6 @@
 ---
 template: BlogPost
-date: 2019-08-28T15:36:06.755Z
+date: 2019-08-28
 title: Getting Content from Contentful for Gatsby
 thumbnail: /assets/winter-orange-pines-unsplash.jpg
 tags:

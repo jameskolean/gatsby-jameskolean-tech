@@ -1,6 +1,6 @@
 ---
 template: BlogPost
-date: 2020-05-01T13:59:29.555Z
+date: 2020-05-01
 title: Gatsby + Netlify Functions + FaunaDB
 source:
 tags:

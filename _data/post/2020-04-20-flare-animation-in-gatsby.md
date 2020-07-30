@@ -1,6 +1,6 @@
 ---
 template: BlogPost
-date: 2020-04-20T13:59:29.555Z
+date: 2020-04-20
 title: 'Flare Animation in Gatsby'
 tags:
   - Tools

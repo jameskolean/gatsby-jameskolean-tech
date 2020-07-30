@@ -1,6 +1,6 @@
 ---
 template: BlogPost
-date: 2020-04-03T13:46:18.634Z
+date: 2020-04-03
 title: Netlify Redirects
 thumbnail: /assets/detour-unsplash.jpg
 tags:

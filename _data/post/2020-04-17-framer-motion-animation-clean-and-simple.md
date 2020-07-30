@@ -1,6 +1,6 @@
 ---
 template: BlogPost
-date: 2020-04-17T13:59:29.555Z
+date: 2020-04-17
 title: 'Framer Motion: Animation Clean and Simple'
 tags:
   - Gatsby

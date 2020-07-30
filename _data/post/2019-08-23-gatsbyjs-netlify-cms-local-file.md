@@ -1,6 +1,6 @@
 ---
 template: BlogPost
-date: 2019-09-23T14:47:28.786Z
+date: 2019-09-23
 title: GatsbyJS + Netlify CMS + Local File
 thumbnail: /assets/code-on-screen-unsplash.jpg
 tags:

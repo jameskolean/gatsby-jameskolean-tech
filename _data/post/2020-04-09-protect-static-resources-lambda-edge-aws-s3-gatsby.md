@@ -1,6 +1,6 @@
 ---
 template: BlogPost
-date: 2020-04-09T18:35:03.465Z
+date: 2020-04-09
 title: Protect Static Resources => Lambda@Edge + AWS S3 + Gatsby
 thumbnail: /assets/cloud-sunray-unsplash.jpg
 tags:

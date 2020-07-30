@@ -1,6 +1,6 @@
 ---
 template: BlogPost
-date: 2020-04-17T15:04:22.229Z
+date: 2020-04-17
 title: Code Blocks in Gatsby Markdown
 tags:
   - Gatsby

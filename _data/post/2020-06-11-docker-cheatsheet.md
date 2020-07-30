@@ -1,6 +1,6 @@
 ---
 template: BlogPost
-date: 2020-06-11T19:37:55.030Z
+date: 2020-06-11
 published: true
 source:
 tags:
