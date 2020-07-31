@@ -29,7 +29,7 @@
     "gatsby-source-filesystem": "^2.1.48",
     "gatsby-transformer-remark": "^2.6.53",
     "gatsby-transformer-sharp": "^2.4.4",
-    "netlify-cms-app": "^2.11.13",
+    "netlify-cms-app": "^2.12.19",
     "node-sass": "^4.13.1",
     "prismjs": "^1.19.0",
     "react": "^16.12.0",
