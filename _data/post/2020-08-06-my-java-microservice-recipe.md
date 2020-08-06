@@ -1,7 +1,7 @@
 ---
 template: BlogPost
 date: 2020-08-06T19:26:26.345Z
-published: false
+published: true
 title: My Java Microservice Recipe
 source: 'https://gitlab.com/jameskolean/microservice-recipe-java'
 tags:
