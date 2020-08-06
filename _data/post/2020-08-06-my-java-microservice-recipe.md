@@ -3,6 +3,7 @@ template: BlogPost
 date: 2020-08-06T19:26:26.345Z
 published: false
 title: My Java Microservice Recipe
+source: 'https://gitlab.com/jameskolean/microservice-recipe-java'
 tags:
   - GraphQL
   - Java
@@ -10,6 +11,7 @@ tags:
   - Docker
   - Microservice
   - Spring Boot
+thumbnail: /assets/coffee-and-beans-unsplash.jpg
 ---
 This is my recipe for a Microservice. 
 
