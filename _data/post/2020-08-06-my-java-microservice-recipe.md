@@ -612,10 +612,10 @@ Go to http://localhost:8080/graphiql with this Query.
     completed
   }
 }
+```
 
 6. Add Messaging
-Coming soon
+   Coming soon
 
 7. Add Logging
-Coming soon
-```
+   Coming soon
