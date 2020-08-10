@@ -6,6 +6,7 @@ title: My NodeJS Microservice Recipe
 tags:
   - Microservice
   - Docker
+  - NodeJS
 thumbnail: /assets/touch-water-unsplash.jpg
 ---
 This is my recipe for a Microservice.
