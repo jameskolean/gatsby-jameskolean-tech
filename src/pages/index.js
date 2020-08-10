@@ -12,7 +12,6 @@ const IndexPage = ({
     allMarkdownRemark: { nodes: posts },
   },
 }) => {
-  console.log('23', page)
   return (
     <Layout>
       <Helmet>
