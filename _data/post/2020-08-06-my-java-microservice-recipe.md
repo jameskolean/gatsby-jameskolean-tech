@@ -30,7 +30,7 @@ Ingredients:
   - [Kafka in Docker](##run-kafka-with-docker)
   - [Producer / Consumer](##producer-and-consumer)
 - [Monitoring](#monitoring)
-- [Configuration](#configuration-server)
+- [Configuration](#configuration)
 
 Directions:
 
@@ -872,6 +872,7 @@ The identifier must be part of the messages passed between microservices. A micr
 All aggregated logging must consistently include the identifier.
 A unique identifier is the MINIMAL contextual information that is included in a message and requires consistent logging. Your organization will need to determine what additional fields are required to trace message processing within your microservice network.
 
-# Configuration Server
+<div id="configuration"><h1>Configuration Server
+</h1></div>
 
-Coming Soon
+# Coming Soon
