@@ -860,7 +860,7 @@ public class TodoController {
 
 Use swagger http://localhost:8080/swagger-ui.html to POST a message into the queue. The consumer will read the message and insert a new todo in the database. Now Make a GET request to see the additional Todo.
 
-<div id="Monitoring"><h1>Monitoring</h1></div>
+<div id="monitoring"><h1>Monitoring</h1></div>
 
 I struggled with what to put here. I have a post on using [Prometheus with Grafana](/post/2019-09-09-grafana-and-prometheus-with-spring-boot/), so I could certainly include it here. The problem for me is that this tooling requires that I stand up, configure, and maintain a bunch of servers. Even then, the solution isn't what I would consider optimal.
 
