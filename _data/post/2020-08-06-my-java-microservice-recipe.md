@@ -17,18 +17,25 @@ thumbnail: /assets/coffee-and-beans-unsplash.jpg
 This is my recipe for a Microservice.
 
 Ingredients:
-Java SpringBoot
-DevTools
-Lombok
-API (REST and GraphQL)
-JMS
-Docker
-Kafka
-Monitoring
+
+- [Java SpringBoot](#add-springboot)
+  - DevTools
+  - Lombok
+- [Database](#stir-in-database)
+- [Presistence](#add-some-persistence)
+- API
+  - [REST](#stir-in-a-rest-api)
+  - [GraphQL](#add-graphql)
+- [JMS](#add-messaging)
+  - [Kafka in Docker](##run-kafka-with-docker)
+  - [Producer / Consumer](##producer-and-consumer)
+- [Monitoring](#monitoring)
 
 Directions:
 
-1. Go to https://start.spring.io/ and add dependencies:
+# Add Springboot
+
+Go to https://start.spring.io/ and add dependencies:
 
 - Spring Boot DevTools
 - Lombok
@@ -39,7 +46,9 @@ Directions:
 - Spring for Apache Kafka
 - Liquibase Migration
 
-2. Stir in Database. You can use any RDBMS or even a NoSQL option. For simplicity, I'm mixing in H2 and bootstrapping with some test data. I use Liquibase to ensure the code and database are synchronized automatically.
+# Stir in Database
+
+You can use any RDBMS or even a NoSQL option. For simplicity, I'm mixing in H2 and bootstrapping with some test data. I use Liquibase to ensure the code and database are synchronized automatically.
 
 > /src/main/resources/application.properties
 
@@ -160,7 +169,7 @@ ID,DESCRIPTION,COMPLETED
 "00000000-0000-0000-0000-000000000003","Meet with Team",true
 ```
 
-### Test it
+## Test it
 
 Launch the application and check the database at http://localhost:8080/h2-console
 
@@ -171,7 +180,7 @@ User Name: sa
 Password: <leave blank>
 ```
 
-3. Stir in a REST API
+# Stir in a REST API
 
 We will need a DTO (Data Transfer Object) that will be serialized into JSON and sent to the client by the Controller. We will also add swagger so the clients can discover and test the REST endpoint.
 
@@ -267,11 +276,11 @@ public class SwaggerConfig {
 ...
 ```
 
-### Test it
+## Test it
 
 Go to http://localhost:8080/swagger-ui.html
 
-4. Add some persistence
+# Add some persistence
 
 We are going to need several layers for this. We will change the Controller to call a Service that provides the business logic and a transactional scope. The Service could call other Services, but it will only call a repository in this example. We will need an Entity that maps the data between Java and the database. To keep the Entities clean, we will also add a custom physical database naming strategy. Let's get to it.
 
@@ -532,9 +541,11 @@ public class TodoController {
 
 ```
 
-5. Add GraphQL
-   Add dependencies
-   > pom.xml
+# Add GraphQL
+
+Add dependencies
+
+> pom.xml
 
 ```xml
 ...
@@ -599,7 +610,7 @@ public class Query implements GraphQLQueryResolver {
 }
 ```
 
-### Test it
+# Test it
 
 Go to http://localhost:8080/graphiql with this Query.
 
@@ -614,45 +625,59 @@ Go to http://localhost:8080/graphiql with this Query.
 }
 ```
 
-6. Add Messaging
+# Add Messaging
+
 Let's use Kafka cause it's the new hotness, but we can just as easily use ActiveMQ or some Cloud offering. For debugging, we should install the Kafka command-line tool. This install is not a requirement, but it gives visibility into the queue. I suggest using Homebrew to install.
+
+## Run Kafka with Docker
+
 ```console
 brew install kafka
 ```
+
 Let's use docker-compose to run Kafka.
 
 > kafka/docker-compose.yml
+
 ```yaml
 version: '3'
 services:
- zookeeper:
-  image: wurstmeister/zookeeper
- kafka:
-  image: wurstmeister/kafka
-  ports:
-   - '9092:9092'
-  environment:
-   KAFKA_ADVERTISED_HOST_NAME: localhost
-   KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+  zookeeper:
+    image: wurstmeister/zookeeper
+  kafka:
+    image: wurstmeister/kafka
+    ports:
+      - '9092:9092'
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: localhost
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
 ```
+
 Start Kafka with this command.
+
 ```console
 docker-compose up -d
 docker ps
 ```
+
 Start an interactive producer with this command.
+
 ```console
 kafka-console-producer --broker-list localhost:9092 --topic test
 ```
 
 Start a consumer to monitor the queue with this command.
+
 ```console
 kafka-console-consumer --bootstrap-server localhost:9092 --topic test
 ```
 
+## Producer and Consumer
+
 Now for the code, let's create an object to hold the message and then create Producers and Consumers.
 
 > src/main/java/com/codegreenllc/microservice/recipe/messaging/TodoMessage.java
+
 ```java
 package com.codegreenllc.microservice.recipe.messaging;
 
@@ -672,7 +697,9 @@ public class TodoMessage {
 	UUID transactionId;
 }
 ```
+
 > src/main/java/com/codegreenllc/microservice/recipe/messaging/TodoProducer.java
+
 ```java
 package com.codegreenllc.microservice.recipe.messaging;
 
@@ -706,6 +733,7 @@ public class TodoProducer {
 ```
 
 > src/main/java/com/codegreenllc/microservice/recipe/messaging/TodoConsumerjava
+
 ```java
 package com.codegreenllc.microservice.recipe.messaging;
 
@@ -738,6 +766,7 @@ public class TodoConsumer {
 ```
 
 Now wire it into our app.
+
 > src/main/java/com/codegreenllc/microservice/recipe/service/TodoService.java
 
 ```java
@@ -787,7 +816,9 @@ public class TodoService {
 	}
 }
 ```
+
 > src/main/java/com/codegreenllc/microservice/recipe/service/TodoController.java
+
 ```java
 package com.codegreenllc.microservice.recipe.controller;
 
@@ -824,8 +855,18 @@ public class TodoController {
 }
 ```
 
-### Test it
-Use swagger http://localhost:8080/swagger-ui.html  to POST a message into the queue. The consumer will read the message and insert a new todo in the database. Now Make a GET request to see the additional Todo. 
+## Test it
 
-7. Add Logging
-Coming soon
+Use swagger http://localhost:8080/swagger-ui.html to POST a message into the queue. The consumer will read the message and insert a new todo in the database. Now Make a GET request to see the additional Todo.
+
+# Monitoring
+
+I struggled with what to put here. I have a post on using [Prometheus with Grafana](/post/2019-09-09-grafana-and-prometheus-with-spring-boot/), so I could certainly include it here. The problem for me is that this tooling requires that I stand up, configure, and maintain a bunch of servers. Even then, the solution isn't what I would consider optimal.
+
+Contrast this with the wide variety of logging and monitoring tools offered as services. I'll pick [Datadog](https://www.datadoghq.com/) as an example, they support multiple languages, monitor server performance, and do log aggregation all at a very reasonable subscription price. There is so much competition in this space. I'm sure you can find a service that meets your needs and removes the cognitive load of dealing with monitoring in your architecture.
+
+Enough about the tooling, whatever way you choose you **_MUST LOG MESSAGE CONTEXT_**. Failing to log message context necessarily render your aggregated log useless, and I've seen this in so many organizations. What does it take to do this correctly?
+When an event enters your microservice network is must be assigned a globally unique identifier.
+The identifier must be part of the messages passed between microservices. A microservice that transforms a message must respond with the same identifier that was received.
+All aggregated logging must consistently include the identifier.
+A unique identifier is the MINIMAL contextual information that is included in a message and requires consistent logging. Your organization will need to determine what additional fields are required to trace message processing within your microservice network.

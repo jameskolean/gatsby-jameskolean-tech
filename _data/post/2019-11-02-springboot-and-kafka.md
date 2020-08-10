@@ -107,7 +107,6 @@ public class Consumer {
         log.info(String.format("$$ -> Consumed Message -> %s", message));
     }
 }
-Finally we need to set up the application.propert
 ```
 
 Finally we need to set up the application.properties like this.
