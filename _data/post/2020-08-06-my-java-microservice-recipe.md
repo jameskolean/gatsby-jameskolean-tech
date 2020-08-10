@@ -615,7 +615,217 @@ Go to http://localhost:8080/graphiql with this Query.
 ```
 
 6. Add Messaging
-   Coming soon
+Let's use Kafka cause it's the new hotness, but we can just as easily use ActiveMQ or some Cloud offering. For debugging, we should install the Kafka command-line tool. This install is not a requirement, but it gives visibility into the queue. I suggest using Homebrew to install.
+```console
+brew install kafka
+```
+Let's use docker-compose to run Kafka.
+
+> kafka/docker-compose.yml
+```yaml
+version: '3'
+services:
+ zookeeper:
+  image: wurstmeister/zookeeper
+ kafka:
+  image: wurstmeister/kafka
+  ports:
+   - '9092:9092'
+  environment:
+   KAFKA_ADVERTISED_HOST_NAME: localhost
+   KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+```
+Start Kafka with this command.
+```console
+docker-compose up -d
+docker ps
+```
+Start an interactive producer with this command.
+```console
+kafka-console-producer --broker-list localhost:9092 --topic test
+```
+
+Start a consumer to monitor the queue with this command.
+```console
+kafka-console-consumer --bootstrap-server localhost:9092 --topic test
+```
+
+Now for the code, let's create an object to hold the message and then create Producers and Consumers.
+
+> src/main/java/com/codegreenllc/microservice/recipe/messaging/TodoMessage.java
+```java
+package com.codegreenllc.microservice.recipe.messaging;
+
+import java.util.UUID;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class TodoMessage {
+	String description;
+	UUID transactionId;
+}
+```
+> src/main/java/com/codegreenllc/microservice/recipe/messaging/TodoProducer.java
+```java
+package com.codegreenllc.microservice.recipe.messaging;
+
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.stereotype.Service;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Service
+public class TodoProducer {
+	private static final String TOPIC = "todo";
+	@Autowired
+	private KafkaTemplate<String, String> kafkaTemplate;
+	final ObjectMapper mapper = new ObjectMapper();
+
+	public void sendMessage(final String todoDescription) throws JsonProcessingException {
+		final String transactionId = UUID.randomUUID().toString();
+		log.info("[{}: {}: {}] {}", "recipe", "TodoProducer.sendMessage", transactionId, todoDescription);
+		final TodoMessage todoMessage = TodoMessage.builder().description(todoDescription)
+				.transactionId(UUID.randomUUID()).build();
+		kafkaTemplate.send(TOPIC, mapper.writeValueAsString(todoMessage));
+	}
+}
+```
+
+> src/main/java/com/codegreenllc/microservice/recipe/messaging/TodoConsumerjava
+```java
+package com.codegreenllc.microservice.recipe.messaging;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.stereotype.Service;
+
+import com.codegreenllc.microservice.recipe.service.TodoService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Service
+public class TodoConsumer {
+	final ObjectMapper mapper = new ObjectMapper();
+	@Autowired
+	TodoService todoService;
+
+	@KafkaListener(topics = "todo", groupId = "group_id")
+	public void consume(final String payload) throws JsonMappingException, JsonProcessingException {
+		final TodoMessage todoMessage = mapper.readValue(payload, TodoMessage.class);
+		log.info("[{}: {}: {}] {}", "recipe", "TodoConsumer.consume", todoMessage.transactionId,
+				todoMessage.description);
+		todoService.createFromDesctiption(todoMessage.description);
+	}
+}
+```
+
+Now wire it into our app.
+> src/main/java/com/codegreenllc/microservice/recipe/service/TodoService.java
+
+```java
+package com.codegreenllc.microservice.recipe.service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.codegreenllc.microservice.recipe.dto.TodoDto;
+import com.codegreenllc.microservice.recipe.entity.TodoEntity;
+import com.codegreenllc.microservice.recipe.repository.TodoRepository;
+
+@Transactional
+@Service
+public class TodoService {
+	@Autowired
+	TodoRepository todoRepository;
+
+	public TodoDto createFromDesctiption(final String description) {
+		final TodoEntity todoEntity = TodoEntity.builder().description(description).completed(false).build();
+		final TodoEntity savedTodoEntity = todoRepository.save(todoEntity);
+		return mapEntityToDto(savedTodoEntity);
+
+	}
+
+	public List<TodoDto> getAllTodos() {
+		return StreamSupport.stream(todoRepository.findAll().spliterator(), false).map(g -> {
+			// You should use a mapper like mapstruct here
+			return mapEntityToDto(g);
+		}).collect(Collectors.toList());
+	}
+
+	// You should use a mapper like mapstruct here
+	private TodoDto mapEntityToDto(final TodoEntity entity) {
+		final TodoDto result = TodoDto.builder() //
+				.id(entity.getId()) //
+				.version(entity.getVersion()) //
+				.description(entity.getDescription()) //
+				.completed(entity.isCompleted()).build();
+		return result;
+	}
+}
+```
+> src/main/java/com/codegreenllc/microservice/recipe/service/TodoController.java
+```java
+package com.codegreenllc.microservice.recipe.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.codegreenllc.microservice.recipe.dto.TodoDto;
+import com.codegreenllc.microservice.recipe.messaging.TodoProducer;
+import com.codegreenllc.microservice.recipe.service.TodoService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+
+@RestController
+public class TodoController {
+	@Autowired
+	TodoProducer todoProducer;
+	@Autowired
+	TodoService todoService;
+
+	@PostMapping("/v1/messaging/todo")
+	public void createTodos(@RequestBody final String postPayload) throws JsonProcessingException {
+		todoProducer.sendMessage(postPayload);
+	}
+
+	@GetMapping("/v1/todo")
+	public List<TodoDto> getAllTodos() {
+		return todoService.getAllTodos();
+	}
+
+}
+```
+
+### Test it
+Use swagger http://localhost:8080/swagger-ui.html  to POST a message into the queue. The consumer will read the message and insert a new todo in the database. Now Make a GET request to see the additional Todo. 
 
 7. Add Logging
-   Coming soon
+Coming soon
