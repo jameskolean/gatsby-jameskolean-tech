@@ -7,9 +7,11 @@ tags:
   - Microservice
   - Docker
   - NodeJS
+  - JavaScript
 thumbnail: /assets/touch-water-unsplash.jpg
 ---
-This is my recipe for a Microservice.
+
+This is my recipe for a Microservice implemented in NodeJS.
 
 Ingredients:
 
@@ -26,6 +28,7 @@ Ingredients:
 - [Configuration](#configuration)
 
 Directions:
+
 <div id="express"><h1>NodeJS Express</h1></div>
 Comping soon
 <div id="database"><h1>MongoDB</h1></div>

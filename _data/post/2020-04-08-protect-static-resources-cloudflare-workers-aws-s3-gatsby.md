@@ -7,6 +7,7 @@ tags:
   - AWS
   - Gatsby
   - Dev Ops
+  - JavaScript
 source: https://gitlab.com/jameskolean/gatsby-cloudflare-gated
 published: true
 ---

@@ -5,6 +5,7 @@ title: 'Framer Motion: Animation Clean and Simple'
 tags:
   - Gatsby
   - React
+  - JavaScript
 thumbnail: /assets/ferriswheel-unsplash.jpg
 published: true
 ---

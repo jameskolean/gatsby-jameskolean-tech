@@ -6,6 +6,7 @@ thumbnail: /assets/cat-nap-unsplash.jpg
 tags:
   - Gatsby
   - Netlify
+  - JavaScript
 source: https://gitlab.com/jameskolean/gatsby-netlify-function/-/tree/master
 published: true
 ---

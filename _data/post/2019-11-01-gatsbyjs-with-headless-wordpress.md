@@ -7,6 +7,7 @@ tags:
   - Gatsby
   - Headless CMS
   - GraphQL
+  - JavaScript
 source: https://gitlab.com/jameskolean/gatsby-wordpress
 published: true
 ---

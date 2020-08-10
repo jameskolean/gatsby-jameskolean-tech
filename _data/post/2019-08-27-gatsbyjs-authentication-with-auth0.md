@@ -6,6 +6,7 @@ thumbnail: /assets/desk-unsplash.jpg
 tags:
   - Gatsby
   - Authentication & Authorization
+  - JavaScript
 source: https://gitlab.com/jameskolean/nohingo/-/tags/Auth0
 published: true
 ---

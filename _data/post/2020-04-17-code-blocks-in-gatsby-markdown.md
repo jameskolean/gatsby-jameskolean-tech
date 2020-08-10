@@ -4,6 +4,7 @@ date: 2020-04-17
 title: Code Blocks in Gatsby Markdown
 tags:
   - Gatsby
+  - JavaScript
 thumbnail: /assets/alphabet-blocks-unsplash.jpg
 published: true
 ---

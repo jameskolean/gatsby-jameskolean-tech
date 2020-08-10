@@ -8,6 +8,7 @@ tags:
   - Java
   - Spring Boot
   - Authentication & Authorization
+  - JavaScript
 source: https://gitlab.com/jameskolean/gatsbyjs-auth0-springboot/tree/master
 published: true
 ---

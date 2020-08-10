@@ -7,6 +7,7 @@ tags:
   - Gatsby
   - React
   - Media
+  - JavaScript
 source: https://gitlab.com/jameskolean/nohingo/-/tags/Added-Lesson-Video-and-Audio
 published: true
 ---

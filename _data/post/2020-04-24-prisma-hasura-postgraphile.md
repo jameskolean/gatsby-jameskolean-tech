@@ -7,6 +7,7 @@ tags:
   - GraphQL
   - React
   - Docker
+  - JavaScript
 thumbnail: /assets/sticky-note-square-unsplash.jpg
 published: true
 ---

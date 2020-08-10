@@ -7,6 +7,7 @@ tags:
   - GraphQL
   - React
   - Netlify
+  - JavaScript
 thumbnail: /assets/black-white-graph-unsplash.jpg
 published: true
 ---

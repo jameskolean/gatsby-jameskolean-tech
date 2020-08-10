@@ -5,6 +5,7 @@ title: 'Flare Animation in Gatsby'
 tags:
   - Tools
   - Gatsby
+  - JavaScript
 thumbnail: /assets/blue-dots-unsplash.jpg
 published: true
 ---

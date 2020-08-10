@@ -8,8 +8,10 @@ tags:
   - Material-UI
   - Quick Tip
   - React
+  - JavaScript
 thumbnail: /assets/fonts-unsplash.jpg
 ---
+
 In this Quick Tip, let's add a Google Font to our Gatsby application using Material-UI. First, let's choose a font, so head over to https://fonts.google.com/ and pick something you like. Now that we have a font, we need to import it into the project. We can do this with the <Helmet> component.
 
 ```javascript
@@ -44,4 +46,4 @@ const useStyles = makeStyles(({ breakpoints, palette, spacing }: Theme) =>
 ...
 ```
 
-That's all there is to it. 
+That's all there is to it.

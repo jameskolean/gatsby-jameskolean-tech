@@ -3,6 +3,8 @@ template: BlogPost
 date: 2020-05-20
 published: true
 title: Need a Dynamic Web App? Use a Static Site Generator.
+tags:
+  - Quick Tip
 thumbnail: /assets/sailing-medium-unsplash.jpg
 ---
 

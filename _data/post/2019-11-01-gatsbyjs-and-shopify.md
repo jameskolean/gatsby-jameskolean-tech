@@ -5,6 +5,7 @@ title: GatsbyJS and Shopify
 tags:
   - Gatsby
   - E-Commerce
+  - JavaScript
 thumbnail: /assets/shop-open-unsplash.jpg
 published: true
 ---

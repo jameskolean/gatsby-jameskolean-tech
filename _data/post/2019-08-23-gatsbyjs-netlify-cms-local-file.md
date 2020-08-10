@@ -7,6 +7,7 @@ tags:
   - Gatsby
   - Netlify
   - Headless CMS
+  - JavaScript
 source: https://github.com/jameskolean/local-netlify-cms
 published: true
 ---

@@ -8,6 +8,7 @@ tags:
   - Gatsby
   - Typescript
   - Quick Tip
+  - JavaScript
 title: 'Quick tip: Custom Material-UI styles with Typescript'
 thumbnail: /assets/keyboard-mac-unsplash.jpg
 ---

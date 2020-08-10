@@ -8,7 +8,7 @@ tags:
   - Dev Ops
   - GraphQL
   - React
-
+  - JavaScript
 title: Hasura Authentication and Authorization with Auth0.
 thumbnail: /assets/locked-gate-unsplash.jpg
 ---

@@ -7,6 +7,7 @@ tags:
   - Gatsby
   - Headless CMS
   - GraphQL
+  - JavaScript
 source: https://gitlab.com/jameskolean/nohingo/-/tags/Contentful
 published: true
 ---
