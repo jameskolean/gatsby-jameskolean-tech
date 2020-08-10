@@ -532,8 +532,8 @@ Test it out at <a href="http://localhost:8080/message">http://localhost:8080/mes
 
 This can be done in three easy steps
 
-1. Change the ptoject to Private at Settings > General > Visibility
-2. Create a deploy token at Settings > Repository > Reploy Tokens
+1. Change the project to Private at Settings > General > Visibility
+2. Create a deploy token at Settings > Repository > Deploy Tokens
 3. Edit /src/main/resources/application.properties
 
 ```properties

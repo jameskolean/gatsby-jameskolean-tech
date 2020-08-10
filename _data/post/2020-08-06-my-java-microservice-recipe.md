@@ -875,4 +875,8 @@ A unique identifier is the MINIMAL contextual information that is included in a 
 <div id="configuration"><h1>Configuration Server
 </h1></div>
 
-# Coming Soon
+Since we are using microservices, I'll assume we need to launch many instances of a service. If this is not the case, you would need to question the need for the added complexity of building a microservice.
+
+We need a way to distribute application properties to the instances of the microservice on startup. Springboot Configuration Server provides this functionality.
+
+See [Setting up a Springboot Configuration Server](https://jameskolean.tech/post/2020-04-27-springboot-config-server-setup/)
