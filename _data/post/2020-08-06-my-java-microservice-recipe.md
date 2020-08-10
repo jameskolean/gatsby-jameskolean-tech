@@ -18,23 +18,23 @@ This is my recipe for a Microservice.
 
 Ingredients:
 
-- [Java SpringBoot](#add-springboot)
+- [Java SpringBoot](#springboot)
   - DevTools
   - Lombok
-- [Database](#stir-in-database)
-- [Presistence](#add-some-persistence)
+- [Database](#database)
+- [Presistence](#persistence)
 - API
-  - [REST](#stir-in-a-rest-api)
-  - [GraphQL](#add-graphql)
-- [JMS](#add-messaging)
-  - [Kafka in Docker](##run-kafka-with-docker)
-  - [Producer / Consumer](##producer-and-consumer)
+  - [REST](#rest)
+  - [GraphQL](#graphql)
+- [JMS](#messaging)
+  - [Kafka in Docker](#kafka)
+  - [Producer / Consumer](#producer-consumer)
 - [Monitoring](#monitoring)
 - [Configuration](#configuration)
 
 Directions:
 
-# Add Springboot
+<div id="springboot"><h1>Add Springboot</h1></div>
 
 Go to https://start.spring.io/ and add dependencies:
 
@@ -47,7 +47,7 @@ Go to https://start.spring.io/ and add dependencies:
 - Spring for Apache Kafka
 - Liquibase Migration
 
-# Stir in Database
+<div id="database"><h1>Stir in Database</h1></div>
 
 You can use any RDBMS or even a NoSQL option. For simplicity, I'm mixing in H2 and bootstrapping with some test data. I use Liquibase to ensure the code and database are synchronized automatically.
 
@@ -181,7 +181,7 @@ User Name: sa
 Password: <leave blank>
 ```
 
-# Stir in a REST API
+<div id="rest"><h1>Stir in a REST API</h1></div>
 
 We will need a DTO (Data Transfer Object) that will be serialized into JSON and sent to the client by the Controller. We will also add swagger so the clients can discover and test the REST endpoint.
 
@@ -281,7 +281,7 @@ public class SwaggerConfig {
 
 Go to http://localhost:8080/swagger-ui.html
 
-# Add some persistence
+<div id="persistence"><h1>Add some persistence</h1></div>
 
 We are going to need several layers for this. We will change the Controller to call a Service that provides the business logic and a transactional scope. The Service could call other Services, but it will only call a repository in this example. We will need an Entity that maps the data between Java and the database. To keep the Entities clean, we will also add a custom physical database naming strategy. Let's get to it.
 
@@ -542,7 +542,7 @@ public class TodoController {
 
 ```
 
-# Add GraphQL
+<div id="graphql"><h1>Add GraphQL</h1></div>
 
 Add dependencies
 
@@ -611,7 +611,7 @@ public class Query implements GraphQLQueryResolver {
 }
 ```
 
-# Test it
+## Test it
 
 Go to http://localhost:8080/graphiql with this Query.
 
@@ -626,11 +626,11 @@ Go to http://localhost:8080/graphiql with this Query.
 }
 ```
 
-# Add Messaging
+<div id="messaging"><h1>Add Messaging</h1></div>
 
 Let's use Kafka cause it's the new hotness, but we can just as easily use ActiveMQ or some Cloud offering. For debugging, we should install the Kafka command-line tool. This install is not a requirement, but it gives visibility into the queue. I suggest using Homebrew to install.
 
-## Run Kafka with Docker
+<div id="kafka"><h2>Run Kafka with Docker</h2></div>
 
 ```console
 brew install kafka
@@ -673,7 +673,7 @@ Start a consumer to monitor the queue with this command.
 kafka-console-consumer --bootstrap-server localhost:9092 --topic test
 ```
 
-## Producer and Consumer
+<div id="producer-consumer"><h1>Producer and Consumer</h1></div>
 
 Now for the code, let's create an object to hold the message and then create Producers and Consumers.
 
@@ -860,7 +860,7 @@ public class TodoController {
 
 Use swagger http://localhost:8080/swagger-ui.html to POST a message into the queue. The consumer will read the message and insert a new todo in the database. Now Make a GET request to see the additional Todo.
 
-# Monitoring
+<div id="Monitoring"><h1>Monitoring</h1></div>
 
 I struggled with what to put here. I have a post on using [Prometheus with Grafana](/post/2019-09-09-grafana-and-prometheus-with-spring-boot/), so I could certainly include it here. The problem for me is that this tooling requires that I stand up, configure, and maintain a bunch of servers. Even then, the solution isn't what I would consider optimal.
 
@@ -872,8 +872,7 @@ The identifier must be part of the messages passed between microservices. A micr
 All aggregated logging must consistently include the identifier.
 A unique identifier is the MINIMAL contextual information that is included in a message and requires consistent logging. Your organization will need to determine what additional fields are required to trace message processing within your microservice network.
 
-<div id="configuration"><h1>Configuration Server
-</h1></div>
+<div id="configuration"><h1>Configuration Server</h1></div>
 
 Since we are using microservices, I'll assume we need to launch many instances of a service. If this is not the case, you would need to question the need for the added complexity of building a microservice.
 
