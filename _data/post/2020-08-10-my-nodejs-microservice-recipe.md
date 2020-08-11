@@ -47,7 +47,7 @@ I'm going to see where KOA takes us, I think this will result in a cleaner imple
 mkdir node-microservice-recipe
 cd node-microservice-recipe
 npm init node-microservice-recipe
-npm i koa koa-router koa-logger
+npm i koa koa-router koa-logger koa-combine-routers
 npm install nodemon --save-dev
 ```
 
@@ -66,27 +66,53 @@ Edit package.json
 
 ```javascript
 const Koa = require('koa')
-const Router = require('koa-router')
 const Logger = require('koa-logger')
+const router = require('./routes')
 
+const PORT = process.env.PORT || 3000
 const app = new Koa()
-const router = new Router()
-
-// Response to GET requests
-router.get('/', async (ctx) => {
-  ctx.body = { context: { transactionId: '1234' }, message: 'Hello World' }
-})
-
-// Logging
 app.use(Logger())
+app.use(router())
 
-// Add routes and response to the OPTIONS requests
-app.use(router.routes()).use(router.allowedMethods())
-
-// Listening to the port
-app.listen(3000, () => {
-  console.log('Server running on port 3000')
+app.listen(PORT, () => {
+  console.log('Server running on port ' + PORT)
 })
+```
+
+> /routes/root.js
+
+```javascript
+const Router = require('koa-router')
+const router = new Router()
+router.get('/', async (ctx, next) => {
+  ctx.body = 'Hello'
+})
+module.exports = router
+```
+
+> /routes/todo.js
+
+```javascript
+const Router = require('koa-router')
+const router = new Router({ prefix: '/todo' })
+router.get('/', async (ctx, next) => {
+  ctx.body = [
+    { description: 'Do the thing', completed: false },
+    { description: 'Pickup the stuff', completed: false },
+    { description: 'Meet with Team', completed: true },
+  ]
+})
+module.exports = router
+```
+
+> /routes/index.js
+
+```javascript
+const combineRouters = require('koa-combine-routers')
+const rootRouter = require('./root')
+const todoRouter = require('./todo')
+const router = combineRouters(rootRouter, todoRouter)
+module.exports = router
 ```
 
 ## Test It
@@ -98,7 +124,14 @@ npm run dev
 open a browser to http://localhost:3000/data
 
 <div id="database"><h1>MongoDB</h1></div>
-Comping soon
+# mongo
+> use micro-test
+> db.todo.insert({"description":"Do the thing","completed":false})
+> db.todo.insert({"description":"Pickup the Stuff","completed":false})
+> db.todo.insert({"description":"Meet the Team","completed":true})
+> show dbs
+> db.todo.find()
+```
 <div id="presistence"><h1>Presistence with Mongoose</h1></div>
 Comping soon
 <div id="rest"><h1>REST</h1></div>
