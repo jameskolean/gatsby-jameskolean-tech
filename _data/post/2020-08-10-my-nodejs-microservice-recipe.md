@@ -47,7 +47,7 @@ I'm going to see where KOA takes us, I think this will result in a cleaner imple
 mkdir node-microservice-recipe
 cd node-microservice-recipe
 npm init node-microservice-recipe
-npm i koa koa-router koa-logger koa-combine-routers
+npm i koa koa-router koa-logger koa-combine-routers koa-bodyparser mongoose koa2-swagger-ui
 npm install nodemon --save-dev
 ```
 
@@ -124,18 +124,185 @@ npm run dev
 open a browser to http://localhost:3000/data
 
 <div id="database"><h1>MongoDB</h1></div>
+
+```shell
 # mongo
 > use micro-test
-> db.todo.insert({"description":"Do the thing","completed":false})
-> db.todo.insert({"description":"Pickup the Stuff","completed":false})
-> db.todo.insert({"description":"Meet the Team","completed":true})
+> db.todos.insert({"description":"Do the thing","completed":false})
+> db.todos.insert({"description":"Pickup the Stuff","completed":false})
+> db.todos.insert({"description":"Meet the Team","completed":true})
 > show dbs
-> db.todo.find()
+> db.todos.find()
 ```
+
 <div id="presistence"><h1>Presistence with Mongoose</h1></div>
-Comping soon
+Let's use the data.
+
+> /models/todo.js
+
+```javascript
+const mongoose = require('mongoose')
+
+// Declare Schema
+const TodoSchema = new mongoose.Schema(
+  {
+    description: { type: String },
+    completed: { type: Boolean },
+  },
+  { timestamps: true }
+)
+
+// Declare Model to mongoose with Schema
+const Todo = mongoose.model('Todo', TodoSchema)
+
+// Export Model to be used in Node
+module.exports = mongoose.model('Todo')
+```
+
+> /controller/todo.js
+
+```javascript
+const Todo = require('../models/todo')
+
+async function findAll(ctx) {
+  // Fetch all Todo’s from the database and return as payload
+  const todos = await Todo.find({})
+  ctx.body = todos
+}
+
+module.exports = {
+  findAll,
+}
+```
+
+> /routes/todo.js
+
+```javascript
+const Router = require('koa-router')
+const router = new Router({ prefix: '/todo' })
+const controller = require('../controllers/todo')
+
+router.get('/', controller.findAll)
+
+module.exports = router
+```
+
+> /app.js
+
+```javascript
+const Koa = require('koa')
+const Logger = require('koa-logger')
+const router = require('./routes')
+const mongoose = require('mongoose')
+const PORT = process.env.PORT || 3000
+
+const db = mongoose.connection
+db.on('error', console.error.bind(console, 'connection error:'))
+db.once('open', function() {
+  console.log('we are connected!')
+})
+mongoose.connect(`mongodb://localhost:27017/micro-test`, {
+  useNewUrlParser: true,
+})
+
+const app = new Koa()
+app.use(Logger())
+app.use(router())
+
+app.listen(PORT, () => {
+  console.log('Server running on port ' + PORT)
+})
+```
+
 <div id="rest"><h1>REST</h1></div>
-Comping soon
+We can build out the remaining REST functionality now.
+> /controller/todo.js
+
+```javascript
+const Todo = require('../models/todo')
+
+async function findAll(ctx) {
+  const todos = await Todo.find({})
+  ctx.body = todos
+}
+
+async function create(ctx) {
+  console.log('ctx.request.body', ctx.request.body)
+  const newTodo = new Todo(ctx.request.body)
+  const savedTodo = await newTodo.save()
+  ctx.body = savedTodo
+}
+
+async function destroy(ctx) {
+  const id = ctx.params.id
+  const todo = await Todo.findById(id)
+  const deletedTodo = await todo.remove()
+  ctx.body = deletedTodo
+}
+
+async function update(ctx) {
+  const id = ctx.params.id
+  const todo = await Todo.findById(id)
+  todo.completed = !todo.completed
+  const updatedTodo = await todo.save()
+  ctx.body = updatedTodo
+}
+
+module.exports = {
+  findAll,
+  create,
+  destroy,
+  update,
+}
+```
+
+> /routes/todo.js
+
+```javascript
+const Router = require('koa-router')
+const router = new Router({ prefix: '/todo' })
+const controller = require('../controllers/todo')
+
+router.get('/', controller.findAll)
+router.post('/', controller.create)
+router.post('/:id', controller.update)
+router.put('/:id', controller.update)
+router.delete('/:id', controller.destroy)
+
+module.exports = router
+```
+
+Add bodyParser
+
+> /app.js
+
+```javascript
+const Koa = require('koa')
+const Logger = require('koa-logger')
+const router = require('./routes')
+const bodyParser = require('koa-bodyparser')
+const mongoose = require('mongoose')
+const PORT = process.env.PORT || 3000
+
+const db = mongoose.connection
+db.on('error', console.error.bind(console, 'connection error:'))
+db.once('open', function() {
+  console.log('we are connected!')
+})
+mongoose.connect(`mongodb://localhost:27017/micro-test`, {
+  useNewUrlParser: true,
+})
+
+const app = new Koa()
+app.use(bodyParser())
+app.use(Logger())
+app.use(router())
+
+app.listen(PORT, () => {
+  console.log('Server running on port ' + PORT)
+})
+```
+
 <div id="graphql"><h1>GraphQL</h1></div>
 Comping soon
 <div id="messaging"><h1>Messaging</h1></div>
