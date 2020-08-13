@@ -414,11 +414,160 @@ module.exports = {
 ```
 
 <div id="messaging"><h1>Messaging</h1></div>
-Comping soon
+Let's use Kafka cause it's the new hotness, but we can just as easily use ActiveMQ or some Cloud offering. For debugging, we should install the Kafka command-line tool. This install is not a requirement, but it gives visibility into the queue. I suggest using Homebrew to install.
 <div id="kafka"><h1>Kafka in Docker</h1></div>
-Comping soon
+```console
+brew install kafka
+```
+
+Let's use docker-compose to run Kafka.
+
+> kafka/docker-compose.yml
+
+```yaml
+version: '3'
+services:
+  zookeeper:
+    image: wurstmeister/zookeeper
+  kafka:
+    image: wurstmeister/kafka
+    ports:
+      - '9092:9092'
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: localhost
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+```
+
+Start Kafka with this command.
+
+```shell
+docker-compose up -d
+docker ps
+```
+
+Start an interactive producer with this command.
+
+```shell
+kafka-console-producer --broker-list localhost:9092 --topic test
+```
+
+Start a consumer to monitor the queue with this command.
+
+```shell
+kafka-console-consumer --bootstrap-server localhost:9092 --topic test
+```
+
 <div id="producer-consumer"><h1>Producer / Consumer</h1></div>
-Comping soon
+
+```shell
+npm i kafkajs uuid
+```
+
+> /app.js
+
+```javascript
+...
+const { kafkaServer } = require('./messaging/kafka')
+...
+app.use(graphqlServer.getMiddleware())
+kafkaServer.run().catch(console.error)
+...
+```
+
+> /routes/message.js
+
+```javascript
+const Router = require('koa-router')
+const router = new Router({ prefix: '/message' })
+const controller = require('../controllers/todo')
+
+router.post('/todo', controller.sendMessage)
+
+module.exports = router
+```
+
+> /routes/index.js
+
+```javascript
+const combineRouters = require('koa-combine-routers')
+const rootRouter = require('./root')
+const todoRouter = require('./todo')
+const messageRouter = require('./message')
+
+const router = combineRouters(rootRouter, todoRouter, messageRouter)
+
+module.exports = router
+```
+
+> /messaging/kafka.js
+
+```javascript
+const { Kafka } = require('kafkajs')
+const model = require('../models/todo')
+
+const kafka = new Kafka({
+  clientId: 'my-app',
+  brokers: ['localhost:9092'],
+})
+
+const producer = kafka.producer()
+const consumer = kafka.consumer({ groupId: 'group_id' })
+const kafkaServer = {
+  run: async () => {
+    // Consuming
+    await consumer.connect()
+    await consumer.subscribe({ topic: 'todo', fromBeginning: true })
+
+    await consumer.run({
+      eachMessage: async ({ topic, partition, message }) => {
+        console.log({
+          partition,
+          offset: message.offset,
+          value: message.value.toString(),
+        })
+        const payload = JSON.parse(message.value.toString())
+        const newTodo = new model({
+          description: payload.description,
+          completed: false,
+        })
+        const savedTodo = await newTodo.save()
+      },
+    })
+  },
+}
+
+module.exports = { kafkaServer, producer }
+```
+
+> /controllers/todo.js
+
+```javascript
+const { v4: uuidv4 } = require('uuid')
+const { producer } = require('../messaging/kafka')
+...
+async function sendMessage(ctx) {
+  // place a new Todo message on the topic
+  const todoMessage = {
+    description: ctx.request.body.description,
+    transactionId: uuidv4(),
+  }
+  await producer.send({
+    topic: 'todo',
+    messages: [{ value: JSON.stringify(todoMessage) }],
+  })
+
+  ctx.body = { success: true }
+}
+
+module.exports = {
+  findAll,
+  create,
+  destroy,
+  update,
+  sendMessage,
+}
+```
+
 <div id="monitoring"><h1>Monitoring</h1></div>
 Comping soon
 <div id="configuration"><h1>Configuration</h1></div>
