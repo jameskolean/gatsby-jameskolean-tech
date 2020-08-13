@@ -47,8 +47,8 @@ I'm going to see where KOA takes us, I think this will result in a cleaner imple
 mkdir node-microservice-recipe
 cd node-microservice-recipe
 npm init node-microservice-recipe
-npm i koa koa-router koa-logger koa-combine-routers koa-bodyparser mongoose koa2-swagger-ui
-npm install nodemon --save-dev
+npm i koa koa-router koa-logger koa-combine-routers koa-bodyparser mongoose apollo-server-koa lodash
+npm install nodemon --save-dev0
 ```
 
 Edit package.json
@@ -124,6 +124,8 @@ npm run dev
 open a browser to http://localhost:3000/data
 
 <div id="database"><h1>MongoDB</h1></div>
+
+For a javascript implementation, MongoDB no-SQL database seems like a natural fit. In a Java-based microservice, relational databases are more standard, and I will include a schema migration tool like Liquibase. With a no-SQL datastore, this is not as crucial, and I will omit it from this solution. To add some structure around the data access, I am including Mongoose.
 
 ```shell
 # mongo
@@ -304,7 +306,113 @@ app.listen(PORT, () => {
 ```
 
 <div id="graphql"><h1>GraphQL</h1></div>
-Comping soon
+> /app.js
+
+```javascript
+...
+const graphqlServer = require('./graphql/graphqlServer')
+...
+const app = new Koa()
+app.use(bodyParser())
+app.use(Logger())
+app.use(router())
+app.use(graphqlServer.getMiddleware())
+...
+```
+
+> /graphql/graphqlServer.js
+
+```javascript
+const { ApolloServer, gql } = require('apollo-server-koa')
+const { makeExecutableSchema } = require('graphql-tools')
+const merge = require('lodash/merge')
+const { typeDef: Todo, resolvers: TodoResolvers } = require('./types/todo')
+const Query = gql`
+  type Query {
+    hello: String
+  }
+
+  type Mutation {
+    null: Boolean
+  }
+`
+
+const SchemaDefinition = gql`
+  schema {
+    query: Query
+    mutation: Mutation
+  }
+`
+
+const resolvers = {
+  Query: {
+    hello: () => 'Hello world!',
+  },
+}
+
+const schema = makeExecutableSchema({
+  typeDefs: [SchemaDefinition, Query, Todo],
+  resolvers: merge(resolvers, TodoResolvers),
+})
+
+module.exports = new ApolloServer({ schema })
+```
+
+> /graphql/types/todo.js
+
+```javascript
+const { gql } = require('apollo-server-koa')
+const model = require('../../models/todo')
+
+const typeDef = gql`
+  type Todo {
+    id: String
+    version: Int
+    description: String!
+    completed: Boolean!
+  }
+  extend type Query {
+    Todos: [Todo]
+  }
+  extend type Mutation {
+    createTodo(description: String): Todo
+    completeTodo(id: String): Todo
+    deleteTodo(id: String): Todo
+  }
+`
+const resolvers = {
+  Todo: {
+    id: (val) => val._id,
+    version: (val) => val.__v,
+  },
+  Query: {
+    Todos: async () => {
+      return await model.find({}).lean()
+    },
+  },
+  Mutation: {
+    createTodo: async (root, { description }) => {
+      const newTodo = new model({ description, completed: false })
+      return await newTodo.save()
+    },
+    completeTodo: async (root, { id }) => {
+      const todo = await model.findById(id)
+      todo.completed = !todo.completed
+      return await todo.save()
+    },
+    deleteTodo: async (root, { id }) => {
+      const todo = await model.findById(id)
+      if (todo) return await todo.remove()
+      return null
+    },
+  },
+}
+module.exports = {
+  typeDef,
+  resolvers,
+}
+```
+
 <div id="messaging"><h1>Messaging</h1></div>
 Comping soon
 <div id="kafka"><h1>Kafka in Docker</h1></div>
