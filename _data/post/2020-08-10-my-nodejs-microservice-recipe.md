@@ -30,9 +30,9 @@ Ingredients:
 - [Monitoring](#monitoring)
 - [Configuration](#configuration)
 
-Directions:
+# Directions:
 
-<div id="nodejs"><h1>NodeJS</h1></div>
+<div id="nodejs"><h2>NodeJS</h2></div>
 I'm on the fence between using KOA or Express. KOA has some great features such as 
 - It uses modern JavaScript features.
 - It's modular.
@@ -115,7 +115,7 @@ const router = combineRouters(rootRouter, todoRouter)
 module.exports = router
 ```
 
-## Test It
+### Test It
 
 ```shell
 npm run dev
@@ -123,7 +123,9 @@ npm run dev
 
 open a browser to http://localhost:3000/data
 
-<div id="database"><h1>MongoDB</h1></div>
+---
+
+<div id="database"><h2>MongoDB</h2></div>
 
 For a javascript implementation, MongoDB no-SQL database seems like a natural fit. In a Java-based microservice, relational databases are more standard, and I will include a schema migration tool like Liquibase. With a no-SQL datastore, this is not as crucial, and I will omit it from this solution. To add some structure around the data access, I am including Mongoose.
 
@@ -137,7 +139,10 @@ For a javascript implementation, MongoDB no-SQL database seems like a natural fi
 > db.todos.find()
 ```
 
-<div id="presistence"><h1>Presistence with Mongoose</h1></div>
+---
+
+<div id="presistence"><h2>Presistence with Mongoose</h2></div>
+
 Let's use the data.
 
 > /models/todo.js
@@ -216,8 +221,12 @@ app.listen(PORT, () => {
 })
 ```
 
-<div id="rest"><h1>REST</h1></div>
+---
+
+<div id="rest"><h2>REST</h2></div>
+
 We can build out the remaining REST functionality now.
+
 > /controller/todo.js
 
 ```javascript
@@ -305,7 +314,10 @@ app.listen(PORT, () => {
 })
 ```
 
-<div id="graphql"><h1>GraphQL</h1></div>
+---
+
+<div id="graphql"><h2>GraphQL</h2></div>
+
 > /app.js
 
 ```javascript
@@ -413,9 +425,16 @@ module.exports = {
 }
 ```
 
-<div id="messaging"><h1>Messaging</h1></div>
+---
+
+<div id="messaging"><h2>Messaging</h2></div>
+
 Let's use Kafka cause it's the new hotness, but we can just as easily use ActiveMQ or some Cloud offering. For debugging, we should install the Kafka command-line tool. This install is not a requirement, but it gives visibility into the queue. I suggest using Homebrew to install.
-<div id="kafka"><h1>Kafka in Docker</h1></div>
+
+---
+
+<div id="kafka"><h2>Kafka in Docker</h2></div>
+
 ```console
 brew install kafka
 ```
@@ -457,7 +476,9 @@ Start a consumer to monitor the queue with this command.
 kafka-console-consumer --bootstrap-server localhost:9092 --topic test
 ```
 
-<div id="producer-consumer"><h1>Producer / Consumer</h1></div>
+---
+
+<div id="producer-consumer"><h2>Producer / Consumer</h2></div>
 
 ```shell
 npm i kafkajs uuid
@@ -568,8 +589,9 @@ module.exports = {
 }
 ```
 
-<div id="monitoring"><h1>Monitoring</h1></div>
+---
 
+<div id="monitoring"><h2>Monitoring</h2></div>
 Just like in the [Java Microservice stack](/post/2020-08-06-my-java-microservice-recipe/), I think the best option for monitoring and log aggregation is to use a service. [Datadog](https://www.datadoghq.com/) as an example, supports multiple languages, monitor server performance, and does log aggregation all at a very reasonable subscription price. There is so much competition in this space. I'm sure you can find a service that meets your needs and removes the cognitive load of dealing with monitoring in your architecture.
 
 Enough about the tooling, whatever way you choose you **_MUST LOG MESSAGE CONTEXT_**. Failing to log message context necessarily render your aggregated log useless, and I've seen this in so many organizations. What does it take to do this correctly?
@@ -578,7 +600,9 @@ The identifier must be part of the messages passed between microservices. A micr
 All aggregated logging must consistently include the identifier.
 A unique identifier is the MINIMAL contextual information that is included in a message and requires consistent logging. Your organization will need to determine what additional fields are required to trace message processing within your microservice network.
 
-<div id="configuration"><h1>Configuration</h1></div>
+---
+
+<div id="configuration"><h2>Configuration</h2></div>
 From my experience, NodeJS servers use Environmental Variables for configuration. In the Development environment, the values will come from a property file. Other environments will have these set by a CI/CD pipeline.
 
 In my post [Java Microservice stack](/post/2020-08-06-my-java-microservice-recipe/) we use a SpringBoot Configuration Server to serve properties consistently across a server array. NodeJS has client modules for SpringBoot Configuration Server. It's another option.
