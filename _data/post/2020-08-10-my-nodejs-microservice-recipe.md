@@ -569,6 +569,16 @@ module.exports = {
 ```
 
 <div id="monitoring"><h1>Monitoring</h1></div>
-Comping soon
+
+Just like in the [Java Microservice stack](/post/2020-08-06-my-java-microservice-recipe/), I think the best option for monitoring and log aggregation is to use a service. [Datadog](https://www.datadoghq.com/) as an example, supports multiple languages, monitor server performance, and does log aggregation all at a very reasonable subscription price. There is so much competition in this space. I'm sure you can find a service that meets your needs and removes the cognitive load of dealing with monitoring in your architecture.
+
+Enough about the tooling, whatever way you choose you **_MUST LOG MESSAGE CONTEXT_**. Failing to log message context necessarily render your aggregated log useless, and I've seen this in so many organizations. What does it take to do this correctly?
+When an event enters your microservice network is must be assigned a globally unique identifier.
+The identifier must be part of the messages passed between microservices. A microservice that transforms a message must respond with the same identifier that was received.
+All aggregated logging must consistently include the identifier.
+A unique identifier is the MINIMAL contextual information that is included in a message and requires consistent logging. Your organization will need to determine what additional fields are required to trace message processing within your microservice network.
+
 <div id="configuration"><h1>Configuration</h1></div>
-Comping soon
+From my experience, NodeJS servers use Environmental Variables for configuration. In the Development environment, the values will come from a property file. Other environments will have these set by a CI/CD pipeline.
+
+In my post [Java Microservice stack](/post/2020-08-06-my-java-microservice-recipe/) we use a SpringBoot Configuration Server to serve properties consistently across a server array. NodeJS has client modules for SpringBoot Configuration Server. It's another option.
