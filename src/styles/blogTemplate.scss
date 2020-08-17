@@ -1,0 +1,15 @@
+blockquote {
+  margin: 0em 0.5em 0.5em 0.5em;
+  background: #f9f9f9;
+}
+
+blockquote:before {
+  content: '\01F4C2';
+  font-size: 2em;
+  line-height: 0.1em;
+  vertical-align: -0.3em;
+}
+blockquote p {
+  margin: 1.5em 5px;
+  display: inline;
+}

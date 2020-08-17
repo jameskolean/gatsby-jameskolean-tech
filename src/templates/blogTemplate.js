@@ -3,6 +3,7 @@ import Helmet from 'react-helmet'
 import { graphql } from 'gatsby'
 import Layout from '../components/layout'
 import Likes from '../components/likes'
+import '../styles/blogTemplate.scss'
 
 const PostMeta = ({ source, tags }) => (
   <>

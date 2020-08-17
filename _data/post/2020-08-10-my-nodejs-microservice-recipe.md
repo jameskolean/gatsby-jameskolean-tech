@@ -141,7 +141,7 @@ For a javascript implementation, MongoDB no-SQL database seems like a natural fi
 
 ---
 
-<div id="presistence"><h2>Presistence with Mongoose</h2></div>
+<div id="persistence"><h2>Presistence with Mongoose</h2></div>
 
 Let's use the data.
 
@@ -320,12 +320,10 @@ Let's add Swagger UI to our app so developers and discover the API. We need to c
 
 - start our Node server `npm run dev`
 - Go to https://inspector.swagger.io/builder
-- Make sone requests
-- Check some in History that click CREAET API DEFINITION
-- Export from SwaggerHub https://app.swaggerhub.com
+- Make some requests
+- Check some of you requests in the History section and click CREAET API DEFINITION
+- Export the spec from SwaggerHub https://app.swaggerhub.com
 - Copy the contents into /swagger-spec.json
-
----
 
 import koa2-swagger-ui
 
@@ -587,6 +585,8 @@ app.listen(PORT, () => {
   }
 }
 ```
+
+---
 
 ### Test it
 
