@@ -701,6 +701,10 @@ module.exports = {
 }
 ```
 
+### Test it
+
+Open a browser to http://localhost:3000/graphql
+
 ---
 
 <div id="messaging"><h2>Messaging</h2></div>
