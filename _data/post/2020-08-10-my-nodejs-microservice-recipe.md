@@ -314,7 +314,283 @@ app.listen(PORT, () => {
 })
 ```
 
+## Add Swagger
+
+Let's add Swagger UI to our app so developers and discover the API. We need to create a Swagger spec like this:
+
+- start our Node server `npm run dev`
+- Go to https://inspector.swagger.io/builder
+- Make sone requests
+- Check some in History that click CREAET API DEFINITION
+- Export from SwaggerHub https://app.swaggerhub.com
+- Copy the contents into /swagger-spec.json
+
 ---
+
+import koa2-swagger-ui
+
+```bash
+npm install koa-mount koa-static koa2-swagger-ui --save
+```
+
+Update
+
+> app.json
+
+```javascript
+const Koa = require('koa')
+const Logger = require('koa-logger')
+const router = require('./routes')
+const bodyParser = require('koa-bodyparser')
+const mongoose = require('mongoose')
+const graphqlServer = require('./graphql/graphqlServer')
+const { kafkaServer } = require('./messaging/kafka')
+const serve = require('koa-static')
+const mount = require('koa-mount')
+const koaSwagger = require('koa2-swagger-ui')
+
+const PORT = process.env.PORT || 3000
+
+const db = mongoose.connection
+db.on('error', console.error.bind(console, 'connection error:'))
+db.once('open', function() {
+  console.log('we are connected!')
+})
+mongoose.connect(`mongodb://localhost:27017/micro-test`, {
+  useNewUrlParser: true,
+})
+
+const app = new Koa()
+app.use(bodyParser())
+app.use(Logger())
+app.use(mount('/static', serve('./static')))
+app.use(router())
+app.use(graphqlServer.getMiddleware())
+app.use(
+  koaSwagger({
+    swaggerOptions: {
+      url: 'static/swagger.json',
+    },
+  })
+)
+kafkaServer.run().catch(console.error)
+
+app.listen(PORT, () => {
+  console.log('Server running on port ' + PORT)
+  console.log(
+    `🚀 GraphQL Server ready at http://localhost:3000${graphqlServer.graphqlPath}`
+  )
+})
+```
+
+> static/swagger.json
+
+```javascript
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Node Microservice API",
+    "version": "0.1",
+    "title": "Node Microservice API"
+  },
+  "paths": {
+    "/": {
+      "get": {
+        "produces": ["text/plain"],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Healthcheck"
+          }
+        }
+      }
+    },
+    "/todo": {
+      "get": {
+        "produces": ["application/json"],
+        "parameters": [],
+        "description": "Get all the Todos",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Todos"
+            }
+          }
+        }
+      },
+      "post": {
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "description": "Create a new Todo",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "description": "New Todo text",
+            "schema": {
+              "$ref": "#/definitions/TodoCreate"
+            },
+            "x-examples": {
+              "application/json": "{\"description\": \"Don't forget\"}"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Definition generated from Swagger Inspector",
+            "schema": {
+              "$ref": "#/definitions/Todos"
+            }
+          }
+        }
+      }
+    },
+    "/todo/{id}": {
+      "post": {
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "description": "Toggle the Todo completed status",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Updated Todo",
+            "schema": {
+              "$ref": "#/definitions/Todo"
+            }
+          }
+        }
+      },
+      "put": {
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "description": "Toggle the Todo completed status",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Updated Todo",
+            "schema": {
+              "$ref": "#/definitions/Todo"
+            }
+          }
+        }
+      },
+      "delete": {
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "description": "Delete the Todo",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deleted Todo",
+            "schema": {
+              "$ref": "#/definitions/Todo"
+            }
+          }
+        }
+      }
+    },
+    "/message/todo": {
+      "post": {
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "description": "Insert a message in the Todo Queue",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/TodoCreate"
+            },
+            "x-examples": {
+              "application/json": "{\"message\": \"Don't forget\"}"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Definition generated from Swagger Inspector",
+            "schema": {
+              "$ref": "#/definitions/Success"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Todo": {
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "__v": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "description": {
+          "type": "string"
+        },
+        "completed": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        }
+      }
+    },
+    "Todos": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Todo"
+      }
+    },
+    "TodoCreate": {
+      "properties": {
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "Success": {
+      "properties": {
+        "success": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}
+```
+
+### Test it
+
+Open browser to http://localhost:3000/docs
 
 <div id="graphql"><h2>GraphQL</h2></div>
 
