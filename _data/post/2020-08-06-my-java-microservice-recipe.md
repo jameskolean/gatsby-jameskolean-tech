@@ -30,6 +30,7 @@ Ingredients:
   - [Kafka in Docker](#kafka)
   - [Producer / Consumer](#producer-consumer)
 - [Monitoring](#monitoring)
+- [Tracing](#tracing)
 - [Configuration](#configuration)
 
 Directions:
@@ -861,10 +862,13 @@ public class TodoController {
 Use swagger http://localhost:8080/swagger-ui.html to POST a message into the queue. The consumer will read the message and insert a new todo in the database. Now Make a GET request to see the additional Todo.
 
 <div id="monitoring"><h1>Monitoring</h1></div>
+The best monitoring tool will depend on the environment and the client requirements. However I created this post that uses Spring Boot Acuator, Spring Boot Admin Server, and Eureka discovery service. [Metrics with Spring Boot](/post/2020-09-09-metrics-with-spring-boot/)
+
+<div id="tracing"><h1>Tracing</h1></div>
 
 I struggled with what to put here. I have a post on using [Prometheus with Grafana](/post/2019-09-09-grafana-and-prometheus-with-spring-boot/), so I could certainly include it here. The problem for me is that this tooling requires that I stand up, configure, and maintain a bunch of servers. Even then, the solution isn't what I would consider optimal.
 
-Contrast this with the wide variety of logging and monitoring tools offered as services. I'll pick [Datadog](https://www.datadoghq.com/) as an example, they support multiple languages, monitor server performance, and do log aggregation all at a very reasonable subscription price. There is so much competition in this space. I'm sure you can find a service that meets your needs and removes the cognitive load of dealing with monitoring in your architecture.
+Contrast this with the wide variety of logging and tracing tools offered as services. I'll pick [Datadog](https://www.datadoghq.com/) as an example, they support multiple languages, monitor server performance, and do log aggregation all at a very reasonable subscription price. There is so much competition in this space. I'm sure you can find a service that meets your needs and removes the cognitive load of dealing with monitoring in your architecture.
 
 Enough about the tooling, whatever way you choose you **_MUST LOG MESSAGE CONTEXT_**. Failing to log message context necessarily render your aggregated log useless, and I've seen this in so many organizations. What does it take to do this correctly?
 When an event enters your microservice network is must be assigned a globally unique identifier.
