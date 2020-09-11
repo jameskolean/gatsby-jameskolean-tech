@@ -866,7 +866,7 @@ The best monitoring tool will depend on the environment and the client requireme
 
 <div id="tracing"><h1>Tracing</h1></div>
 
-I struggled with what to put here. I have a post on using [Prometheus with Grafana](/post/2019-09-09-grafana-and-prometheus-with-spring-boot/), so I could certainly include it here. The problem for me is that this tooling requires that I stand up, configure, and maintain a bunch of servers. Even then, the solution isn't what I would consider optimal.
+I struggled with what to put here. I have a post on using [Prometheus with Grafana](/post/2019-09-09-grafana-and-prometheus-with-spring-boot/) and another using (Spring Cloud Slueth with Zipkin)[/post/2020-09-10-tracing-in-spring-boot/], so I could certainly include it here. The problem for me is that this tooling requires that I stand up, configure, and maintain a bunch of servers. Even then, the solution isn't what I would consider optimal.
 
 Contrast this with the wide variety of logging and tracing tools offered as services. I'll pick [Datadog](https://www.datadoghq.com/) as an example, they support multiple languages, monitor server performance, and do log aggregation all at a very reasonable subscription price. There is so much competition in this space. I'm sure you can find a service that meets your needs and removes the cognitive load of dealing with monitoring in your architecture.
 
