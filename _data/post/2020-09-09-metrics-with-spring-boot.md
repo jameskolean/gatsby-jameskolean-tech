@@ -461,5 +461,5 @@ Browse to these URLs. It may take a minute for all the services to register, so 
 
 - Visit http://localhost:9000 for the WebApp REST endpoint
 - Visit http://localhost:9001 for the WebApp Actuator endpoint
-- Visit http://localhost:8441 for the Admin Server
+- Visit http://localhost:8411 for the Admin Server
 - Visit http://localhost:8761 for the Eureka Server
