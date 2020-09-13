@@ -1,6 +1,6 @@
 ---
 template: BlogPost
-date: 2020-09-09
+date: 2020-09-10
 published: true
 title: Tracing in Spring Boot
 source: https://gitlab.com/jameskolean/tracing-spring-boot
@@ -237,4 +237,6 @@ Make sure that all docker images are stopped. Start the services.
 docker-compose up
 ```
 
-Open a browser to `http://localhost:8080/` will generate a trace. Now go to http://localhost:9411/ and run a query for the generated trace.
+Opening a browser to `http://localhost:8080/` will generate a trace.
+
+Now go to http://localhost:9411/ and run a query for the generated trace.
