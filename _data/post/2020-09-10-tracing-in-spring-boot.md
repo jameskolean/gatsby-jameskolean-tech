@@ -84,7 +84,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.sleuth.annotation.NewSpan;
 import org.springframework.stereotype.Service;
 
-import brave.Span;
+import brave.ScopedSpan;
 import brave.Tracer;
 
 @Service
@@ -96,7 +96,7 @@ public class HelloService {
 
 	@NewSpan("HelloService#createMessage with explicit span")
 	public String createMessage() {
-		Span span = tracer.newTrace().name("Add date to hello world").start();
+		ScopedSpan span = tracer.startScopedSpan("Add date to hello world");
 		String message = "Hello World at " + timeFormater.format(new Date());
 		span.finish();
 		return message;
@@ -221,6 +221,7 @@ services:
       - '8081:8081'
     environment:
       - spring.zipkin.base-url=http://zipkin:9411
+      - spring.application.instance_id=sample-1
   webapp-sample:
     image: jameskolean/tracing-spring-boot-webapp-sample
     container_name: webapp-sample-1
@@ -229,6 +230,7 @@ services:
     environment:
       - service.base.url=http://service-sample:8081
       - spring.zipkin.base-url=http://zipkin:9411
+      - spring.application.instance_id=webapp-1
 ```
 
 Make sure that all docker images are stopped. Start the services.
