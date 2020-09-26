@@ -1,10 +1,11 @@
 import React from 'react'
 import Helmet from 'react-helmet'
 import { graphql, Link } from 'gatsby'
+import styled from '@emotion/styled'
+
 import Layout from '../components/layout'
 import HeroHeader from '../components/hero-header'
 import PostCards from '../components/post-card'
-import Gauge from '../components/gauge'
 import CtaCard from '../components/cta-card'
 
 const IndexPage = ({
@@ -14,6 +15,14 @@ const IndexPage = ({
     allMarkdownRemark: { nodes: posts },
   },
 }) => {
+  const CtaSection = styled.div`
+    display: flex;
+    justify-content: center;
+    justify-content: space-between;
+  `
+  const LatestPostSection = styled.div`
+    margin-top: 4rem;
+  `
   return (
     <Layout>
       <Helmet>
@@ -22,52 +31,51 @@ const IndexPage = ({
         <html lang='en' />
       </Helmet>
       <HeroHeader />
-      {/* <div
-        className='blog-post-content'
-        dangerouslySetInnerHTML={{ __html: page.html }}
-      /> */}
-      <div
-        style={{
-          margin: '2rem',
-          display: 'flex',
-          gap: 10,
-          alignItems: 'center',
-          justifyContent: 'center',
-          justifyContent: 'space-between',
-        }}
-      >
-        <CtaCard />
-        <CtaCard />
-        <CtaCard />
-      </div>
-      <div className={'cta'}>
-        <div>
-          <h1>About Me</h1>
-          <div style={{ display: 'flex' }}>
-            <Gauge percentage={90} label='Java' />
-            <Gauge size={200} percentage={60} label='JavaScript' />
-          </div>
-          <div className='guage'>
-            <div className='guageBody'>
-              <div className='guageFill'></div>
-              <div className='guageCover'>50%</div>
-            </div>
-          </div>
+      <CtaSection style={{ gap: 10 }}>
+        <CtaCard
+          title='What is here?'
+          buttonLabel='see all posts'
+          buttonUrl='/posts'
+          image='82TpEld0_e4'
+        >
+          <p>This is where I keep my prototypes.</p>
+          <p>This is where I keep my project templates.</p>
+          <p>This is where I keep posts I want to reffer back to.</p>
+        </CtaCard>
+        <CtaCard
+          title='Who is James?'
+          buttonLabel='My resume (sort of)'
+          buttonUrl='/about-me'
+          image='8JFMYz-a8Xo'
+        >
+          <p>He is an Architect</p>
+          <p>He is a Team Lead</p>
+          <p>He is a Full Stack Developer</p>
+          <p>He is a Husband</p>
+          <p>He is a Father</p>
+        </CtaCard>
+        <CtaCard
+          title='Can I help you?'
+          buttonLabel='contact me.'
+          buttonUrl='/contact-me'
+          image='fb7yNPbT0l8'
+        >
+          <p>Do you have question about my articles?</p>
+          <p>Can I help you build software?</p>
+          <p>Drop me a note.</p>
+        </CtaCard>
+      </CtaSection>
+      <LatestPostSection>
+        <h2>Latest Posts</h2>
+        <div className='three-grids'>
+          <PostCards posts={posts} />
         </div>
-        <div>
-          <h1>Contact Me</h1>
+        <div className='more-posts'>
+          <Link className='button -primary' to='/posts'>
+            All Posts
+          </Link>
         </div>
-      </div>
-      {/* <p>Check out my Posts. I hope they help someone.</p> */}
-      <h2>Latest Posts</h2>
-      <div className='three-grids'>
-        <PostCards posts={posts} />
-      </div>
-      <div className='more-posts'>
-        <Link className='button -primary' to='/posts'>
-          More Posts
-        </Link>
-      </div>
+      </LatestPostSection>
     </Layout>
   )
 }

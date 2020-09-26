@@ -1,14 +1,13 @@
 import React from 'react'
-// import '../styles/cta-card.scss'
 import styled from '@emotion/styled'
-import { css } from '@emotion/core'
-import { lighten, desaturate } from 'polished'
+import { lighten } from 'polished'
+import { navigate } from 'gatsby'
 
-const ctaCard = ({ label, percentage, size }) => {
+const ctaCard = ({ title, buttonLabel, buttonUrl, image, children }) => {
   const img = 'random'
   const delay = 700
   const easing = 'cubic-bezier(0.19, 1, 0.22, 1)'
-  const Card = styled.dev`
+  const Card = styled.div`
     position: relative;
     display: flex;
     align-items: flex-end;
@@ -21,7 +20,6 @@ const ctaCard = ({ label, percentage, size }) => {
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 2px 2px rgba(0, 0, 0, 0.1),
       0 4px 4px rgba(0, 0, 0, 0.1), 0 8px 8px rgba(0, 0, 0, 0.1),
       0 16px 16px rgba(0, 0, 0, 0.1);
-
     &:before {
       content: '';
       position: absolute;
@@ -33,7 +31,7 @@ const ctaCard = ({ label, percentage, size }) => {
       background-position: 0 0;
       transition: transform ${delay * 1.5}ms ${easing};
       pointer-events: none;
-      background-image: url(https://source.unsplash.com/${img}?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ);
+      background-image: url(https://source.unsplash.com/${image}?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ);
     }
 
     &:after {
@@ -95,71 +93,6 @@ const ctaCard = ({ label, percentage, size }) => {
     }
   `
 
-  // const Card = styled.div`
-  //   position: relative;
-  //   display: flex;
-  //   align-items: flex-end;
-  //   overflow: hidden;
-  //   padding: 1rem;
-  //   width: 100%;
-  //   text-align: center;
-  //   color: whitesmoke;
-  //   background-color: whitesmoke;
-  //   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 2px 2px rgba(0, 0, 0, 0.1),
-  //     0 4px 4px rgba(0, 0, 0, 0.1), 0 8px 8px rgba(0, 0, 0, 0.1),
-  //     0 16px 16px rgba(0, 0, 0, 0.1);
-
-  //   @media (min-width: $bp-md) {
-  //     height: 350px;
-  //   }
-
-  //   &:before {
-  //     content: '';
-  //     position: absolute;
-  //     top: 0;
-  //     left: 0;
-  //     width: 100%;
-  //     height: 110%;
-  //     background-size: cover;
-  //     background-position: 0 0;
-  //     transition: transform ${delay * 1.5}ms ${easing};
-  //     pointer-events: none;
-  //     background-image: url(https://source.unsplash.com/${img}?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ);
-  //   }
-
-  //   &:after {
-  //     content: '';
-  //     display: block;
-  //     position: absolute;
-  //     top: 0;
-  //     left: 0;
-  //     width: 100%;
-  //     height: 200%;
-  //     pointer-events: none;
-  //     background-image: linear-gradient(
-  //       to bottom,
-  //       hsla(0, 0%, 0%, 0) 0%,
-  //       hsla(0, 0%, 0%, 0.009) 11.7%,
-  //       hsla(0, 0%, 0%, 0.034) 22.1%,
-  //       hsla(0, 0%, 0%, 0.072) 31.2%,
-  //       hsla(0, 0%, 0%, 0.123) 39.4%,
-  //       hsla(0, 0%, 0%, 0.182) 46.6%,
-  //       hsla(0, 0%, 0%, 0.249) 53.1%,
-  //       hsla(0, 0%, 0%, 0.32) 58.9%,
-  //       hsla(0, 0%, 0%, 0.394) 64.3%,
-  //       hsla(0, 0%, 0%, 0.468) 69.3%,
-  //       hsla(0, 0%, 0%, 0.54) 74.1%,
-  //       hsla(0, 0%, 0%, 0.607) 78.8%,
-  //       hsla(0, 0%, 0%, 0.668) 83.6%,
-  //       hsla(0, 0%, 0%, 0.721) 88.7%,
-  //       hsla(0, 0%, 0%, 0.762) 94.1%,
-  //       hsla(0, 0%, 0%, 0.79) 100%
-  //     );
-  //     transform: translateY(-50%);
-  //     transition: transform ${delay * 2}ms ${easing};
-  //   }
-  // `
-
   const Content = styled.div`
     position: relative;
     display: flex;
@@ -215,18 +148,17 @@ const ctaCard = ({ label, percentage, size }) => {
   return (
     <Card>
       <Content className='content'>
-        <Title className='title'>title</Title>
-        <Copy>copy </Copy>
-        <Button>click me</Button>
+        <Title className='title'>{title}</Title>
+        <Copy>{children} </Copy>
+        <Button
+          onClick={(event) => {
+            navigate(buttonUrl)
+          }}
+        >
+          {buttonLabel}
+        </Button>
       </Content>
     </Card>
-    /* <div className='ctaCard' style={backgroungImageStyle}>
-      <div className='content'>
-        <h2 className='title'>title</h2>
-        <p classname='copy'>copy </p>
-        <button className='btn'>click me</button>
-      </div>
-    </div> */
   )
 }
 export default ctaCard
