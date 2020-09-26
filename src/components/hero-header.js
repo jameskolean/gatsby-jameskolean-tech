@@ -41,7 +41,7 @@ const HeroHeader = () => (
           <div className='hero-header'>
             <div className='headline'>{data.site.siteMetadata.home.title}</div>
             <div className='primary-content'>
-              <p>{data.site.siteMetadata.home.description}</p>
+              <h4>{data.site.siteMetadata.home.description}</h4>
             </div>
           </div>
         </BackgroundImage>

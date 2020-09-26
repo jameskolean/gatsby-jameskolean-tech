@@ -20,12 +20,14 @@ module.exports = {
     description: `Development playground by James Kolean`,
     siteUrl: `https://jameskolean.tech/`,
     home: {
-      title: `My Digital Garden`,
-      description: `A place to organize and share my software development interests.`,
+      title: `Digital Workshop`,
+      description: `My place for Demo Applications and Posts that I want to refer to later.`,
     },
   },
   plugins: [
     netlifyCmsPaths,
+    'gatsby-plugin-sass',
+    'gatsby-plugin-emotion',
     {
       resolve: `gatsby-source-filesystem`,
       options: {

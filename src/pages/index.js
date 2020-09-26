@@ -4,6 +4,8 @@ import { graphql, Link } from 'gatsby'
 import Layout from '../components/layout'
 import HeroHeader from '../components/hero-header'
 import PostCards from '../components/post-card'
+import Gauge from '../components/gauge'
+import CtaCard from '../components/cta-card'
 
 const IndexPage = ({
   data: {
@@ -20,44 +22,43 @@ const IndexPage = ({
         <html lang='en' />
       </Helmet>
       <HeroHeader />
-      <div
+      {/* <div
         className='blog-post-content'
         dangerouslySetInnerHTML={{ __html: page.html }}
-      />
-
-      {/* <h2>About Me</h2>
-      <p>
-        I'm James Kolean a full stack developer located in South East Michigan.
-        Most of my work has been in SpringBoot development as an Architect, Team
-        Lead, and Developer. I've used SpringBoot to build applications for many
-        customers (from Fortune 500 to Startups) in many industries (from
-        Banking to Fantasy Sports).
-      </p>
-      <p>
-        Recently I have become more interested in JAMStack Architecture due to
-        the frustration of writing the same boilerplate code over and over.
-        JAMStack offers a way to get flexible and blazingly fast applications
-        into production quickly.
-      </p>
-      <ul>
-        <li>
-          It uses technologies like GraphQL, letting API clients ask for just
-          the data they need. The API designer no longer needs to be clairvoyant
-          of future client needs.
-        </li>
-        <li>
-          It uses Static Site Generators Like GatsbyJS delivering blazingly
-          fast, secure, SEO compliant, and PWA enabled application
-          out-of-the-box. The term 'Static Site' is a bit of a misnomer since
-          the site is rehydrated into a dynamic React application.
-        </li>
-        <li>
-          It uses Headless CMS to avoid writing the same old CRUD (Create Read
-          Update Delete) application code, allowing more effort to be placed on
-          the highly valuable client-specific business logic.
-        </li>
-      </ul> */}
-      <p>Check out my Posts. I hope they help someone.</p>
+      /> */}
+      <div
+        style={{
+          margin: '2rem',
+          display: 'flex',
+          gap: 10,
+          alignItems: 'center',
+          justifyContent: 'center',
+          justifyContent: 'space-between',
+        }}
+      >
+        <CtaCard />
+        <CtaCard />
+        <CtaCard />
+      </div>
+      <div className={'cta'}>
+        <div>
+          <h1>About Me</h1>
+          <div style={{ display: 'flex' }}>
+            <Gauge percentage={90} label='Java' />
+            <Gauge size={200} percentage={60} label='JavaScript' />
+          </div>
+          <div className='guage'>
+            <div className='guageBody'>
+              <div className='guageFill'></div>
+              <div className='guageCover'>50%</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h1>Contact Me</h1>
+        </div>
+      </div>
+      {/* <p>Check out my Posts. I hope they help someone.</p> */}
       <h2>Latest Posts</h2>
       <div className='three-grids'>
         <PostCards posts={posts} />

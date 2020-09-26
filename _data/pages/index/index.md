@@ -1,8 +1,8 @@
 ---
 template: Page
-title: My Digital Garden
-description: A place to organize and share my software development interests.
-heroBackground: /assets/white-wall-unsplash.jpg
+title: Digital Workshop
+description: My place for Demo Applications and Posts that I want to refer to later.
+heroBackground: /assets/tools-on-wood-unsplash.jpg
 ---
 
 ##About Me##
