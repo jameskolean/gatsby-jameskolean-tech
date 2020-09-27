@@ -1,3 +1,4 @@
+@import 'global-variables';
 blockquote {
   margin: 0em 0.5em 0.5em 0.5em;
   background: #f9f9f9;
@@ -12,4 +13,11 @@ blockquote:before {
 blockquote p {
   margin: 1.5em 5px;
   display: inline;
+}
+.cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
 }

@@ -1,9 +1,12 @@
 import React from 'react'
 import Helmet from 'react-helmet'
 import { graphql, Link } from 'gatsby'
+import styled from '@emotion/styled'
+
 import Layout from '../components/layout'
 import HeroHeader from '../components/hero-header'
 import PostCards from '../components/post-card'
+import CtaCard from '../components/cta-card'
 
 const IndexPage = ({
   data: {
@@ -12,6 +15,14 @@ const IndexPage = ({
     allMarkdownRemark: { nodes: posts },
   },
 }) => {
+  const CtaSection = styled.div`
+    display: flex;
+    justify-content: center;
+    justify-content: space-between;
+  `
+  const LatestPostSection = styled.div`
+    margin-top: 4rem;
+  `
   return (
     <Layout>
       <Helmet>
@@ -20,53 +31,51 @@ const IndexPage = ({
         <html lang='en' />
       </Helmet>
       <HeroHeader />
-      <div
-        className='blog-post-content'
-        dangerouslySetInnerHTML={{ __html: page.html }}
-      />
-
-      {/* <h2>About Me</h2>
-      <p>
-        I'm James Kolean a full stack developer located in South East Michigan.
-        Most of my work has been in SpringBoot development as an Architect, Team
-        Lead, and Developer. I've used SpringBoot to build applications for many
-        customers (from Fortune 500 to Startups) in many industries (from
-        Banking to Fantasy Sports).
-      </p>
-      <p>
-        Recently I have become more interested in JAMStack Architecture due to
-        the frustration of writing the same boilerplate code over and over.
-        JAMStack offers a way to get flexible and blazingly fast applications
-        into production quickly.
-      </p>
-      <ul>
-        <li>
-          It uses technologies like GraphQL, letting API clients ask for just
-          the data they need. The API designer no longer needs to be clairvoyant
-          of future client needs.
-        </li>
-        <li>
-          It uses Static Site Generators Like GatsbyJS delivering blazingly
-          fast, secure, SEO compliant, and PWA enabled application
-          out-of-the-box. The term 'Static Site' is a bit of a misnomer since
-          the site is rehydrated into a dynamic React application.
-        </li>
-        <li>
-          It uses Headless CMS to avoid writing the same old CRUD (Create Read
-          Update Delete) application code, allowing more effort to be placed on
-          the highly valuable client-specific business logic.
-        </li>
-      </ul> */}
-      <p>Check out my Posts. I hope they help someone.</p>
-      <h2>Latest Posts</h2>
-      <div className='three-grids'>
-        <PostCards posts={posts} />
-      </div>
-      <div className='more-posts'>
-        <Link className='button -primary' to='/posts'>
-          More Posts
-        </Link>
-      </div>
+      <CtaSection style={{ gap: 10 }}>
+        <CtaCard
+          title='What is here?'
+          buttonLabel='see all posts'
+          buttonUrl='/posts'
+          image='82TpEld0_e4'
+        >
+          <p>This is where I keep my prototypes.</p>
+          <p>This is where I keep my project templates.</p>
+          <p>This is where I keep posts I want to reffer back to.</p>
+        </CtaCard>
+        <CtaCard
+          title='Who is James?'
+          buttonLabel='My resume (sort of)'
+          buttonUrl='/about-me'
+          image='8JFMYz-a8Xo'
+        >
+          <p>He is an Architect</p>
+          <p>He is a Team Lead</p>
+          <p>He is a Full Stack Developer</p>
+          <p>He is a Husband</p>
+          <p>He is a Father</p>
+        </CtaCard>
+        <CtaCard
+          title='Can I help you?'
+          buttonLabel='contact me.'
+          buttonUrl='/contact-me'
+          image='fb7yNPbT0l8'
+        >
+          <p>Do you have question about my articles?</p>
+          <p>Can I help you build software?</p>
+          <p>Drop me a note.</p>
+        </CtaCard>
+      </CtaSection>
+      <LatestPostSection>
+        <h2>Latest Posts</h2>
+        <div className='three-grids'>
+          <PostCards posts={posts} />
+        </div>
+        <div className='more-posts'>
+          <Link className='button -primary' to='/posts'>
+            All Posts
+          </Link>
+        </div>
+      </LatestPostSection>
     </Layout>
   )
 }
