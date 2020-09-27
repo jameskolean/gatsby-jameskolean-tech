@@ -2,7 +2,6 @@
 import React from 'react'
 import Layout from '../components/layout'
 import styled from '@emotion/styled'
-import Select from '../components/select'
 
 const AboutMePage = () => {
   const ContachMe = styled.div`
