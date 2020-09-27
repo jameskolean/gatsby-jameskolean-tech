@@ -103,6 +103,11 @@ const AboutMePage = () => {
           method='POST'
           data-netlify='true'
         >
+          <input
+            type='hidden'
+            name='form-name'
+            value='jameskolean-tech-contact-request'
+          />
           <Note>* All fields are required</Note>
           <label>Nature of request:</label>
           <label className='radio'>
