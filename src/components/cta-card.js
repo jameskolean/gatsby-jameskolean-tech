@@ -13,7 +13,7 @@ const ctaCard = ({ title, buttonLabel, buttonUrl, image, children }) => {
     align-items: flex-end;
     overflow: hidden;
     padding: 1rem;
-    width: 100%;
+    width: 300px;
     text-align: center;
     color: whitesmoke;
     background-color: whitesmoke;

@@ -17,8 +17,9 @@ const IndexPage = ({
 }) => {
   const CtaSection = styled.div`
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    justify-content: space-between;
+    justify-content: space-around;
   `
   const LatestPostSection = styled.div`
     margin-top: 4rem;
