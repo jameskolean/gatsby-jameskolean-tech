@@ -38,7 +38,7 @@ const HeroHeader = () => (
           className='hero-header-background'
           fluid={backgroundImage}
         >
-          <div className='hero-header'>
+          <div className='hero-header' style={{ height: '45px' }}>
             <div className='headline'>{data.site.siteMetadata.home.title}</div>
             <div className='primary-content'>
               <h4>{data.site.siteMetadata.home.description}</h4>

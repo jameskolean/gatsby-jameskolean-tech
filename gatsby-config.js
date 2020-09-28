@@ -20,8 +20,8 @@ module.exports = {
     description: `Development playground by James Kolean`,
     siteUrl: `https://jameskolean.tech/`,
     home: {
-      title: `Digital Workshop`,
-      description: `My place for Demo Applications and Posts that I want to refer to later.`,
+      title: `Digital Garden`,
+      description: `My place for Demo Applications and Posts.`,
     },
   },
   plugins: [

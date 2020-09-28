@@ -4,7 +4,6 @@ import { lighten } from 'polished'
 import { navigate } from 'gatsby'
 
 const ctaCard = ({ title, buttonLabel, buttonUrl, image, children }) => {
-  const img = 'random'
   const delay = 700
   const easing = 'cubic-bezier(0.19, 1, 0.22, 1)'
   const Card = styled.div`
@@ -31,7 +30,7 @@ const ctaCard = ({ title, buttonLabel, buttonUrl, image, children }) => {
       background-position: 0 0;
       transition: transform ${delay * 1.5}ms ${easing};
       pointer-events: none;
-      background-image: url(https://source.unsplash.com/${image}?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ);
+      background-image: url(${image});
     }
 
     &:after {

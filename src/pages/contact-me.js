@@ -102,8 +102,10 @@ const AboutMePage = () => {
           name='jameskolean-tech-contact-request'
           method='POST'
           data-netlify='true'
+          data-netlify-recaptcha='true'
         >
           <input
+            aria-label='hidden'
             type='hidden'
             name='form-name'
             value='jameskolean-tech-contact-request'
@@ -118,6 +120,7 @@ const AboutMePage = () => {
               id='hire-me'
               name='requestType[]'
               value='hire-me'
+              aria-label='hire me option'
             />
           </label>
           <label className='radio'>
@@ -127,26 +130,41 @@ const AboutMePage = () => {
               id='content-question'
               name='requestType[]'
               value='content-question'
+              aria-label='content question option'
             />
           </label>
           <label className='radio'>
             Other
-            <input type='radio' id='other' name='requestType[]' value='other' />
+            <input
+              type='radio'
+              id='other'
+              name='requestType[]'
+              value='other'
+              aria-label='other option'
+            />
           </label>
           <label>
-            Your Name: <input type='text' name='name' required={true} />
+            Your Name:{' '}
+            <input type='text' name='name' required={true} aria-label='name' />
           </label>
           <label>
-            Your Email: <input type='email' name='email' required={true} />
+            Your Email:{' '}
+            <input
+              type='email'
+              name='email'
+              required={true}
+              aria-label='email'
+            />
           </label>
           <label>
-            Message:{' '}
+            Message:
             <textarea
               name='message'
               rows='4'
               cols='50'
               required={true}
               onKeyUp={adjustTextarea}
+              aria-label='message'
             ></textarea>
           </label>
           <p>

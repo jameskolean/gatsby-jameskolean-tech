@@ -12,7 +12,7 @@ const TodosPage = ({
   },
 }) => {
   const Todos = ({ todos }) => (
-    <table class='todo-table'>
+    <table className='todo-table'>
       <tr>
         <th>Name</th>
         <th>Description</th>

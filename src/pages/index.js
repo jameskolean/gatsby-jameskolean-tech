@@ -37,7 +37,7 @@ const IndexPage = ({
           title='What is here?'
           buttonLabel='see all posts'
           buttonUrl='/posts'
-          image='82TpEld0_e4'
+          image='/assets/postit-lightbulb-unsplash.jpg'
         >
           <p>This is where I keep my prototypes.</p>
           <p>This is where I keep my project templates.</p>
@@ -47,7 +47,7 @@ const IndexPage = ({
           title='Who is James?'
           buttonLabel='My resume (sort of)'
           buttonUrl='/about-me'
-          image='8JFMYz-a8Xo'
+          image='/assets/info-unsplash.jpg'
         >
           <p>He is an Architect</p>
           <p>He is a Team Lead</p>
@@ -59,7 +59,7 @@ const IndexPage = ({
           title='Can I help you?'
           buttonLabel='contact me.'
           buttonUrl='/contact-me'
-          image='fb7yNPbT0l8'
+          image='/assets/mailboxes-unsplash.jpg'
         >
           <p>Do you have question about my articles?</p>
           <p>Can I help you build software?</p>

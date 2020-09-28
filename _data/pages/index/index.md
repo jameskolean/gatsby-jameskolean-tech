@@ -1,7 +1,7 @@
 ---
 template: Page
 title: Digital Workshop
-description: My place for Demo Applications and Posts that I want to refer to later.
+# description: My place for Demo Applications and Posts that I want to refer to later.
 heroBackground: /assets/tools-on-wood-unsplash.jpg
 ---
 
