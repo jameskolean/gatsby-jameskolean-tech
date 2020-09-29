@@ -29,9 +29,8 @@ const AboutMePage = () => {
     <Layout>
       <GaugeSection>
         <Gauge label='Architect' percentage='75' />
+        <Gauge label='Full Stack Deverloper' percentage='90' />
         <Gauge label='Leadership' percentage='90' />
-        {/* <Gauge label='Java' percentage='90' />*/}
-        <Gauge label='JAM Stack' percentage='75' />
         <Gauge label='Cloud' percentage='75' />
       </GaugeSection>
       <Certifications>
@@ -90,7 +89,7 @@ const AboutMePage = () => {
           </li>
           <li className='timeline-item'>
             <div className='timeline-info'>
-              <span>Feburary 2020</span>
+              <span>January 2020</span>
             </div>
             <div className='timeline-marker'></div>
             <div className='timeline-content'>
@@ -105,7 +104,7 @@ const AboutMePage = () => {
           </li>
           <li className='timeline-item'>
             <div className='timeline-info'>
-              <span>August 2020</span>
+              <span>August 2019</span>
             </div>
             <div className='timeline-marker'></div>
             <div className='timeline-content'>
@@ -117,19 +116,19 @@ const AboutMePage = () => {
           </li>
           <li className='timeline-item'>
             <div className='timeline-info'>
-              <span>March 2020</span>
+              <span>March 2019</span>
             </div>
             <div className='timeline-marker'></div>
             <div className='timeline-content'>
               <h3 className='timeline-title'>
                 Guardian Industries - Code Green LLC
               </h3>
-              <p>Upgrade software delivery processes and tooling.</p>
+              <p>Reinvented their software delivery processes and tooling.</p>
             </div>
           </li>
           <li className='timeline-item'>
             <div className='timeline-info'>
-              <span>June 2016</span>
+              <span>September 2016</span>
             </div>
             <div className='timeline-marker'></div>
             <div className='timeline-content'>
@@ -143,7 +142,7 @@ const AboutMePage = () => {
           </li>
           <li className='timeline-item'>
             <div className='timeline-info'>
-              <span>August 2016</span>
+              <span>August 2015</span>
             </div>
             <div className='timeline-marker'></div>
             <div className='timeline-content'>
@@ -187,7 +186,7 @@ const AboutMePage = () => {
             <div className='timeline-content'>
               <h3 className='timeline-title'>Team Detroit - Code Green LLC</h3>
               <p>
-                Jumped in at 'crunch time' lending a hand to make sure deadlines
+                Jumped in at 'crunch time' lending a hand ensuring deadlines
                 were met.
               </p>
             </div>
@@ -262,7 +261,7 @@ const AboutMePage = () => {
           </li>
           <li className='timeline-item'>
             <div className='timeline-info'>
-              <span>January 1996</span>
+              <span>April 1997</span>
             </div>
             <div className='timeline-marker'></div>
             <div className='timeline-content'>
