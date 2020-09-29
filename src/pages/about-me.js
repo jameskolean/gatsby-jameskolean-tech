@@ -1,6 +1,7 @@
 /* eslint jsx-a11y/label-has-associated-control: 0 */
 import React from 'react'
 import styled from '@emotion/styled'
+import Helmet from 'react-helmet'
 import Layout from '../components/layout'
 import Gauge from '../components/gauge'
 import '../styles/timeline.scss'
@@ -27,6 +28,11 @@ const AboutMePage = () => {
   `
   return (
     <Layout>
+      <Helmet>
+        <title>About Me</title>
+        <meta name='description' content='About Me' />
+        <html lang='en' />
+      </Helmet>
       <GaugeSection>
         <Gauge label='Architect' percentage='75' />
         <Gauge label='Full Stack Deverloper' percentage='90' />

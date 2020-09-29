@@ -30,8 +30,8 @@ const TodosPage = ({
   return (
     <Layout>
       <Helmet>
-        <title>{site.siteMetadata.title}</title>
-        <meta name='description' content={site.siteMetadata.description} />
+        <title>Todo</title>
+        <meta name='description' content='List of things I want to look at' />
         <html lang='en' />
       </Helmet>
       <h3>Things I want to look at when I get a chance...</h3>

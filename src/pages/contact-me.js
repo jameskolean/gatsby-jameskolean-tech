@@ -2,9 +2,10 @@
 import React from 'react'
 import Layout from '../components/layout'
 import styled from '@emotion/styled'
+import Helmet from 'react-helmet'
 
 const AboutMePage = () => {
-  const ContachMe = styled.div`
+  const ContactMe = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
@@ -96,7 +97,12 @@ const AboutMePage = () => {
   }
   return (
     <Layout>
-      <ContachMe>
+      <Helmet>
+        <title>Contact Me</title>
+        <meta name='description' content='Contact Me' />
+        <html lang='en' />
+      </Helmet>
+      <ContactMe>
         <h2>Contact Me</h2>
         <Form
           name='jameskolean-tech-contact-request'
@@ -171,7 +177,7 @@ const AboutMePage = () => {
             <button type='submit'>Send</button>
           </p>
         </Form>
-      </ContachMe>
+      </ContactMe>
     </Layout>
   )
 }

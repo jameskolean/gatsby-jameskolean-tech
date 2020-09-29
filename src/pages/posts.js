@@ -36,8 +36,11 @@ const PostsPage = ({ data: { site, allPosts, allTags } }) => {
   return (
     <Layout>
       <Helmet>
-        <title>{site.siteMetadata.title}</title>
-        <meta name='description' content={site.siteMetadata.description} />
+        <title>Posts</title>
+        <meta
+          name='description'
+          content='Posts of Prototypes, Templates, and Articles I wrote.'
+        />
         <html lang='en' />
       </Helmet>
       <div className='post-filter'>
