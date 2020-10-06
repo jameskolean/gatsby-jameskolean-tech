@@ -30,25 +30,6 @@ a {
     max-width: 100%;
   }
 }
-.navigation {
-  font-weight: 300;
-  display: flex;
-  a {
-    color: #595959;
-    text-decoration: none;
-    margin: 0 8px 0;
-    &[aria-current] {
-      color: $primary-color;
-      font-weight: 700;
-    }
-    &:hover {
-      color: $primary-color;
-    }
-    &:last-child {
-      margin-right: 0;
-    }
-  }
-}
 .site-header {
   display: flex;
   justify-content: space-between;

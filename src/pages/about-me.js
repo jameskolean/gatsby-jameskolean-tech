@@ -11,7 +11,7 @@ const AboutMePage = () => {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    justify-content: space-between;
+    justify-content: space-around;
   `
   const Certifications = styled.div`
     display: flex;
