@@ -24,9 +24,6 @@ todos:
       Take this website vulnerability scan tool for a test drive. https://github.com/lirantal/is-website-vulnerable'
     name: Test website vulnerability plugin
   - description: '
-      Add Disqus components into my Gatsby site. https://www.gatsbyjs.org/packages/gatsby-plugin-disqus/'
-    name: Add Disqus
-  - description: '
       Clinic.js is an open source monitoring tool for Node.js projects. It combines three different tools—Doctor, Bubbleprof, and Flame—that help you monitor, detect, and solve performance issues with Node.js.'
     name: Clinic.js
   - description: '
