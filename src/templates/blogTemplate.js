@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Helmet from 'react-helmet'
 import { graphql } from 'gatsby'
+import { Disqus, CommentCount } from 'gatsby-plugin-disqus'
 import Layout from '../components/layout'
 import Likes from '../components/likes'
 import '../styles/blogTemplate.scss'
@@ -25,6 +26,11 @@ export default function Template({
   const { excerpt, frontmatter, html } = markdownRemark
   const { slug } = markdownRemark.fields
   const [rating, setRating] = useState([])
+  const disqusConfig = {
+    url: `${data.site.siteMetadata.siteUrl + slug}`,
+    identifier: markdownRemark.id,
+    title: frontmatter.title,
+  }
   useEffect(() => {
     fetch(`/.netlify/functions/thumbs-up?slug=${slug}`)
       .then((response) => response.json())
@@ -101,13 +107,22 @@ export default function Template({
           />
         </div>
       </div>
+      <CommentCount config={disqusConfig} placeholder={'...'} />
+      /* Post Contents */
+      <Disqus config={disqusConfig} />
     </Layout>
   )
 }
 
 export const pageQuery = graphql`
   query($path: String!) {
+    site {
+      siteMetadata {
+        siteUrl
+      }
+    }
     markdownRemark(fields: { slug: { eq: $path } }) {
+      id
       html
       excerpt(pruneLength: 200)
       frontmatter {
