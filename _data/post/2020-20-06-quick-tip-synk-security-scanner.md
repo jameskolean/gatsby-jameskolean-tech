@@ -10,9 +10,9 @@ tags:
 thumbnail: /assets/woman-magnifingglass-unsplash.jpg
 ---
 
-I recently ran across a slick tool called Snyk at https://app.snyk.io. This tool will watch for and report security and license issues in your NodeJS dependency. It will also help create pull requests to resolve any problems.
+I recently ran across a slick tool called Snyk at https://app.snyk.io. This tool will scan for security and license problems in your NodeJS dependencies. It also helps create pull requests to resolve any problems.
 
-I started [here](https://support.snyk.io/hc/en-us/categories/360000598398-Integrations) following the GitLab integration. Follow the instructions to create a GitLab Personal Access Token with API access. Then choose the projects you want to monitor.
+I started [here](https://support.snyk.io/hc/en-us/categories/360000598398-Integrations) following the GitLab integration instructions. Follow the instructions to create a GitLab Personal Access Token with API access. Then choose the projects you want to monitor.
 
 I tried the VSCode extension _Vuln Cost - Security Scanner_, but it didn't install properly.
 
@@ -22,7 +22,7 @@ The command-line interface is pretty simple. One install option is with NPM like
 npm install -g snyk
 ```
 
-Usage requires you to authenticate.
+Usage requires you to authenticate. It will pop open a browser window.
 
 ```bash
 snyk auth

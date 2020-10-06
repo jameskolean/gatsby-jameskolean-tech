@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Helmet from 'react-helmet'
 import { graphql } from 'gatsby'
-import { Disqus, CommentCount } from 'gatsby-plugin-disqus'
+import { Disqus } from 'gatsby-plugin-disqus'
 import Layout from '../components/layout'
 import Likes from '../components/likes'
 import '../styles/blogTemplate.scss'
@@ -107,8 +107,6 @@ export default function Template({
           />
         </div>
       </div>
-      <CommentCount config={disqusConfig} placeholder={'...'} />
-      /* Post Contents */
       <Disqus config={disqusConfig} />
     </Layout>
   )

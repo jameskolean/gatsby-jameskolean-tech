@@ -47,7 +47,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-disqus`,
       options: {
-        shortname: `jameskolean-tech.disqus.com`,
+        shortname: `jameskolean-tech`,
       },
     },
     {
