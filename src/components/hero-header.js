@@ -54,6 +54,9 @@ const HeroHeader = () => (
         [data-z]:hover .z-text {
           transform: rotateX(-15deg) rotateY(15deg);
         }
+        @media only screen and (max-width: 500px) {
+          display: none;
+        }
       `
       return (
         <BackgroundImage
