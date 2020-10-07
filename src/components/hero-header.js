@@ -37,6 +37,7 @@ const HeroHeader = () => (
         position: absolute;
         top: -0.5rem;
         left: 20rem;
+        user-select: none;
         .sample {
           -webkit-box-flex: 1;
           -ms-flex: 1 0 100%;
