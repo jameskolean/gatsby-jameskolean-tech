@@ -65,7 +65,7 @@ const HeroHeader = () => (
           fluid={backgroundImage}
         >
           <Helmet>
-            <script src='/ztext.min.js' />
+            <script defer src='/ztext.min.js' />
           </Helmet>
           <Sunflower>
             <span
