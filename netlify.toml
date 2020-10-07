@@ -16,38 +16,3 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "no-referrer"
     Feature-Policy = "microphone 'none'; geolocation 'none'"
-
-[[plugins]]
-  package = "@netlify/plugin-lighthouse"
- 
-  # optional, fails build when a category is below a threshold
-  [plugins.inputs.thresholds]
-    performance = 0.8
-    accessibility = 0.9
-    best-practices = 0.9
-    seo = 0.9
-    pwa = 50
-
-  [[plugins.inputs.audits]]
-    path = "posts"
-
-    [plugins.inputs.audits.thresholds]
-      performance = 0.9
-
-  [[plugins.inputs.audits]]
-    path = "about-me"
-
-    [plugins.inputs.audits.thresholds]
-      performance = 0.9
-
-  [[plugins.inputs.audits]]
-    path = "contact-me"
-
-    [plugins.inputs.audits.thresholds]
-      performance = 0.9
-
-  [[plugins.inputs.audits]]
-    path = "todos"
-
-    [plugins.inputs.audits.thresholds]
-      performance = 0.9

@@ -18,9 +18,6 @@ todos:
       Will this get us indexed faster?'
     name: Try Netlify Submit Sitemap Plugin
   - description: '
-      I probably need notification if the results are out of some range.'
-    name: Try Netlify Lighthouse Plugin
-  - description: '
       Take this website vulnerability scan tool for a test drive. https://github.com/lirantal/is-website-vulnerable'
     name: Test website vulnerability plugin
   - description: '

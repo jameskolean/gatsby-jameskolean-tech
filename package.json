@@ -7,7 +7,6 @@
   "dependencies": {
     "@emotion/core": "^10.0.35",
     "@emotion/styled": "^10.0.27",
-    "@netlify/plugin-lighthouse": "^1.4.2",
     "apollo-boost": "^0.4.7",
     "faunadb": "^2.14.0",
     "framer-motion": "^2.0.0-beta.55",
