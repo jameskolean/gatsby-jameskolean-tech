@@ -9,9 +9,6 @@ todos:
       Is there a better way to map entities to DTOs? MapStruct was the winner in 2018'
     name: Map Struct alternatives
   - description: '
-      Will this get us indexed faster?'
-    name: Try Netlify Submit Sitemap Plugin
-  - description: '
       Take this website vulnerability scan tool for a test drive. https://github.com/lirantal/is-website-vulnerable'
     name: Test website vulnerability plugin
   - description: '

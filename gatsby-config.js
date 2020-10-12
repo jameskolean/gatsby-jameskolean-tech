@@ -107,6 +107,13 @@ module.exports = {
         cachePublic: true,
       },
     },
+    {
+      resolve: 'gatsby-plugin-webpack-bundle-analyser-v2',
+      options: {
+        analyzerMode: 'static',
+        reportFilename: 'webpack.html',
+      },
+    },
   ],
   developMiddleware: (app) => {
     app.use(

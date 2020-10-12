@@ -14,7 +14,7 @@ I just love Netlify; they always have something interesting. I found this extens
 
 For a client-side implementation, you need to ship the file to the client, probably not optimal. Note: there are several client-side tools out there that have more features.
 
-For a server-side implementation, Netlify will spin up a lambda function for you. Granted, this is probably not a production-ready solution but the concept perfect from many uses cases.
+For a server-side implementation, Netlify will spin up a lambda function for you. Granted, this is probably not a production-ready solution but the concept is perfect for many uses cases.
 
 ## How to.
 
