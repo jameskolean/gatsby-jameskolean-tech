@@ -22,11 +22,12 @@ Tell Netlify you want it to index your site and create a function by adding this
 
 > netlify.toml
 
-```javascript
-;[[plugins]]
-package = 'netlify-plugin-search-index'[plugins.inputs]
-generatedFunctionName = 'mySearchFunction'
-publishDirJSONFileName = 'null'
+```yaml
+[[plugins]]
+  package = 'netlify-plugin-search-index'
+    [plugins.inputs]
+      generatedFunctionName = 'mySearchFunction'
+      publishDirJSONFileName = 'null'
 ```
 
 That's it! You can now use a URL like this to search your site.
