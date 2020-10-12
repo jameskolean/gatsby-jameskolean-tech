@@ -8,7 +8,7 @@ todos:
   - description: '
       Is there a better way to map entities to DTOs? MapStruct was the winner in 2018'
     name: Map Struct alternatives
-- description: '
+  - description: '
       Will this get us indexed faster?'
     name: Try Netlify Submit Sitemap Plugin
   - description: '
