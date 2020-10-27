@@ -292,11 +292,16 @@ const AboutMePage = () => {
             <div className='timeline-marker'></div>
             <div className='timeline-content'>
               <h3 className='timeline-title'>Graduated USC </h3>
+              <p>Masters of Science Eletrical Engineering.</p>
             </div>
-            <p>Masters of Science Eletrical Engineering.</p>
           </li>
         </ul>
       </TimelineSection>
+      <h2>
+        <a href={`./resume/james-kolean-2020-06.pdf`} download>
+          Download Resume
+        </a>
+      </h2>
     </Layout>
   )
 }
