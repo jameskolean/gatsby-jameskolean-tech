@@ -302,9 +302,117 @@ minikube service mongo-express-service
 
 ## Ingress Service
 
+**_Note: this code is in the branch called Using-Ingtress_**
+
 The External Service is sufficient for development, but the better solution is to use an Ingress Service.
 
-### Coming soon
+We first need to install Ingress Controller in your cluster
+
+```bash
+minikube stop
+minikube delete
+brew install hyperkit
+minikube start --driver=hyperkit
+minikube addons enable ingress
+kubectl get pod -n kube-system
+```
+
+Now you need to change the mongo-express-service to be a, internal service.
+
+> mongo-express.yaml
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-express
+  labels:
+    app: mongo-express
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo-express
+  template:
+    metadata:
+      labels:
+        app: mongo-express
+    spec:
+      containers:
+        - name: mongo-express
+          image: mongo-express
+          ports:
+            - containerPort: 8081
+          env:
+            - name: ME_CONFIG_MONGODB_ADMINUSERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-secret
+                  key: mongo-root-username
+            - name: ME_CONFIG_MONGODB_ADMINPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-secret
+                  key: mongo-root-password
+            - name: ME_CONFIG_MONGODB_SERVER
+              valueFrom:
+                configMapKeyRef:
+                  name: mongodb-configmap
+                  key: database_url
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-express-service
+spec:
+  selector:
+    app: mongo-express
+  ports:
+    - protocol: TCP
+      port: 8081
+      targetPort: 8081
+```
+
+Now create Ingress Service
+
+> mongo-ingress.yaml
+
+```yaml
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: mongo-ingress
+spec:
+  rules:
+    - host: mongo-express.com
+      http:
+        paths:
+          - backend:
+              serviceName: mongo-express-service
+              servicePort: 8081
+```
+
+### Start it
+
+```bash
+kubectl apply -f mongo-secret.yaml
+kubectl apply -f mongo-configmap.yaml
+kubectl apply -f mongo.yaml
+kubectl apply -f mongo-express.yaml
+kubectl apply -f mongo-ingress.yaml
+kubectl get ingress
+```
+
+The command `kubectl get ingress` will eventually assign an address along with the port. You need to use this information to add an entry in you hosts file.
+
+> /etc/hosts add these lines with your Address
+
+```
+# Kubernetes post
+<YOUR-IP_ADDRESS>    mongo-express.com
+```
+
+Finally, open a browser to http://mongo-express.com
 
 ## Volumes
 
