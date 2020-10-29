@@ -298,7 +298,7 @@ const AboutMePage = () => {
         </ul>
       </TimelineSection>
       <h2>
-        <a href={`./resume/james-kolean-2020-06.pdf`} download>
+        <a href={`./resume/james-kolean.pdf`} download>
           Download Resume
         </a>
       </h2>
