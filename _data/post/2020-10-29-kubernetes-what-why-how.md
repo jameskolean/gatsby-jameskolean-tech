@@ -11,21 +11,21 @@ tags:
 thumbnail: /assets/server-racks-unsplash.jpg
 ---
 
-It's finally time to make a few notes on Kubernetes. We have already looked at Docker and Docker Compose, so we can use that knowledge to explore what Kubernetes is. If you want a great YouTube resource to get started, you should check out [Docker and Kubernetes Tutorial](https://www.youtube.com/watch?v=bhBSlnQcq2k). I will be pulling examples from that tutorial. The first two-thirds is all about Docker, and the last third is Kubernetes making an excellent introduction tutorial. Just subscribe to [TechWorld with Nana](https://www.youtube.com/channel/UCdngmbVKX1Tgre699-XLlUA) she produces fantastic content.
+It's finally time to make a few notes on Kubernetes. We have already looked at Docker and Docker Compose, so we can use that knowledge to explore what Kubernetes is. If you want a great YouTube resource to get started, you should check out [Docker and Kubernetes Tutorial](https://www.youtube.com/watch?v=bhBSlnQcq2k). I will be pulling examples from that tutorial. The first two-thirds is all about Docker, and the last third is Kubernetes. It's an excellent introduction tutorial. You should subscribe to [TechWorld with Nana](https://www.youtube.com/channel/UCdngmbVKX1Tgre699-XLlUA) she produces fantastic content.
 
 # What is it?
 
-_Kubernetes is a portable, extensible, open-source platform for managing containerized workloads and services, that facilitates both declarative configuration and automation. It has a large, rapidly growing ecosystem. Kubernetes services, support, and tools are widely available._
+from kubernetes.io
 
-> kubernetes.io
+_Kubernetes is a portable, extensible, open-source platform for managing containerized workloads and services, that facilitates both declarative configuration and automation. It has a large, rapidly growing ecosystem. Kubernetes services, support, and tools are widely available._
 
 Rember how we used Docker Compose to launch multiple Docker instances. For example, we created a Docker Compose file that launched a single web server, connected it to an API server, and connected that to a MongoDB instance? Kubernetes performs a similar function but goes further. Kubernetes also manages scaling and failovers. It does this in a way that abstracts away vendor-specific implementations.
 
 # Why use Kubernetes?
 
-> _from kubernetes.io_
+from kubernetes.io
 
-Containers are a good way to bundle and run your applications. In a production environment, you need to manage the containers that run the applications and ensure that there is no downtime. For example, if a container goes down, another container needs to start. Wouldn't it be easier if this behavior was handled by a system?
+<i>Containers are a good way to bundle and run your applications. In a production environment, you need to manage the containers that run the applications and ensure that there is no downtime. For example, if a container goes down, another container needs to start. Wouldn't it be easier if this behavior was handled by a system?
 That's how Kubernetes comes to the rescue! Kubernetes provides you with a framework to run distributed systems resiliently. It takes care of scaling and failover for your application, provides deployment patterns, and more. For example, Kubernetes can easily manage a canary deployment for your system.
 Kubernetes provides you with:
 
@@ -35,28 +35,7 @@ Kubernetes provides you with:
 - **_Automatic bin packing_** You provide Kubernetes with a cluster of nodes that it can use to run containerized tasks. You tell Kubernetes how much CPU and memory (RAM) each container needs. Kubernetes can fit containers onto your nodes to make the best use of your resources.
 - **_Self-healing_** Kubernetes restarts containers that fail, replaces containers, kills containers that don't respond to your user-defined health check, and doesn't advertise them to clients until they are ready to serve.
 - **_Secret and configuration management_** Kubernetes lets you store and manage sensitive information, such as passwords, OAuth tokens, and SSH keys. You can deploy and update secrets and application configuration without rebuilding your container images, and without exposing secrets in your stack configuration.
-
-# How to use Kubernetes?
-
-## Create a Kubernetes Cluster
-
-First, we need a Kubernetes Cluster. For local development, we will use [minikube](https://minikube.sigs.k8s.io/docs/start/). Here is how to install it on the macOS. It should also install `kubectl` as a dependency.
-
-```bash
-brew update
-brew install minikube
-minikube
-minikube status
-minikube start
-minikube dashboard
-kubectl
-```
-
-## Our example
-
-In this example, we will launch a MongoDB and a Mongo Express UI.
-
-Browser -> Mongo-Express -> MongoDB
+  </i>
 
 # How to use Kubernetes?
 
@@ -164,7 +143,7 @@ kubectl get all | grep mongodb
 
 ### Add an Internal Service
 
-To let other Pods talk to our MongoDB Pod, we need to add a Service. We want to use an Internal Service in this case because we only want other pods to connect. We don't want anyone on the internet poking at our MongoDB. We need another YAML file to do this. Since the Service and the Deployment are tightly coupled, it makes sense to append the Service definition to the Deployment file. it now looks like this.
+To let other Pods talk to our MongoDB Pod, we need to add a Service. We want to use an Internal Service in this case because we only want other pods to connect. We don't want anyone on the internet poking at our MongoDB. We need another YAML file to do this. Since the Service and the Deployment are tightly coupled, it makes sense to append the Service definition to the Deployment file. It now looks like this.
 
 > mongo.yaml
 
@@ -295,7 +274,7 @@ data:
   database_url: mongodb-service
 ```
 
-This time the service is of type `LoadBalancer.` making it an external service so we can access it from the browser.
+The Service also changed. This time the service is of type `LoadBalancer.` making it an external service so we can access it from the browser.
 
 ### Start it up
 
@@ -315,6 +294,6 @@ The External Service is sufficient for development, but the better solution is t
 
 ## Volumes
 
-Currently, ff MongoDB stops all our data is lost. We need a way to persist some data between Pod restarts. This is where Volume come in.
+Currently, if MongoDB stops all our data is lost. We need a way to persist some data between Pod restarts. This is where Volume come in.
 
 ### Coming soon
