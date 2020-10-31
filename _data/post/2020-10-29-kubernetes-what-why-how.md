@@ -300,6 +300,137 @@ kubectl logs <yout-pod-id>
 minikube service mongo-express-service
 ```
 
+## Volumes
+
+Currently, if MongoDB stops, all our data is lost. We need a way to persist some data between Pod restarts. Persistent Volumes will do this for us. Let's first see the problem.
+
+### The Problem
+
+```bash
+minikube service mongo-express-service
+```
+
+In the Browser, create a new database called 'Sample.' Now redeploy the POD.
+
+```bash
+kubectl rollout restart deployment mongodb-deployment
+```
+
+Refreshing the Browser will show that our new 'Sample' database is no longer there.
+
+### The Fix
+
+Note that this is for demonstration purposes. A production configuration will use resources in your specific cloud provider.
+
+Let's add PersistentVolume and PersistentVolumeClaim. Then we need to link our MongoDB deployment like this.
+
+> mongo.yaml
+
+```yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: data
+spec:
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 5Gi
+  hostPath:
+    path: /data/mongoData
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: data-claim
+spec:
+  storageClassName: ''
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 3Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb-deployment
+  labels:
+    app: mongodb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongodb
+  template:
+    metadata:
+      labels:
+        app: mongodb
+    spec:
+      volumes:
+        - name: data-storage
+          persistentVolumeClaim:
+            claimName: data-claim
+      containers:
+        - name: mongodb
+          image: mongo
+          volumeMounts:
+            - name: data-storage
+              mountPath: /data/db
+          ports:
+            - containerPort: 27017
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-secret
+                  key: mongo-root-username
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-secret
+                  key: mongo-root-password
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-service
+spec:
+  selector:
+    app: mongodb
+  ports:
+    - protocol: TCP
+      port: 27017
+      targetPort: 27017
+```
+
+### Test it
+
+```bash
+minikube stop
+minikube delete
+minikube start
+kubectl apply -f mongo-secret.yaml
+kubectl apply -f mongo-configmap.yaml
+kubectl apply -f mongo.yaml
+kubectl apply -f mongo-express.yaml
+kubectl get pod
+```
+
+Wait for the pods to become avaiable....
+
+```bash
+minikube service mongo-express-service
+```
+
+In the Browser, create a new database called 'Sample.' Now redeploy the POD.
+
+```bash
+kubectl rollout restart deployment mongodb-deployment
+```
+
+Refreshing the Browser will show that our new 'Sample' database is still there.
+
 ## Ingress Service
 
 **_Note: this code is in the branch called Using-Ingtress_**
@@ -413,9 +544,3 @@ The command `kubectl get ingress` will eventually assign an address along with t
 ```
 
 Finally, open a browser to http://mongo-express.com
-
-## Volumes
-
-Currently, if MongoDB stops all our data is lost. We need a way to persist some data between Pod restarts. This is where Volume come in.
-
-### Coming soon
