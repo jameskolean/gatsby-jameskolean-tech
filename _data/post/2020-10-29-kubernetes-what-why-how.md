@@ -544,3 +544,46 @@ The command `kubectl get ingress` will eventually assign an address along with t
 ```
 
 Finally, open a browser to http://mongo-express.com
+
+## Bonus: Prometheus via Heml
+
+This is waht I did to test out a Helm Chart deployment of Prometheus.
+
+### Cleanup and install Heml
+
+```bash
+minikube delete
+minikube start
+brew install helm
+helm
+helm repo add stable https://charts.helm.sh/stable
+helm repo update
+```
+
+### Add the Helm chart
+
+```bash
+helm install prometheus stable/prometheus-operator
+kubectl get all
+```
+
+Wait for everything to start
+
+### Expose Grafana
+
+```bash
+kubectl port-forward deployment prometheus-grafana 3000
+```
+
+open browser http://localhost:3000
+
+- username: admin
+- password: prom-operator
+
+### Expose Prometheus UI
+
+```bash
+kubectl port-forward prometheus-prometheus-prometheus-oper-prometheus-0 9090
+```
+
+open browser http://localhost:9090
