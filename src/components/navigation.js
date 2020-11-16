@@ -37,7 +37,7 @@ export default (props) => {
     .dropdown-category .dropdown-menu {
       display: none;
       position: absolute;
-      background: #eee;
+      background: white;
       width: 200px;
       top: 2rem;
       right: 0;
