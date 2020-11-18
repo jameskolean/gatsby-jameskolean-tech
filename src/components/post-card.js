@@ -1,77 +1,78 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'gatsby'
 import Img from 'gatsby-image'
-import Likes from './likes'
+// import Likes from './likes'
 
 const PostCards = ({ posts }) => {
-  const [ratings, setRatings] = useState([])
-  useEffect(() => {
-    const processRatings = (faunaRatings) => {
-      const processedRatings = posts.map((post) => {
-        const currRating = faunaRatings.find(
-          (rating) => rating.slug === post.fields.slug
-        )
-        if (currRating) {
-          return {
-            slug: post.fields.slug,
-            likes: currRating.upCount,
-            dislikes: currRating.downCount,
-          }
-        }
-        return { slug: post.fields.slug, likes: 0, dislikes: 0 }
-      })
-      setRatings(processedRatings)
-    }
+  // const [ratings, setRatings] = useState([])
+  // useEffect(() => {
+  //   const processRatings = (faunaRatings) => {
+  //     const processedRatings = posts.map((post) => {
+  //       const currRating = faunaRatings.find(
+  //         (rating) => rating.slug === post.fields.slug
+  //       )
+  //       if (currRating) {
+  //         return {
+  //           slug: post.fields.slug,
+  //           likes: currRating.upCount,
+  //           dislikes: currRating.downCount,
+  //         }
+  //       }
+  //       return { slug: post.fields.slug, likes: 0, dislikes: 0 }
+  //     })
+  //     setRatings(processedRatings)
+  //   }
 
-    fetch('/.netlify/functions/all-thumbs-up')
-      .then((response) => response.json())
-      .then((data) => {
-        processRatings(data)
-      })
-      .catch((e) => processRatings([]))
-  }, [posts])
-  const handleAddLike = (slug) => {
-    fetch(`/.netlify/functions/increment-thumbs-up?slug=${slug}`)
-    setRatings(
-      ratings.map((rating) => {
-        if (rating.slug === slug) {
-          rating.likes = rating.likes + 1
-        }
-        return rating
-      })
-    )
-  }
-  const handleAddDislike = (slug) => {
-    fetch(`/.netlify/functions/increment-thumbs-down?slug=${slug}`)
-    setRatings(
-      ratings.map((rating) => {
-        if (rating.slug === slug) {
-          rating.dislikes = rating.dislikes + 1
-        }
-        return rating
-      })
-    )
-  }
+  //   fetch('/.netlify/functions/all-thumbs-up')
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       processRatings(data)
+  //     })
+  //     .catch((e) => processRatings([]))
+  // }, [posts])
+  // const handleAddLike = (slug) => {
+  //   fetch(`/.netlify/functions/increment-thumbs-up?slug=${slug}`)
+  //   setRatings(
+  //     ratings.map((rating) => {
+  //       if (rating.slug === slug) {
+  //         rating.likes = rating.likes + 1
+  //       }
+  //       return rating
+  //     })
+  //   )
+  // }
+  // const handleAddDislike = (slug) => {
+  //   fetch(`/.netlify/functions/increment-thumbs-down?slug=${slug}`)
+  //   setRatings(
+  //     ratings.map((rating) => {
+  //       if (rating.slug === slug) {
+  //         rating.dislikes = rating.dislikes + 1
+  //       }
+  //       return rating
+  //     })
+  //   )
+  // }
 
   const postCards = posts
     .filter((post) => !!post.frontmatter.date)
     .map((post) => {
-      const rating = ratings.find((r) => r.slug === post.fields.slug)
+      //      const rating = ratings.find((r) => r.slug === post.fields.slug)
       return (
         <PostCard
           key={post.id}
           post={post}
-          rating={rating}
-          handleAddLike={handleAddLike}
-          handleAddDislike={handleAddDislike}
+          // rating={rating}
+          // handleAddLike={handleAddLike}
+          // handleAddDislike={handleAddDislike}
         />
       )
     })
   return <>{postCards}</>
 }
 
-export const PostCard = ({ post, rating, handleAddLike, handleAddDislike }) => (
+//export const PostCard = ({ post, rating, handleAddLike, handleAddDislike }) => (
+export const PostCard = ({ post }) => (
   <motion.article
     className='card '
     whileHover={{
@@ -96,12 +97,12 @@ export const PostCard = ({ post, rating, handleAddLike, handleAddDislike }) => (
       </h2>
       <div className='post-meta'>{post.frontmatter.date}</div>
       <div className='post-excerpt'>{post.excerpt}</div>
-      <Likes
+      {/* <Likes
         slug={post.fields.slug}
         rating={rating}
         handleAddLike={handleAddLike}
         handleAddDisike={handleAddDislike}
-      />
+      /> */}
       <div className='post-meta'>
         {post.frontmatter.tags && `Tags: ${post.frontmatter.tags.join(', ')}`}
       </div>

@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import Helmet from 'react-helmet'
 import { graphql } from 'gatsby'
 import { Disqus } from 'gatsby-plugin-disqus'
 import Layout from '../components/layout'
-import Likes from '../components/likes'
+// import Likes from '../components/likes'
 import '../styles/blogTemplate.scss'
 
 const PostMeta = ({ source, tags }) => (
@@ -25,42 +25,42 @@ export default function Template({
   const { markdownRemark } = data // data.markdownRemark holds your post data
   const { excerpt, frontmatter, html } = markdownRemark
   const { slug } = markdownRemark.fields
-  const [rating, setRating] = useState([])
+  // const [rating, setRating] = useState([])
   const disqusConfig = {
     url: `${data.site.siteMetadata.siteUrl + slug}`,
     identifier: markdownRemark.id,
     title: frontmatter.title,
   }
-  useEffect(() => {
-    fetch(`/.netlify/functions/thumbs-up?slug=${slug}`)
-      .then((response) => response.json())
-      .then((data) => {
-        if (data) {
-          setRating({
-            slug,
-            likes: data.upCount,
-            dislikes: data.downCount,
-          })
-        } else {
-          setRating({ slug, likes: 0, dislikes: 0 })
-        }
-      })
-      .catch((e) =>
-        setRating({
-          slug,
-          likes: 0,
-          dislikes: 0,
-        })
-      )
-  }, [slug])
-  const handleAddLike = (slug) => {
-    fetch(`/.netlify/functions/increment-thumbs-up?slug=${slug}`)
-    setRating((state) => ({ ...state, likes: state.likes + 1 }))
-  }
-  const handleAddDislike = (slug) => {
-    fetch(`/.netlify/functions/increment-thumbs-down?slug=${slug}`)
-    setRating((state) => ({ ...state, dislikes: state.dislikes + 1 }))
-  }
+  // useEffect(() => {
+  //   fetch(`/.netlify/functions/thumbs-up?slug=${slug}`)
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       if (data) {
+  //         setRating({
+  //           slug,
+  //           likes: data.upCount,
+  //           dislikes: data.downCount,
+  //         })
+  //       } else {
+  //         setRating({ slug, likes: 0, dislikes: 0 })
+  //       }
+  //     })
+  //     .catch((e) =>
+  //       setRating({
+  //         slug,
+  //         likes: 0,
+  //         dislikes: 0,
+  //       })
+  //     )
+  // }, [slug])
+  // const handleAddLike = (slug) => {
+  //   fetch(`/.netlify/functions/increment-thumbs-up?slug=${slug}`)
+  //   setRating((state) => ({ ...state, likes: state.likes + 1 }))
+  // }
+  // const handleAddDislike = (slug) => {
+  //   fetch(`/.netlify/functions/increment-thumbs-down?slug=${slug}`)
+  //   setRating((state) => ({ ...state, dislikes: state.dislikes + 1 }))
+  // }
 
   return (
     <Layout>
@@ -97,7 +97,7 @@ export default function Template({
       </div>
       <div className='post-likes-container'>
         <hr />
-        <div>
+        {/* <div>
           <span>Was this article helpful?</span>
           <Likes
             slug={slug}
@@ -105,7 +105,7 @@ export default function Template({
             handleAddLike={handleAddLike}
             handleAddDislike={handleAddDislike}
           />
-        </div>
+        </div> */}
       </div>
       <Disqus config={disqusConfig} />
     </Layout>
