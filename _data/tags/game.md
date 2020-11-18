@@ -1,0 +1,4 @@
+---
+template: Tag
+title: Game
+---
