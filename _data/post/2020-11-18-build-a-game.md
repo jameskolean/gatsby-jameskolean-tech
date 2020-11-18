@@ -15,15 +15,16 @@ Here is a fun way to practice our programming skills; let's build a simple game.
 # Prerequisites
 
 You will need these to install before you start.
-NodeJS
-NPM
-VSCode (or other IDE)
+
+- NodeJS
+- NPM
+- VSCode (or other IDE)
 
 # Set up the project.
 
 Let's set up a boilerplate Javascript project with the Parcel Bundler (so we can use modern Javascript), ESLint (so our code isn't crappy), and Prettier (so the code looks nice). In your terminal console, move to a folder you want to create the game below.
 
-```bash
+```shell
 mkdir first-paser3-game
 cd first-paser3-game
 npm init -y
@@ -118,7 +119,8 @@ Now let's add some Prettier and ESLint configuration.
 })
 ```
 
-##Test it
+## Test it
+
 Run the application.
 
 ```bash
