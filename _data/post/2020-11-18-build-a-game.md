@@ -1,9 +1,9 @@
 ---
 template: BlogPost
-date: 2020-11-18
+date: 2020-11-18T00:00:00.000Z
 published: true
 title: 'Learn Javascript the fun way, Build a Game'
-source: https://gitlab.com/jameskolean/first-phaser3-game
+source: 'https://gitlab.com/jameskolean/first-phaser3-game'
 tags:
   - JavaScript
   - Game
@@ -31,7 +31,9 @@ Let's set up a boilerplate Javascript project with the Parcel Bundler (so we can
 mkdir first-paser3-game
 cd first-paser3-game
 npm init -y
-npm install parcel-bundler eslint babel-eslint parcel-plugin-clean-easy parcel-plugin-static-files-copy --save-dev
+npm install parcel-bundler --save-dev 
+npm install eslint parcel-plugin-clean-easy parcel-plugin-static-files-copy --save-dev
+npm install babel-core babel-eslint --save-dev
 mkdir public
 mkdir src
 touch src/index.html
