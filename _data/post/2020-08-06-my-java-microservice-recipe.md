@@ -231,7 +231,8 @@ public class TodoController {
 				.build());
 		return result;
 	}
-}```
+}
+```
 
 > src/main/java/com/codegreenllc/microservice/recipe/SwaggerConfig.java
 ```java
