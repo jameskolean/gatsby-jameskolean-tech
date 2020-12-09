@@ -2,7 +2,7 @@
 template: BlogPost
 date: 2020-12-09T00:00:00.000Z
 published: true
-title: 'Let's look at NEXTjs'
+title: "Let's look at NEXTjs"
 source: 'https://gitlab.com/jameskolean/next-playground'
 tags:
   - JavaScript
