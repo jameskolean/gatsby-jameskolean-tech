@@ -212,7 +212,7 @@ public class TodoDto {
 
 > src/main/java/com/codegreenllc/microservice/recipe/controller/TodoController.java
 
-````java
+```java
 package com.codegreenllc.microservice.recipe.controller;
 
 import java.util.ArrayList;
@@ -231,9 +231,11 @@ public class TodoController {
 				.build());
 		return result;
 	}
-}```
+}
+```
 
 > src/main/java/com/codegreenllc/microservice/recipe/SwaggerConfig.java
+
 ```java
 package com.codegreenllc.microservice.recipe;
 
@@ -255,7 +257,7 @@ public class SwaggerConfig {
 				.paths(PathSelectors.any()).build();
 	}
 }}
-````
+```
 
 > /pom.xml
 
