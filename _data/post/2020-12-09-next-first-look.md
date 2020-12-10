@@ -310,3 +310,11 @@ export default function Lambda() {
   )
 }
 ```
+
+## Summary
+
+NEXT has most of the things you will want already rolled in. It's highly opinionated, so you will need to do things their way. Having one way to do something makes it easier to bring help into a project. Any new developer joining the project (with NEXT experience) will be right at home.
+
+I like the fact that I have options for page generation, and if I needed to do SSR, I would give NEXT serious consideration.
+
+Would I switch from Gatsby to NEXT? Gatsby does SSG, CSR, and it can simulate ISG with incremental compilation. Gatsby has so many plugins, and it seems to integrate with everything easily. Gatsby's themes are something that will be difficult to give up. I think I'll need to evaluate each project requirements to make the call.
