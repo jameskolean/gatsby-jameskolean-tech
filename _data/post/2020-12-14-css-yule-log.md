@@ -14,7 +14,7 @@ thumbnail: /assets/fireplace-unsplash.jpg
 
 Gatsby threw down a silly site challenge the other day. I figure I don't know enough about CSS, so building something in Pure CSS will be a great learning experience. My goal is to create a burning Yule Log. Thanks to https://speckyboy.com/flame-effects-code-snippets/, I found a great example.
 
-My final example is [here](https://gatsby-css-yule-log.netlify.app/)
+My final example is here https://gatsby-css-yule-log.netlify.app/
 
 ![Game Screenshot](/assets/css-yule-log/site-screenshot.png)
 
