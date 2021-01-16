@@ -1,6 +1,6 @@
 ---
 template: BlogPost
-date: 2020-14-09T00:00:00.000Z
+date: 2020-12-09T00:00:00.000Z
 published: true
 title: 'Gatsby Silly Site Challenge - CSS Yule Log'
 source: 'https://gitlab.com/jameskolean/gatsby-css-yule-log'
