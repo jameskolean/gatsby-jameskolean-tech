@@ -119,3 +119,124 @@ export default function App() {
 
 const styles = StyleSheet.create({})
 ```
+
+# State
+
+let's use hooks (useContext and useReducer) to provide global state management. Let's create a component to do most of the work.
+
+> src/context/user-profile-context.js
+
+```javascript
+import React, { createContext, useReducer } from 'react'
+
+const initialState = {
+  username: 'unknown',
+  email: '',
+  authenticated: false,
+  photoUrl: '/anonymous.jpg',
+}
+const userProfileContext = createContext(initialState)
+
+const UserProfileProvider = ({ children }) => {
+  const [state, dispatch] = useReducer((state, action) => {
+    switch (action.type) {
+      case 'login': {
+        const newState = {
+          ...state,
+          username: action.payload.username,
+          authenticated: true,
+        }
+        return newState
+      }
+      case 'logout':
+        return { ...initialState }
+      default:
+        throw new Error()
+    }
+  }, initialState)
+
+  return (
+    <userProfileContext.Provider value={{ state, dispatch }}>
+      {children}
+    </userProfileContext.Provider>
+  )
+}
+
+export { userProfileContext, UserProfileProvider }
+```
+
+Now wrap the App with our provider
+
+> App.js
+
+```javascript
+//@ts-check
+import React from 'react'
+...
+import { UserProfileProvider } from './src/context/user-profile-context'
+
+export default function App() {
+  const isLoadingComplete = useCachedResources()
+  if (!isLoadingComplete) {
+    return null
+  } else {
+    return (
+      <UserProfileProvider>
+        <NavigationContainer>
+          <MainDrawerNavigator />
+        </NavigationContainer>
+      </UserProfileProvider>
+    )
+  }
+}
+
+const styles = StyleSheet.create({})
+```
+
+And finally, use it in the Profile screen by adding two buttons.
+
+> src/screens/profile.js
+
+```javascript
+import React, { useContext } from 'react'
+import { Button, Text, View, StyleSheet } from 'react-native'
+import { userProfileContext } from '../context/user-profile-context'
+
+export default function ProfileScreen({ navigation }) {
+  const { state: userProfile, dispatch } = useContext(userProfileContext)
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Profile Screen</Text>
+      {!userProfile.authenticated && (
+        <Button
+          title='Login'
+          onPress={() =>
+            dispatch({
+              type: 'login',
+              payload: { username: 'James' },
+            })
+          }
+        />
+      )}
+      {userProfile.authenticated && (
+        <>
+          <Text style={styles.title}>Hello {userProfile.username}</Text>
+          <Button title='Logout' onPress={() => dispatch({ type: 'logout' })} />
+        </>
+      )}
+    </View>
+  )
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+})
+```
