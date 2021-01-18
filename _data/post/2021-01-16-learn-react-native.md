@@ -20,7 +20,7 @@ This example tries to pull together all the navigation schemes
 - Drawer Navigation (see Profile Screen)
 - Tab Navigation (see Settings Screen)
 
-These two files show how it's done.=
+These two files show how it's done.
 
 > /src/components/navigation.js
 
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({})
 
 # State
 
-let's use hooks (useContext and useReducer) to provide global state management. Let's create a component to do most of the work.
+let's use hooks (useContext and useReducer) to provide global state management. Create a component to do most of the work.
 
 > src/context/user-profile-context.js
 
@@ -243,7 +243,7 @@ const styles = StyleSheet.create({
 
 # Persistent Storage
 
-Lets save some data to local starage so we can pull it back when we restart the app. Let's put the code in a custom hook.
+Let's save some data to local storage so we can pull it back when we restart the app. We will put the code in a custom hook.
 
 > /src/hooks/use-hooks.js
 
@@ -283,7 +283,7 @@ export default function usePlan() {
 }
 ```
 
-Now lets use the hook in the settings screen.
+Now lets use the hook in the Settings screen.
 
 > src/screens/settings-screen.js
 
@@ -328,13 +328,13 @@ const styles = StyleSheet.create({
 
 # Add a Map
 
-Maps in iOS has a simple setup so let's try that.
+Maps in iOS are easier to setup so let's try that.
 
 ```shell
 yarn add react-native-maps
 ```
 
-Now create a Map screen
+Create a Map screen
 
 > /src/screens/map-screen.js
 
