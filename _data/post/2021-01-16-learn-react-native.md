@@ -240,3 +240,88 @@ const styles = StyleSheet.create({
   },
 })
 ```
+
+# Persistent Storage
+
+Lets save some data to local starage so we can pull it back when we restart the app. Let's put the code in a custom hook.
+
+> /src/hooks/use-hooks.js
+
+```javascript
+import { useState, useEffect } from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+
+export default function usePlan() {
+  const [value, setValue] = useState('')
+  const [error, setError] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
+  async function getPlan() {
+    try {
+      setIsLoading(true)
+      const value = await AsyncStorage.getItem('@plan')
+      setValue(value == null ? 'community' : value)
+    } catch (e) {
+      setError(e)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+  async function setPlan(value) {
+    try {
+      const theme = await AsyncStorage.setItem('@plan', value)
+      setValue(value)
+    } catch (e) {
+      setError(e)
+    }
+  }
+
+  useEffect(() => {
+    getPlan()
+  }, [])
+
+  return [value, error, isLoading, setPlan]
+}
+```
+
+Now lets use the hook in the settings screen.
+
+> src/screens/settings-screen.js
+
+```javascript
+import * as React from 'react'
+import { Text, View, StyleSheet } from 'react-native'
+import usePlan from '../hooks/use-plan'
+import { Picker } from '@react-native-picker/picker'
+
+export default function SettingsScreen({ navigation }) {
+  const [plan, planError, planIsLoading, setPlan] = usePlan()
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Settings Screen</Text>
+      <Text>Your plan is {planIsLoading ? 'loading' : plan}</Text>
+      <Text style={styles.title}>Choose a plan</Text>
+      <Picker
+        selectedValue={plan}
+        style={{ height: 100, width: 200 }}
+        onValueChange={(itemValue, itemIndex) => setPlan(itemValue)}
+      >
+        <Picker.Item label='Community' value='community' />
+        <Picker.Item label='Developer' value='developer' />
+        <Picker.Item label='Pro' value='pro' />
+      </Picker>
+    </View>
+  )
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+})
+```
