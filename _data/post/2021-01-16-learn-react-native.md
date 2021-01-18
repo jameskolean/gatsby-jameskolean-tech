@@ -325,3 +325,92 @@ const styles = StyleSheet.create({
   },
 })
 ```
+
+# Add a Map
+
+Maps in iOS has a simple setup so let's try that.
+
+```shell
+yarn add react-native-maps
+```
+
+Now create a Map screen
+
+> /src/screens/map-screen.js
+
+```javascript
+import * as React from 'react'
+import { View, StyleSheet, Dimensions } from 'react-native'
+import MapView, { Marker } from 'react-native-maps'
+
+const oxfordPoint = { latitude: 42.82473, longitude: -83.26499 }
+export default function MapScreen() {
+  return (
+    <View style={styles.container}>
+      <MapView
+        mapType={Platform.OS == 'android' ? 'none' : 'standard'}
+        camera={{
+          center: oxfordPoint,
+          altitude: 200 * 10000,
+          pitch: 0,
+          heading: 0,
+          zoom: 200,
+        }}
+        style={styles.map}
+        showsUserLocation={true}
+      >
+        <Marker
+          key={1}
+          coordinate={oxfordPoint}
+          title='Oxford'
+          description='Where I live'
+        />
+      </MapView>
+    </View>
+  )
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  map: {
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
+  },
+})
+```
+
+Now add a button to the Home Screen that will take us to the Map Screen
+
+> /src/screens/home-screen.js
+
+```javascript
+      ...
+      <Text style={styles.title}>Home Screen</Text>
+      <Button title='Go to Map' onPress={() => navigation.navigate('Map')} />
+      <Button
+      ...
+```
+
+Now add our new Map Screen to the HomeStackNavigator stack.
+
+> /src/components/navigation.js
+
+```javascript
+...
+export const HomeStackNavigator = () => {
+  return (
+    <Stack.Navigator
+      ... option here
+    >
+      <Stack.Screen name='Home' component={HomeScreen} />
+      <Stack.Screen name='Detail' component={DetailScreen} />
+      <Stack.Screen name='Map' component={MapScreen} />
+    </Stack.Navigator>
+  )
+}
+...
+```
