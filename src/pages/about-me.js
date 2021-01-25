@@ -33,7 +33,7 @@ const AboutMePage = () => {
         <meta name='description' content='About Me' />
         <html lang='en' />
       </Helmet>
-      <p>
+      {/* <p>
         <i>
           <span>Gauges account for </span>
           <a href='https://en.wikipedia.org/wiki/Dunning%E2%80%93Kruger_effect#:~:text=In%20the%20field%20of%20psychology,recognize%20their%20lack%20of%20ability.'>
@@ -41,14 +41,14 @@ const AboutMePage = () => {
           </a>
           .
         </i>
-      </p>
+      </p> */}
 
-      <GaugeSection>
+      {/* <GaugeSection>
         <Gauge label='Architect' percentage='80' />
         <Gauge label='Full Stack Deverloper' percentage='90' />
         <Gauge label='Leadership' percentage='90' />
         <Gauge label='Cloud' percentage='75' />
-      </GaugeSection>
+      </GaugeSection> */}
       <Certifications>
         <CertImage>
           <img
