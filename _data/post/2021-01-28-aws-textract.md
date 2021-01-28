@@ -1,7 +1,7 @@
 ---
 template: BlogPost
 date: 2021-01-28
-published: true
+published: false
 title: 'AWS Textract'
 source: 'https://gitlab.com/jameskolean/textract-spike'
 tags:
@@ -11,14 +11,14 @@ tags:
 thumbnail: /assets/sign-here-unsplash.jpg
 ---
 
-A potential client recently asked me about document processing options. The client like AWS and Javascript since the team has experience in these areas. The following is a set of small nodeJS apps to prove an architecture concept.
+A potential client recently asked me about document processing options. The client likes AWS and Javascript since the team has experience in these areas. The following is a set of small nodeJS apps to prove an architecture concept. This is all pretty standard stuff in AWS, nothing too exciting here.
 
 The process flow could look something like this:
 
 1. Users log into a static web application (it could also be a dynamic web application, WPA, or mobile application) with something like Okta or Auth0
 1. Users choose to upload a document.
-1. The upload goes to a Lambda that uploads the document to S3.
-   S3 triggers a Lambda that starts an asynchronous request for AWS Textract to process the document.
+1. A Lambda is used to upload the document to S3.
+1. S3 triggers a Lambda that starts an asynchronous request for AWS Textract to process the document.
 1. When AWS Textraction completes, it sends a notification that will trigger a Lambda event to process the results.
 1. Finally, the results are added to an S3 bucket.
 
@@ -27,7 +27,7 @@ To make the flow work, we need to be able to do the following.
 - [Read an S3 document with a signed URL](#get-presigned)
 - [Upload a document to S3](#put)
 - [Start AWS Textraction on the document](#start-textract)
-- [Process the results of AWS Teatraction](#finish-textract)
+- [Process the results of AWS Textraction](#finish-textract)
 
 # Configuration
 
@@ -72,7 +72,7 @@ module.exports = {
 ### Create IAM
 
 At the AWS console, search for IAM and click 'Users' in the left menu.
-Then click 'Add user' Under 'General Configuration.'
+Then click 'Add user' under 'General Configuration.' Following are some screen shots that lead you through the Add User process.
 
 ![Add User](/assets/aws-extract/add-user.png)
 
@@ -113,7 +113,7 @@ SNS_TOPIC_ARN=
 
 # <div id="get-presigned">Get a document from S3</div>
 
-Let's try to use a pre-signed link. You might do the from a browser client, so you don't need to share your AWS credentials. If you are running on a server or in a Lambda, You can get the document directly.
+Let's try to use a pre-signed link. You might want to use a pre-signed link from a browser client, so you don't need to share your AWS credentials. If you are running on a server or in a Lambda, you can get the document directly.
 
 Upload a document to the S3 bucket you just created using the console.
 
@@ -230,7 +230,7 @@ node put
 
 # <div id="start-textract">Start Textraction</div>
 
-Let's fire off an asynchronous call to AWS Textraction to process a PDF form. Upload a Form PDF into our S3bucket so we can test with it. The app will return a JobId. You can watch SQS for the completion event message. It should complete in seconds.
+Let's fire off an asynchronous call to AWS Textraction to process a PDF form. Upload a Form PDF into our S3 bucket so we can test with it. The app will return a JobId. You can watch SQS for the completion event message. It should complete in seconds.
 
 > textract-start-notify.js
 
