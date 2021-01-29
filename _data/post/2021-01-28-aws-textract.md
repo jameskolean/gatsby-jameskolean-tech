@@ -1,7 +1,7 @@
 ---
 template: BlogPost
 date: 2021-01-28
-published: false
+published: true
 title: 'AWS Textract'
 source: 'https://gitlab.com/jameskolean/textract-spike'
 tags:
