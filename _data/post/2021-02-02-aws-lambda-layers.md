@@ -18,10 +18,10 @@ I need to create several Lambdas in AWS that are all similar. I want to share so
 I'm using AWS CLI and SAM CLI to test locally and deploy so get those installed first.
 
 ##Install AWS CLI
-Follow the directions (here)[https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-mac.html]
+Follow the directions [here](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-mac.html)
 
 ##AWS Serverless Application Model (SAM) CLI  
-Follow the directions (here)[https://aws.amazon.com/serverless/sam/]
+Follow the directions [here](https://aws.amazon.com/serverless/sam/)
 
 The Mac install with Homebrew looks like this.
 
@@ -54,8 +54,8 @@ sudo rm -rf /Library/Developer/CommandLineTools
 sudo xcode-select --install
 ```
 
-#Create our
-Cool, we can now create an app. Just run `sam init` and answer the questions as follows.
+#Create a Lambda
+Cool, we can now create a Lambda. Just run `sam init` and answer the questions as follows.
 
 ```shell
 > sam init
@@ -119,7 +119,7 @@ sam local invoke HelloWorldFunction --event events/event.json
 ```
 
 #Add Layers
-I want to add two layers. One simple layer with a single function to create data transport objects (model-layer) and another that simplifies fetching data from a REST API (fetch-layer). The fetch layer includes a dependency on node-fetch.
+I want to add two layers. One simple layer with a single function to create data transport objects (model-layer) and another that simplifies data fetching from a REST API (fetch-layer). The fetch layer includes a dependency on node-fetch.
 
 Add these directories.
 
@@ -234,7 +234,7 @@ Great, now let's edit the HelloWorldFunction to do something with our new layers
 
 > hello-world/app.js
 
-```javascipt
+```javascript
 const fetcher = require('fetcher')
 const { createCharacter } = require('messages')
 
