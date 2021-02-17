@@ -1,6 +1,6 @@
 ---
 template: BlogPost
-date: 2021-02-02
+date: 2021-02-17
 published: true
 title: 'AWS S3 + DynamoDB + API Gateway + Lambda'
 source: 'https://gitlab.com/jameskolean/james-upload-download-s3'
