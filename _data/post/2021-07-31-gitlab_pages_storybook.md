@@ -293,4 +293,6 @@ pages:
 
 Go to Gitlab > your project > CI/CD > Pipelines to monitor the build. The is a YAML linter there to help verify your pipeline file.
 
-The Pages setting are at Gitlab > your project > Settings > Pages
+The Pages setting are at Gitlab > your project > Settings > Pages.
+
+My page is https://jameskolean.gitlab.io/storybook-pages
