@@ -12,8 +12,6 @@ tags:
 thumbnail: /assets/pages-unsplash.jpg
 ---
 
-# GitLab Pages + GitLab CI/CD + Storybook + React
-
 Let's have a have at look at Gitlab Pages. In this example, we will create a sim[ple React app, add Storybook, and publish the static Storybook pages to Gitlab Pages. Let's get started.
 
 ## Create a React app
