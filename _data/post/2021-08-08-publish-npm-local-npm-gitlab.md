@@ -193,7 +193,7 @@ exports.gitlabGreet = function() {
 }
 ```
 
-We are still missing a personal access token so go to your user dropdown in the upper right > preferences. Then choose Access Token in the left menu and create a new token with "api," "read_repository," and "write_repository" permissions. (I'm not sure you need all these, but it seems to work). Save off your new token since this is the last chance to do so.
+We are still missing a personal access token so go to your user dropdown in the upper right > preferences. Then choose Access Token in the left menu and create a new token with "api," "read repository," and "write repository" permissions. (I'm not sure you need all these, but it seems to work). Save off your new token since this is the last chance to do so.
 
 Now we need to tell NPM to use our Gitlab NPM repository for this project. We do this in a file called .npmrc tike this.
 
@@ -263,5 +263,5 @@ node app.js
 You can remove a module from the Gitlab NPM registry from the UI. Then remove the module from our node app like this.
 
 ```shell
-npm unpublish @james-kolean/my-npm-module --force
+npm remove @james-kolean/my-npm-module
 ```
