@@ -284,3 +284,20 @@ In this section, we wire Lambda functions to the API Gateway and SQS. The actual
 ### resources
 
 In this section, we create a Queue with a Dead Letter Queue according to best practices. We also create a table in DynamoDB to store our log messages.
+
+# Run It
+
+Deploy the stack like this.
+
+```bash
+sls deploy
+```
+
+Clean up after yourself like this.
+
+```bash
+sls remove
+```
+
+- GET to https://<AWS Gateway host>/log to get a list of log messages.
+- POST to https://<AWS Gateway host>/log to add a log message.
