@@ -21,6 +21,22 @@ API Gateway --> Lambda --> SQS --> Lambda --> Dynamo DB
 
 # Install
 
+## AWS Setup
+
+You need set up some config files next .
+
+- .aws/config
+
+https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/setting-region.html
+
+and
+
+- .aws/credentials
+
+https://www.serverless.com/framework/docs/providers/aws/cli-reference/config-credentials
+
+## Serverless Framework Setup
+
 ```bash
 ➜ npm update -g serverless
 ➜ serverless config --autoupdate
