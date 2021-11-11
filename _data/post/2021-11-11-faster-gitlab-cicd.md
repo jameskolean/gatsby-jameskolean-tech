@@ -7,7 +7,7 @@ source: 'https://gitlab.com/jameskolean/faster-gitlab-cicd'
 tags:
   - Gitlab
   - Dev Ops
-thumbnail: /assets/gas-pipes-unsplash
+thumbnail: /assets/gas-pipes-unsplash.jpg
 ---
 
 ## Fast Gitlab CI/CD
