@@ -1,6 +1,6 @@
 ---
 template: BlogPost
-date: 2021-11-1
+date: 2021-11-11
 published: true
 title: 'Faster Gitlab CI/CD'
 source: 'https://gitlab.com/jameskolean/faster-gitlab-cicd'
