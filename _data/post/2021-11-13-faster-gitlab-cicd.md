@@ -1,6 +1,6 @@
 ---
 template: BlogPost
-date: 2021-11-11
+date: 2021-11-13
 published: true
 title: 'Faster Gitlab CI/CD'
 source: 'https://gitlab.com/jameskolean/faster-gitlab-cicd'
@@ -122,6 +122,8 @@ Make sure that `yarn.lock` is changed, so we populate the cache. My first run, w
 Let's add some other stuff to our pipeline just for fun.
 
 ## Reusable Rules
+
+### WARNING BROKEN: This rule triggers an additional build after the tag is added. This is not what we want. I need to come back later and figure out why this is happening.
 
 This is a resuable rules that can come in handy in complex builds.
 
