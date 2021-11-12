@@ -7,6 +7,7 @@ source: 'https://gitlab.com/jameskolean/faster-gitlab-cicd'
 tags:
   - Gitlab
   - Dev Ops
+  - JavaScript
 thumbnail: /assets/gas-pipes-unsplash.jpg
 ---
 
