@@ -15,6 +15,13 @@ thumbnail: /assets/bookshelf-unsplash.jpg
 
 I'm pressed for time today, so I'm only including the `README.md.` I'm not going to add much in the way of explanation. The document should be sufficient to help my future self remember how to do this. I played with many tools that Didn't do what I wanted until arriving at this setup.
 
+Note: After you clone the project be sure to run
+
+```bash
+yarn
+yarn husky install
+```
+
 # Install
 
 ## Commitlint
