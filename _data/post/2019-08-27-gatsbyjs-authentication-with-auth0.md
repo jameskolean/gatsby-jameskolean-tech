@@ -7,7 +7,7 @@ tags:
   - Gatsby
   - Authentication & Authorization
   - JavaScript
-source: https://gitlab.com/jameskolean/nohingo/-/tags/Auth0
+source: https://gitlab.com/jameskolean/gatsby-oauth
 published: true
 ---
 
