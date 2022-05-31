@@ -1,6 +1,6 @@
 ---
 template: BlogPost
-date: 2025-05-31
+date: 2022-05-31
 published: true
 title: 'Deploy a GatsbyJS project on Gitlab Pages'
 source: 'https://gitlab.com/jameskolean/gitlab-pages-gatsby'
