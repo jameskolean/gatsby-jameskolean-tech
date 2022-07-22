@@ -3,12 +3,13 @@ template: BlogPost
 date: 2022-05-31
 published: true
 title: 'Deploy a GatsbyJS project on Gitlab Pages'
-source: 'https://gitlab.com/jameskolean/gitlab-pages-gatsby'
+demoSite: 'https://gitlab.com/jameskolean/gitlab-pages-gatsby'
 tags:
   - React
   - Gitlab
   - Gatsby
 thumbnail: /assets/book-pages-unsplash.jpg
+site: https://jameskolean.gitlab.io/gitlab-pages-gatsby/
 ---
 
 I'm not sure how useful this is in real life, but I want to use it for several demos, so I'll write it up here once and reference it later.
@@ -18,7 +19,7 @@ I'm not sure how useful this is in real life, but I want to use it for several d
 Let's create a Gatsby project to get started. We can use the [Quick Start Link](https://www.gatsbyjs.com/docs/quick-start/). In this example, don't choose a CMS, Style System, or Plugins.
 
 ```javascript
-npm init gatsby
+npm init gatsby -ts
 ```
 
 As the prompt says, start up and test out project like this.

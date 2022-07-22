@@ -6,13 +6,18 @@ import Layout from '../components/layout'
 // import Likes from '../components/likes'
 import '../styles/blogTemplate.scss'
 
-const PostMeta = ({ source, tags }) => (
+const PostMeta = ({ source, tags, demoSite }) => (
   <>
     <div className='post-meta'>
       {tags && <div>Tags: {tags.join(', ')}</div>}
       {source && (
         <a href={source} target='_blank' rel='noopener noreferrer'>
           Link to Source Code Repository &rarr;
+        </a>
+      )}
+      {demoSite && (
+        <a href={demoSite} target='_blank' rel='noopener noreferrer'>
+          Link to Site &rarr;
         </a>
       )}
     </div>
@@ -88,7 +93,11 @@ export default function Template({
               <div className='post-meta'>{frontmatter.date}</div>
             </div>
           )}
-          <PostMeta source={frontmatter.source} tags={frontmatter.tags} />
+          <PostMeta
+            source={frontmatter.source}
+            tags={frontmatter.tags}
+            demoSite={frontmatter.demoSite}
+          />
           <div
             className='blog-post-content'
             dangerouslySetInnerHTML={{ __html: html }}
@@ -126,6 +135,7 @@ export const pageQuery = graphql`
       frontmatter {
         date(formatString: "MMMM DD, YYYY")
         title
+        demoSite
         source
         tags
         thumbnail {
