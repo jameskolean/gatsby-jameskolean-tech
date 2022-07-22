@@ -10,7 +10,7 @@ thumbnail: /assets/postit-lightbulb-unsplash.jpg
 
 I spent way too long figuring out why Prettier was not working in VSCode.
 
-Timo Ernst had the answer (here)[https://dev.to/timo_ernst/prettier-autoformat-for-typescript-not-working-13d8]
+Timo Ernst had the answer [here](https://dev.to/timo_ernst/prettier-autoformat-for-typescript-not-working-13d8)
 
 This is what Tim says:
 

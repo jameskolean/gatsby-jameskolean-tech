@@ -13,7 +13,7 @@ tags:
 thumbnail: /assets/line-chart-unsplash.jpg
 ---
 
-Let's play with (Plotly)[https://plotly.com/javascript/] today. We will start with something straightforward, Pie charts.
+Let's play with [Plotly](https://plotly.com/javascript/) today. We will start with something straightforward, Pie charts.
 
 To get started, create a new Gatsby project following my (previous post)[https://jameskolean.tech/post/2022-05-31-gitlab-pages-gatsby/].
 
