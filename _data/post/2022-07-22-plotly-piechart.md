@@ -99,3 +99,5 @@ export default IndexPage
 
 Now it works in development mode `yarn start.`
 And it works in production `yarn build && yarn serve.`
+
+Update: The chart is not rendered from Gitlab pages. I don't know why.

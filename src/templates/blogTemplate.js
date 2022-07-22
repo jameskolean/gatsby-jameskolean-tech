@@ -11,14 +11,14 @@ const PostMeta = ({ source, tags, demoSite }) => (
     <div className='post-meta'>
       {tags && <div>Tags: {tags.join(', ')}</div>}
       {source && (
-        <a href={source} target='_blank' rel='noopener noreferrer'>
+        <div><a href={source} target='_blank' rel='noopener noreferrer'>
           Link to Source Code Repository &rarr;
-        </a>
+        </a></div>
       )}
       {demoSite && (
-        <a href={demoSite} target='_blank' rel='noopener noreferrer'>
+        <div><a href={demoSite} target='_blank' rel='noopener noreferrer'>
           Link to Site &rarr;
-        </a>
+        </a></div>
       )}
     </div>
   </>
