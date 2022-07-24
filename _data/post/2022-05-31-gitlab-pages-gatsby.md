@@ -2,8 +2,8 @@
 template: BlogPost
 date: 2022-05-31
 published: true
-title: 'Deploy a GatsbyJS project on Gitlab Pages'
-demoSite: 'https://gitlab.com/jameskolean/gitlab-pages-gatsby'
+title: "Deploy a GatsbyJS project on Gitlab Pages"
+demoSite: "https://gitlab.com/jameskolean/gitlab-pages-gatsby"
 tags:
   - React
   - Gitlab
@@ -67,3 +67,13 @@ After you push your code, you can watch the build from the `CD/CD > Pipelines` m
 Once complete you can find the URL the the `Settings > Pages` menu.
 
 My page is [here](https://jameskolean.gitlab.io/gitlab-pages-gatsby/).
+
+# Step 4 Set pathPrefix
+
+Gatsby assumes it is runnigg at the root, however GitLab Pages runs the site under the repo name. See previous step. We just need to tell Gatsby where we are running. Add this stanza to `gatsby-gonfig.js`
+
+```
+module.exports = {
+  pathPrefix: `/gitlab-pages-gatsby`,
+}
+```

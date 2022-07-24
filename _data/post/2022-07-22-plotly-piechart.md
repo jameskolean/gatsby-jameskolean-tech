@@ -100,4 +100,23 @@ export default IndexPage
 Now it works in development mode `yarn start.`
 And it works in production `yarn build && yarn serve.`
 
-Update: The chart is not rendered from Gitlab pages. I don't know why.
+Don't forget to set the pathPrefix in `gatsby-config.ts`
+
+```
+import type { GatsbyConfig } from 'gatsby'
+
+const config: GatsbyConfig = {
+  siteMetadata: {
+    title: `gatsby-plotly-piechart`,
+    siteUrl: `https://jameskolean.gitlab.io`
+  },
+  pathPrefix: `/gatsby-plotly-piechart`,
+  // More easily incorporate content into your pages through automatic TypeScript type generation and better GraphQL IntelliSense.
+  // If you use VSCode you can also use the GraphQL plugin
+  // Learn more at: https://gatsby.dev/graphql-typegen
+  graphqlTypegen: true,
+  plugins: []
+}
+
+export default config
+```
