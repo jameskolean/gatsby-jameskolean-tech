@@ -1,6 +1,6 @@
 ---
 template: BlogPost
-date: 2022-07-22
+date: 2022-07-23
 published: true
 title: "Get started with Plotly - Pie Chart"
 source: "https://gitlab.com/jameskolean/gatsby-plotly-piechart"
@@ -119,4 +119,70 @@ const config: GatsbyConfig = {
 }
 
 export default config
+```
+
+So we have a pretty simple pie cart. Let's do something a bit more interesting. Let's make the slices pop out when we click them. To make this happen, we add the `pull` attribute to the plot data like this.
+
+```
+const data: Array<MyPlotData> = [
+    {
+      values: [19, 26, 55],
+      labels: ['Residential', 'Non-Residential', 'Utility'],
+      pull: [0.15, 0, 0],
+      type: 'pie'
+    }
+  ]
+```
+
+That works fine for a static plot, but we want to make this dynamic.
+
+Now let's make our plot data a state variable and hook up some events.
+
+```
+  const [data, setData] = React.useState<MyPlotData[]>([
+    {
+      values: [19, 26, 55],
+      labels: ['Residential', 'Non-Residential', 'Utility'],
+      pull: [0, 0, 0],
+      type: 'pie'
+    }
+  ])
+interface MyPlotData extends Partial<Plotly.PlotData> {
+  pull: number[]
+}
+```
+
+Change the HTML
+
+```
+ return (
+    <main>
+      <title>Home Page</title>
+      <h1> My First Plotly Chart</h1>
+      <div onClick={handleClickOffPie}>
+        <Plot data={data} layout={layout} onClick={handleClickOnPie} />
+      </div>
+    </main>
+  )
+```
+
+implement the events
+
+```
+function handleClickOnPie(e: Plotly.PlotMouseEvent) {
+    const newData = [...data]
+    const sliceIndex = e.points[0].pointNumber
+    if (newData[0].pull[sliceIndex] > 0) {
+      newData[0].pull[sliceIndex] = 0
+    } else {
+      newData[0].pull[sliceIndex] = 0.15
+    }
+    setData(newData)
+  }
+
+  function handleClickOffPie() {
+    const newData = [...data]
+    newData[0].pull = [0, 0, 0]
+    setData(newData)
+  }
 ```
