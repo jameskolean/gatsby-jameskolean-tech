@@ -220,7 +220,7 @@ Now let's make the page dynamic. I will use this [Cat Fact API](https://catfact.
 curl https://catfact.ninja/fact
 ```
 
-Edit `{MarkdownRemark.frontmatter__slug}` Adding `useState` (to store the Cat Fact), `useEffect (to fetch the Cat Fact), and add the Cat Fact to the page.
+Edit `src/pages/{MarkdownRemark.frontmatter__slug}` Adding `useState` (to store the Cat Fact), `useEffect` (to fetch the Cat Fact), and add the Cat Fact to the page.
 
 ```jsx
 // src/pages/{MarkdownRemark.frontmatter__slug}
