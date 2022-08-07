@@ -2,7 +2,7 @@
 template: BlogPost
 date: 2022-08-06
 published: true
-title: "Not So Static Sites - SSG Introduction"
+title: "Not So Static Sites - Introduction"
 source: "https://gitlab.com/jameskolean/not-so-static-sites"
 demoSite: https://jameskolean.gitlab.io/not-so-static-sites/
 tags:
@@ -34,9 +34,9 @@ There are many ways to install Node if you do not have it.
 
 ## What is a Static Site Generator?
 
-The most simplistic way to think of Static Site Generators (SSGs) are tools that generate every website page as part of a build process. Generated pages are typically deployed on Content Delivery Networks (CDNs). No server is required.
+The most simplistic way to think of Static Site Generators are tools that generate every website page as part of a build process. Generated pages are typically deployed on Content Delivery Networks (CDNs). No server is required.
 
-![Simple SSG architecture](/assets/not-so-static-sites/ssg_archutecture.drawio.png)
+![Simple Static Site Generator architecture](/assets/not-so-static-sites/ssg_archutecture.drawio.png)
 
 ## Why?
 
@@ -207,3 +207,126 @@ open http://localhost:8000/blog/first-post/
 ### Lighthouse score
 
 ![Markdown in GraphQL](/assets/not-so-static-sites/lighthouse.png)
+
+### Extra: Add a new page
+
+You're your own here. I'm sure you can do it. <font size="5">🥇</font>
+
+## Add dynamic content
+
+Now let's make the page dynamic. I will use this [Cat Fact API](https://catfact.ninja/).
+
+```
+curl https://catfact.ninja/fact
+```
+
+Edit `{MarkdownRemark.frontmatter__slug}` Adding `useState` (to store the Cat Fact), `useEffect (to fetch the Cat Fact), and add the Cat Fact to the page.
+
+```jsx
+// src/pages/{MarkdownRemark.frontmatter__slug}
+
+import React from "react";
+import { graphql } from "gatsby";
+export default function Template({
+  data, // this prop will be injected by the GraphQL query below.
+}) {
+  const [catFact, setCatFact] = React.useState();
+  React.useEffect(() => {
+    async function fetchCatFacts() {
+      const result = await fetch("https://catfact.ninja/fact");
+      const data = await result.json();
+      setCatFact(data.fact);
+    }
+    fetchCatFacts();
+  }, []);
+  const { markdownRemark } = data; // data.markdownRemark holds your post data
+  const { frontmatter, html } = markdownRemark;
+  return (
+    <div className="blog-post-container">
+      <div className="blog-post">
+        <h1>{frontmatter.title}</h1>
+        <h2>{frontmatter.date}</h2>
+        <p>
+          <b>Cat Fact:</b>
+          <i> {catFact}</i>
+        </p>
+        <div
+          className="blog-post-content"
+          dangerouslySetInnerHTML={{ __html: html }}
+        />
+      </div>
+    </div>
+  );
+}
+export const pageQuery = graphql`
+  query($id: String!) {
+    markdownRemark(id: { eq: $id }) {
+      html
+      frontmatter {
+        date(formatString: "MMMM DD, YYYY")
+        slug
+        title
+      }
+    }
+  }
+`;
+```
+
+This is a simple example, but I hope you can see the power here.
+
+## Static Site Generators Classic vs. Newfangled
+
+We just covered the basics of the classic Static Site Generators.
+
+Classic Static Site Generators are not without issues:
+
+- Sites with hundreds of thousands of pages.
+- Form posting.
+- Restricted sites.
+- Processing secure data.
+
+The latest Static Site Generators support more rendering methods than static pages to address these issues. GatsbyJS v4 supports the rendering option. The multiple rendering methods can be used in a single site, tailored to page requirements.
+
+- SSG: Static Site Generation
+  These pages are generated in the build pipeline.
+- DSG: Deferred Static Generation
+  Defers non-critical page generation until a user requests it. This allows the most essential pages to be instantly built and deployed to the edge.
+- SSR: Server Side Rendering
+  Generate portions of the page on User request
+
+  GatsbyJS also supports:
+
+- Functions
+  Build dynamic applications without running servers. Submit forms, authenticate users, securely connect to external services, build GraphQL/REST APIs, and more.
+
+## Could, Should, or Neither Game
+
+This is a class participation game. Below are some website types. We need to decide whether :
+
+- We 'Could' build this with GatsbyJS
+- We 'Should' build this with GatsbyJS. <i>Just because you Can does not mean you should</i>
+
+Here goes:
+
+| Website Type            | Should | Could |
+| ----------------------- | ------ | ----- |
+| Blog                    | [ ]    | [ ]   |
+| e-Commerce              | [ ]    | [ ]   |
+| Single Page Application | [ ]    | [ ]   |
+| Amazon                  | [ ]    | [ ]   |
+| Dashboard               | [ ]    | [ ]   |
+| Warehouse Manangement   | [ ]    | [ ]   |
+| Auction Site            | [ ]    | [ ]   |
+| e-Learning              | [ ]    | [ ]   |
+| Pintrest                | [ ]    | [ ]   |
+| e-Book                  | [ ]    | [ ]   |
+
+## Where do we go from here?
+
+- CMS integration
+- Authentication
+- GraphQL
+- Deploy Options
+- Similar tools
+- Build / Deploy a Personal Blog
+- Suggestions
