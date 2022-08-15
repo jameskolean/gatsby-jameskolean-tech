@@ -27,7 +27,7 @@ npm install --save-dev @types/plotly.js
 Now let's add our Pie Chart.
 
 ```
-// /sec/pages/index.tsx
+// /src/pages/index.tsx
 import * as React from 'react'
 import Plot from 'react-plotly.js'
 
@@ -68,7 +68,7 @@ yarn add @loadable/component
 Edit the page
 
 ```
-// /sec/pages/index.tsx
+// src/index.tsx
 import * as React from 'react'
 import loadable from '@loadable/component'
 
