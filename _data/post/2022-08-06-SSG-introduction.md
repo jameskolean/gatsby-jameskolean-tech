@@ -47,6 +47,9 @@ The most simplistic way to think of Static Site Generators are tools that genera
 - [ ] SEO friendly.
 - [ ] Best practice out of the box. 100% Lighthouse score.
 
+How Many Static Site Generators?
+[A curlated list](https://jamstack.org/generators/)
+
 ## Seems restrictive
 
 At this point, you are thinking, "That's great for the simplest of sites. Any modern site is dynamic."
@@ -274,6 +277,13 @@ export const pageQuery = graphql`
 
 This is a simple example, but I hope you can see the power here.
 
+- Shopping carts.
+- Payment Processing.
+- Realtime dashboards.
+- Authenticated content.
+- JS components like Storybook.
+- Interactive video players.
+
 ## Static Site Generators Classic vs. Newfangled
 
 We just covered the basics of the classic Static Site Generators.
@@ -330,3 +340,149 @@ Here goes:
 - Similar tools
 - Build / Deploy a Personal Blog
 - Suggestions
+
+## If there is time
+
+Hints on what to do next:
+
+## Have the index.js link to our blogs.
+
+Steps:
+
+- Delete all unused files.
+- Create GrapjQL query to get all the blog posts.
+- Edit index.js to link to the blog posts.
+
+```js
+// src/index.js
+import * as React from "react";
+import { Link, graphql } from "gatsby";
+import { StaticImage } from "gatsby-plugin-image";
+
+import Layout from "../components/layout";
+import Seo from "../components/seo";
+
+const IndexPage = ({ data }) => (
+  <Layout>
+    <Seo title="Home" />
+    <div>
+      <StaticImage
+        src="../images/example.png"
+        loading="eager"
+        width={64}
+        quality={95}
+        formats={["auto", "webp", "avif"]}
+        alt=""
+        style={{ marginBottom: `var(--space-3)` }}
+      />
+      <h1>
+        Welcome to my <b>Blog!</b>
+      </h1>
+      <h2>Pick a Blog, any blog</h2>
+      {data.allMarkdownRemark.nodes.map(({ frontmatter }) => (
+        <>
+          <Link className="primary button" to={frontmatter.slug}>
+            <p>{frontmatter.title}</p>
+          </Link>
+        </>
+      ))}
+    </div>
+  </Layout>
+);
+
+/**
+ * Head export to define metadata for the page
+ *
+ * See: https://www.gatsbyjs.com/docs/reference/built-in-components/gatsby-head/
+ */
+export const Head = () => <Seo title="Home" />;
+
+export default IndexPage;
+
+export const pageQuery = graphql`
+  query BlogsQuery {
+    allMarkdownRemark {
+      nodes {
+        frontmatter {
+          slug
+          title
+          date
+        }
+      }
+    }
+  }
+`;
+```
+
+## Add Material UI
+
+- add Plugin for [gatsby-plugin-material-ui](https://www.gatsbyjs.com/plugins/gatsby-plugin-material-ui/?=material))
+  `yarn add gatsby-plugin-material-ui@next @emotion/react`
+  `yarn add @mui/material @emotion/styled`
+
+- add rating to the blog post
+
+```js
+// src/index.js
+import * as React from "react";
+import { Link, graphql } from "gatsby";
+import { StaticImage } from "gatsby-plugin-image";
+import Rating from "@mui/material/Rating";
+
+import Layout from "../components/layout";
+import Seo from "../components/seo";
+
+const IndexPage = ({ data }) => (
+  <Layout>
+    <Seo title="Home" />
+    <div>
+      <StaticImage
+        src="../images/example.png"
+        loading="eager"
+        width={64}
+        quality={95}
+        formats={["auto", "webp", "avif"]}
+        alt=""
+        style={{ marginBottom: `var(--space-3)` }}
+      />
+      <h1>
+        Welcome to my <b>Blog!</b>
+      </h1>
+      <h2>Pick a Blog, any blog</h2>
+      {data.allMarkdownRemark.nodes.map(({ frontmatter }) => (
+        <>
+          <Link className="primary button" to={frontmatter.slug}>
+            <p>{frontmatter.title}</p>
+          </Link>
+          <Rating name="half-rating" defaultValue={4.5} precision={0.5} />
+        </>
+      ))}
+    </div>
+  </Layout>
+);
+
+/**
+ * Head export to define metadata for the page
+ *
+ * See: https://www.gatsbyjs.com/docs/reference/built-in-components/gatsby-head/
+ */
+export const Head = () => <Seo title="Home" />;
+
+export default IndexPage;
+
+export const pageQuery = graphql`
+  query BlogsQuery {
+    allMarkdownRemark {
+      nodes {
+        frontmatter {
+          slug
+          title
+          date
+        }
+      }
+    }
+  }
+`;
+```
+
+- add rating to blog post frontmatter and wire up.
