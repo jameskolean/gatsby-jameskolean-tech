@@ -15,7 +15,7 @@ thumbnail: /assets/old-map-unsplash.jpg
 
 Let's do a more advanced [Plotly](https://plotly.com/javascript/) example. I don't see any tutorials on Map plot animations. It took me quite a while to get this right, although I don't know why. Now that I have the solution, it seems obvious,
 
-To get started, create a new Gatsby project following my (previous post)[https://jameskolean.tech/post/2022-05-31-gitlab-pages-gatsby/].
+To get started, create a new Gatsby project following my [previous post\(https://jameskolean.tech/post/2022-05-31-gitlab-pages-gatsby/).
 
 Add the React Plotly wrapper to our project with the types.
 
