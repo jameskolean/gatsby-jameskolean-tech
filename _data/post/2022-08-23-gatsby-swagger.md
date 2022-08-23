@@ -10,7 +10,7 @@ tags:
   - Gitlab
   - Gatsby
   - Swagger
-thumbnail: /assets/circuitboard-unsplash-unsplash.jpg
+thumbnail: /assets/circuitboard-unsplash.jpg
 ---
 
 Let's add Swagger to a GatsbjyJS site. SwaggerUI does not have a handy Gatsby plugin or a React wrapper, but that's no problem.
