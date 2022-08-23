@@ -63,7 +63,12 @@ export default class Swagger extends React.Component {
     return (
       <>
         <Helmet>
-          <link href="/swagger/theme-newspaper.css" rel="stylesheet" />
+          // NOTE: I append /gatsby-swagger to support gitlab pages. // I'm sure
+          there is a better way to do this
+          <link
+            href="/gatsby-swagger/swagger/theme-newspaper.css"
+            rel="stylesheet"
+          />
         </Helmet>
         <div id={this.props.componentId} />
       </>
@@ -82,7 +87,7 @@ import Swagger from "../components/swagger";
 
 const IndexPage = () => (
   <Swagger
-    componentId="Swagger-Three"
+    componentId="petstore-api"
     url="https://petstore.swagger.io/v2/swagger.json"
   />
 );
