@@ -60,19 +60,7 @@ However, the static site can include javascript to provide dynamic features. As 
 
 ## Getting started
 
-Let's build something. Make sure we have `yarn` installed because I like `yarn` and will use it in the demo.
-
-```
-yarn -v
-```
-
-If you need to install it, run this.
-
-```
-npm install --global yarn
-```
-
-Now let's get GatsbyJS set up. The GastbyJS documentation is [here](https://www.gatsbyjs.com/docs/tutorial)
+Let's get GatsbyJS set up. The GastbyJS documentation is [here](https://www.gatsbyjs.com/docs/tutorial)
 
 Install the GatsbyCLI and verify the installation.
 
@@ -92,8 +80,6 @@ cd not-so-static-site
 gatsby develop
 ```
 
-Instead of `gatsby develop,` you can run `yarn start.` You may need to run `yarn` once to initialize the lock file.
-
 You did it! <font size="5">🎉🎉🎉</font>
 
 See what you built.
@@ -110,10 +96,10 @@ open http://localhost:8000/___graphql
 
 ## Add data source
 
-For this tutorial, we will use Markdown files as our data source. GatsbyJS supports multiple simultaneous data sources, merging them into a single GraphQL schema. For most data sources, there are existing plugins. Custom plugins can be written with some Node code.
+For this tutorial, we will use Markdown files as our data source. GatsbyJS supports multiple data sources, merging them into a single GraphQL schema. For most data sources, there are existing plugins. Custom plugins can be written with some Node code.
 
 ```
-yarn add  gatsby-transformer-remark
+npm install gatsby-transformer-remark
 ```
 
 Now edit `gatsby-config.js.` Adding the `gatsby-source-filesystem` stanza telling Gatsby where to find our Markdown files. Then, add the `gatsby-transformer-remark` plugin to transform the Markdown into the GraphQL schema.
@@ -135,7 +121,6 @@ Now edit `gatsby-config.js.` Adding the `gatsby-source-filesystem` stanza tellin
       }
     },
     `gatsby-transformer-remark`,
-    `gatsby-transformer-remark`,
 ...
 ```
 
@@ -155,7 +140,7 @@ title: "My first blog post"
 Start Gatsby and inspect the schema
 
 ```
-yarn start
+gatsby develop
 open http://localhost:8000/___graphql
 ```
 
@@ -203,7 +188,7 @@ export const pageQuery = graphql`
 Restart the app to see your page.
 
 ```
-yarn start
+gatsby develop
 open http://localhost:8000/blog/first-post/
 ```
 
@@ -329,7 +314,7 @@ Here goes:
 | Auction Site            | [ ]    | [ ]   |
 | e-Learning              | [ ]    | [ ]   |
 | Pintrest                | [ ]    | [ ]   |
-| e-Book                  | [ ]    | [ ]   |
+| Documentation           | [ ]    | [ ]   |
 
 ## Where do we go from here?
 
@@ -417,8 +402,10 @@ export const pageQuery = graphql`
 ## Add Material UI
 
 - add Plugin for [gatsby-plugin-material-ui](https://www.gatsbyjs.com/plugins/gatsby-plugin-material-ui/?=material))
-  `yarn add gatsby-plugin-material-ui@next @emotion/react`
-  `yarn add @mui/material @emotion/styled`
+
+```
+npm install gatsby-plugin-material-ui @emotion/react @mui/material @emotion/styled
+```
 
 - add rating to the blog post
 
