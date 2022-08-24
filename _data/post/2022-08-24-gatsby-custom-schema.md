@@ -30,18 +30,21 @@ Add these files.
 src/data/mark-twain.json
 
 ```json
-    "my-id": "mark-twain",
-    "name": "Mark Twain",
-    "books": {
-        "id":["a-connecticut-yankee-in-king-arthurs-court" ,"adventures-of-huckleberry-finn"]
-    }
+{
+  "my-id": "mark-twain",
+  "name": "Mark Twain",
+  "books": {
+    "id": [
+      "a-connecticut-yankee-in-king-arthurs-court",
+      "adventures-of-huckleberry-finn"
+    ]
+  }
 }
 ```
 
 And these Markdown files.
 
 ```markdown
----
 ---
 # src/markdown-pages/a-connecticut-yankee-in-king-arthurs-court.md
 my-id: "a-connecticut-yankee-in-king-arthurs-court"
@@ -69,7 +72,7 @@ author:
 
 Start the app to see what we are starting with.
 
-````shell
+```shell
 yarn start
 open http://localhost:8000/___graphql
 ```
@@ -83,75 +86,78 @@ The GraphQL should look like this.
 // gatsby/resolvers.js
 
 const genericResolver = function genericResolver(nodeType, targetNodeType) {
-    return {
-        // this is the parent node type
-        [nodeType]: {
-            // add a new node called referenced to add the target to.
-            referenced: {
-                type: targetNodeType,
-                async resolve(source, args, context, info) {
-                    // bailout if there is no id
-                    if (!source.id) {
-                        return null
-                    }
-                    return await context.nodeModel.findOne({
-                        query: {
-                            filter: {
-                                my_id: {
-                                    in: source.id,
-                                },
-                            },
-                        },
-                        type: targetNodeType,
-                    })
+  return {
+    // this is the parent node type
+    [nodeType]: {
+      // add a new node called referenced to add the target to.
+      referenced: {
+        type: targetNodeType,
+        async resolve(source, args, context, info) {
+          // bailout if there is no id
+          if (!source.id) {
+            return null;
+          }
+          return await context.nodeModel.findOne({
+            query: {
+              filter: {
+                my_id: {
+                  in: source.id,
                 },
+              },
             },
+            type: targetNodeType,
+          });
         },
-    }
-}
+      },
+    },
+  };
+};
 
-const genericArrayResolver = function genericArrayResolver(nodeType, targetNodeType) {
-    return {
-        // this is the parent node type
-        [nodeType]: {
-            // add a new node called referenced to add the target to.
-            referenced: {
-                type: [targetNodeType],
-                async resolve(source, args, context, info) {
-                    // bailout if there is no id
-                    if (!source.id || source.lenght === 0) {
-                        return []
-                    }
-                    // selecting one at a time to maintain order
-                    const result = []
-                    for (const id of source.id) {
-                        const node = await context.nodeModel.findOne({
-                            query: {
-                                filter: {
-                                    // this is a hack due to the example construction
-                                    // normally the ids will not be nested and you can delete `frontmatter`
-                                    frontmatter: {
-                                        my_id: {
-                                            eq: id,
-                                        },
-                                    },
-                                },
-                            },
-                            type: targetNodeType,
-                        })
-                        result.push(node)
-                    }
-                    return result
+const genericArrayResolver = function genericArrayResolver(
+  nodeType,
+  targetNodeType
+) {
+  return {
+    // this is the parent node type
+    [nodeType]: {
+      // add a new node called referenced to add the target to.
+      referenced: {
+        type: [targetNodeType],
+        async resolve(source, args, context, info) {
+          // bailout if there is no id
+          if (!source.id || source.lenght === 0) {
+            return [];
+          }
+          // selecting one at a time to maintain order
+          const result = [];
+          for (const id of source.id) {
+            const node = await context.nodeModel.findOne({
+              query: {
+                filter: {
+                  // this is a hack due to the example construction
+                  // normally the ids will not be nested and you can delete `frontmatter`
+                  frontmatter: {
+                    my_id: {
+                      eq: id,
+                    },
+                  },
                 },
-            },
+              },
+              type: targetNodeType,
+            });
+            result.push(node);
+          }
+          return result;
         },
-    }
-}
+      },
+    },
+  };
+};
 module.exports = {
-    genericArrayResolver,
-    genericResolver,
-}
-````
+  genericArrayResolver,
+  genericResolver,
+};
+```
 
 ## Use the resolvers
 
