@@ -13,33 +13,35 @@ thumbnail: /assets/plasma-unsplash.jpg
 
 # Easy REST and GraphQL with Prisma
 
-Prisma is an Object to Relational Mapper (ORM) that makes working with databases more accessible and consistent. Prisma supports both Relational Databased like PostgreSQL and Document Databases MongoDB.
+Prisma is an Object to Relational Mapper (ORM) that makes working with databases more accessible and consistent. Prisma supports both Relational Databases like PostgreSQL and Document Databases MongoDB.
 
-Let's use Prisma to see how we can set up a simple REST API and a GrapgQL API for the same data model. We will use the model with one-to-one, one-to-many, and many-to-many relationships to see how these are managed in the ORM.
+Let's use Prisma to see how we can set up a simple REST API and a GrapgQL API for the same data model. We will use a model with one-to-one, one-to-many, and many-to-many relationships to see how these are managed in the ORM.
 
 Model
-Author
-books (many)
-biography (one)
-Biography
-subject (one)
-Book
-author (one)
-category (many)
-Category
-book (many)
+
+- Authorbooks (many)
+  - biography (one)
+- Biography
+  - subject (one)
+- Book
+  - author (one)
+  - category (many)
+- Category
+  - book (many)
 
 Relationships
-'one-to-one' relationship is Author to Biography
-'one-to-many' relationship is Author to Books
-'many-to-many' relationship is Categories to Books
+
+- 'one-to-one' relationship is Author to Biography
+- 'one-to-many' relationship is Author to Books
+- 'many-to-many' relationship is Categories to Books
 
 We will tackle this in 5 parts.
-Run Relational Database locally.
-Implement CRUD (Create Read Update Delete) on the Book model with Prisma.
-Add additional models and relationships.
-Create a REST API with the Book Model.
-Create a GraphQL API with the Book Model.
+
+1. Run Relational Database locally.
+1. Implement CRUD (Create Read Update Delete) on the Book model with Prisma.
+1. Add additional models and relationships.
+1. Create a REST API with the Book Model.
+1. Create a GraphQL API with the Book Model.
 
 ## Run Relational Database locally.
 
@@ -101,11 +103,11 @@ Add this
 }
 ```
 
-### Install VSCode extension
+### Install VSCode Prisma extension
 
 The extension you want is `Prisma v4.2.0`
 
-To enable, add to the VSCode settings JSON file. To get to the settings, go here: Code > Preferences > Settings, then switch to the JSON view in the upper right.
+To enable, add the following to the VSCode settings JSON file. To get to the settings, go here: Code > Preferences > Settings, then switch to the JSON view in the upper right.
 
 ```json
   "[prisma]": {
@@ -405,6 +407,8 @@ async function main() {
 main();
 ```
 
+Add some Routes
+
 ```typescript
 // src/modules/author/author.v1.routes.ts
 
@@ -538,7 +542,7 @@ npm run dev:rest
 curl --request GET  --url http://localhost:3000/v1/book
 ```
 
-## Create a GraphQL API with the Book Model.
+## Create a GraphQL API.
 
 Install dependencies
 
@@ -604,7 +608,7 @@ Let's go back to the REST example and use `Zod` to do some validation.
 Install dependencies
 
 ```shell
-npm install  fastify-zod
+npm install fastify-zod
 ```
 
 Add some schema files.
