@@ -2,7 +2,7 @@
 template: BlogPost
 date: 2022-08-29
 published: true
-title: "Exploe Prisma with REST and GraphQL API"
+title: "Explore Prisma with REST and GraphQL API"
 source: "https://gitlab.com/jameskolean/prisma-rest-graphql"
 tags:
   - React
