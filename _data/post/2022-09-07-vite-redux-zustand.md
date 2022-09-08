@@ -1,6 +1,6 @@
 ---
 template: BlogPost
-date: 2022-09-06
+date: 2022-09-07
 published: true
 title: "Vite + REACT + Zustand."
 source: "https://gitlab.com/jameskolean/redux-toolkit"
