@@ -2,12 +2,14 @@
 template: TodoPage
 title: todo
 todos:
-  - description: |-
-      Give NextJS a spin:
-      - Look at SSR, CSR, SSG, and ISR. 
-      - Look at the new image component.
-      - Look at authenticated pages..
-    name: NextJS
+  - description: 'Target multiple platforms with one code base. Free and open source'
+    name: [Cordova](https://cordova.apache.org/)
+  - description: 'Workbox is a collection of JavaScript libraries for Progressive Web Apps.'
+    name: [Workbox](https://github.com/GoogleChrome/workbox)
+  - description: 'sub-atomic styles'
+    name: [Open Props](https://open-props.style/)
+  - description: ' See how using Relay with Hasura will make life happier. https://relay.dev/'
+    name: Relay and Hasura
   - description: ' Strapi deserves another look.'
     name: Strapi
   - description: >-
@@ -29,4 +31,3 @@ todos:
   - description: ' See how using Relay with Hasura will make life happier. https://relay.dev/'
     name: Relay and Hasura
 ---
-
