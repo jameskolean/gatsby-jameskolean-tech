@@ -1,6 +1,6 @@
 ---
 template: BlogPost
-date: 2022-09-08
+date: 2022-09-22
 published: true
 title: "PWA with React and Vite."
 source: "https://gitlab.com/jameskolean/pwa-react-vite"
