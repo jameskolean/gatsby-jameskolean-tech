@@ -4,6 +4,7 @@ date: 2022-09-22
 published: true
 title: "PWA with React and Vite."
 source: "https://gitlab.com/jameskolean/pwa-react-vite"
+demoSite: "https://jameskolean.gitlab.io/pwa-react-vite/"
 tags:
   - React
   - Rest
