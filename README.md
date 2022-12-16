@@ -42,4 +42,5 @@ collections:
 
 ```
 
+
 then you need to run: `npx netlify-cms-proxy-server`
